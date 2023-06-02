@@ -1,0 +1,15 @@
+@font-face {
+    font-family: 'Hanna';
+    src: url('../../public/fonts/BMHANNA_11yrs_ttf.ttf');
+    font-weight: normal;
+    font-style: normal;    
+}
+
+body{
+    background-color: #fff;
+    max-width: 500px;
+    margin: 0 auto;
+    min-height: 100%;
+    font-family: 'Hanna';
+}
+
