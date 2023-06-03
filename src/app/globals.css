@@ -2,10 +2,10 @@
     font-family: 'Hanna';
     src: url('../../public/fonts/BMHANNA_11yrs_ttf.ttf');
     font-weight: normal;
-    font-style: normal;    
+    font-style: normal;
 }
 
-body{
+body {
     background-color: #fff;
     max-width: 500px;
     margin: 0 auto;
@@ -13,3 +13,24 @@ body{
     font-family: 'Hanna';
 }
 
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:focus {
+    text-decoration: none;
+}
+
+a:hover,
+a:active {
+    text-decoration: none;
+}
