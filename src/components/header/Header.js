@@ -13,7 +13,7 @@ export default function Header() {
         <S.Address>주소시 주소로 ▼</S.Address>
 
         <S.BtnWrap>
-          <Link href="/all">
+          <Link href="/viewAll">
             <Image
               src={allservice}
               alt="all service view icon"
@@ -22,7 +22,7 @@ export default function Header() {
             />
           </Link>
 
-          <Link href="/">
+          <Link href="/alarm">
             <Image 
               src={alm} 
               alt="alarm icon" 
@@ -30,7 +30,7 @@ export default function Header() {
               placeholder="blur" />
           </Link>
 
-          <Link href="/">
+          <Link href="/mypage">
             <Image 
               src={my} 
               alt="mypage icon" 

@@ -1,8 +1,10 @@
 import * as S from './categoryStyle'
 
-export default function categoryItem(){
+export default function CategoryItem({item}){
     return(
-    <div>
-    </div>
+    <S.Box>
+        <S.HashIcon>#</S.HashIcon>
+        <S.CategoryText>{item.title}</S.CategoryText>
+    </S.Box>
     )
 }
