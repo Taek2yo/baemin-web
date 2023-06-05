@@ -17,6 +17,10 @@ export const Title = styled.div`
   font-family: "Hanna";
   padding-top: 10px;
   text-align: center;
+  display: list-item;
+  span{
+    font-size: 20px;
+  }
 `;
 
 export const AddressBtnWrap = styled.div`
@@ -28,9 +32,16 @@ export const AddressBtnWrap = styled.div`
 
 export const Address = styled.span`
   color: white;
-  font-family: none;
+  font-family: 'NanumGothic';
   font-size: 20px;
   font-weight: 550;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  gap: 5px;
+  p{
+    font-size: 13px;
+  }
 `;
 
 export const BtnWrap = styled.div`
@@ -45,7 +56,7 @@ export const Searchsection = styled.div`
   margin: 0 auto;
   padding: 5px;
   border-radius: 3px;
-  box-shadow: 0.5px 0.5px 0.5px 0.5px #5B5B5B;
+  box-shadow: 0 5px 5px -5px #5B5B5B;
   border: 1px solid white;
   cursor: pointer;
   display: flex;

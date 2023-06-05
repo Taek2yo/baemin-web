@@ -1,13 +1,14 @@
-import Header from '@/components/header/Header'
-import './globals.css'
-import Category from '@/components/category/Category'
-
+import Header from "@/components/header/Header";
+import "./globals.css";
+import Category from "@/components/category/Category";
+import MainContent from "@/components/mainContent/MainContent";
 
 export default function Home() {
   return (
-   <body>
-    <Header/>
-    <Category/>
-   </body>
-  )
+      <div className="background">
+        <Header />
+        <Category />
+        <MainContent />
+      </div>
+  );
 }

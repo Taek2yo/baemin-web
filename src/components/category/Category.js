@@ -1,4 +1,5 @@
 "use client";
+
 import * as S from "./categoryStyle";
 import CategoryItem from "./categoryItem";
 import React, { useRef, useState, useEffect } from "react";
