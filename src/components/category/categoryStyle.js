@@ -41,6 +41,6 @@ export const CategoryText = styled.span`
     line-height: 20px;
     font-size: 13px;
     padding-right: 4px;
-    color: #575759;
+    color: black;
     font-family: 'NanumGothic';
 `

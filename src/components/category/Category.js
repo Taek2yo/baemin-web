@@ -47,6 +47,7 @@ export default function Category() {
       title: "추천 더 보기👉",
     },
   ];
+
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const containerRef = useRef(null);
@@ -56,13 +57,16 @@ export default function Category() {
       setIsDragging(false);
     };
 
-    window.addEventListener("mouseup", handleMouseUp);
+    const containerElement = containerRef.current;
+    containerElement.addEventListener("mouseup", handleMouseUp);
+
     return () => {
-      window.removeEventListener("mouseup", handleMouseUp);
+      containerElement.removeEventListener("mouseup", handleMouseUp);
     };
   }, []);
 
   const handleMouseDown = (e) => {
+    e.preventDefault();
     setIsDragging(true);
     setStartX(e.clientX);
   };
@@ -81,9 +85,9 @@ export default function Category() {
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
     >
-      {ctg.map((item) => {
-        return <CategoryItem item={item} key={item.id} />;
-      })}
+      {ctg.map((item) => (
+        <CategoryItem item={item} key={item.id} />
+      ))}
     </S.CategoryContainer>
   );
 }
