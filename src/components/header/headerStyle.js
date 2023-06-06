@@ -42,6 +42,7 @@ export const Address = styled.span`
   p{
     font-size: 13px;
   }
+  cursor: pointer;
 `;
 
 export const BtnWrap = styled.div`

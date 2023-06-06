@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const CategoryContainer = styled.div`
     display: flex;
-    padding: 10px 10px 5px 0px;
+    padding: 10px 10px 5px 10px;
     gap : 10px;
     overflow-x:auto; 
     white-space:nowrap; 
@@ -25,6 +25,7 @@ export const Box = styled.div`
     line-height: 20px;
     background-color: #fff;
     box-shadow: 0 1.5px 1.5px -1px gray;
+    cursor: pointer;
 `;
 
 export const HashIcon = styled.span`
