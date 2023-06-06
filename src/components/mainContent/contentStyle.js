@@ -39,7 +39,7 @@ export const OneTitleSide = styled.div`
 
 export const Content = styled.div`
   font-family: "NanumGothic";
-  color: #575759;
+  color: black;
   padding: 0px 5px 5px 15px;
   position: absolute;
   left: 0;
@@ -117,7 +117,7 @@ export const TakeOutTitle = styled.div`
 
 export const TakeOutContent = styled.div`
   font-family: "NanumGothic";
-  color: #575759;
+  color: black;
   padding-left: 15px;
 `;
 
@@ -148,6 +148,39 @@ export const SubItem = styled.div`
 `;
 
 
-export const Banner = styled.div`
+export const BannerContainer = styled.div`
+  display: flex;
+  overflow-x:auto; 
+  white-space:nowrap;
+  margin: 12px;
+  border-radius: 12px;
+  height: 144px;
+  &::-webkit-scrollbar {
+    display: none;
+    }
+`
 
+
+export const Banner = styled.div`
+  border-radius: 12px;
+  cursor: pointer;
+`;
+
+
+export const BannerCounter = styled.div`
+  font-family: 'NanumGothic';
+  font-size: 10px;
+  width: 80px;
+  height: 10px;
+  background-color: black;
+  text-align: center;
+  padding: 4px;
+  border-radius: 12px;
+  opacity: 0.5;
+  color: white;
+  position: relative;
+  bottom: 40px;
+  float: right;
+  margin-right: 22px;
+  z-index  : 1;
 `;

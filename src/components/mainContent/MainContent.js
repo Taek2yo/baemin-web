@@ -8,6 +8,13 @@ import sub2 from "/public/assets/img/2.webp";
 import sub3 from "/public/assets/img/3.webp";
 import sub4 from "/public/assets/img/4.webp";
 
+import banner1 from "/public/assets/img/banner1.png";
+import banner2 from "/public/assets/img/banner2.png";
+import banner3 from "/public/assets/img/banner3.png";
+import banner4 from "/public/assets/img/banner4.png";
+import banner5 from "/public/assets/img/banner5.png";
+import Banner from "./Banner";
+
 export default function MainContent() {
   const subcontents = [
     {
@@ -25,6 +32,29 @@ export default function MainContent() {
     {
       img: sub4,
       title: "만화경",
+    },
+  ];
+
+  const banner = [
+    {
+      id: 1,
+      img: banner1,
+    },
+    {
+      id: 2,
+      img: banner2,
+    },
+    {
+      id: 3,
+      img: banner3,
+    },
+    {
+      id: 4,
+      img: banner4,
+    },
+    {
+      id: 5,
+      img: banner5,
     },
   ];
   return (
@@ -62,15 +92,13 @@ export default function MainContent() {
         {subcontents.map((item, index) => {
           return (
             <S.SubItem key={index}>
-              <Image src={item.img} width={50} alt="subitem" />
-              <div>{item.title}</div>
+              <Image src={item.img} width={40} alt="subitem" />
+              <span>{item.title}</span>
             </S.SubItem>
           );
         })}
       </S.SubContents>
-      <S.Banner>
-
-      </S.Banner>
+      <Banner banner={banner}/>  
     </>
   );
 }
