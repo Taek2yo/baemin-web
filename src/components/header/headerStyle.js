@@ -8,7 +8,8 @@ export const Container = styled.div`
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   position: sticky;
- 
+  top: 0;
+  z-index: 99;
 `;
 
 export const Title = styled.div`

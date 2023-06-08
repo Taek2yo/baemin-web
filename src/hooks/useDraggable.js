@@ -43,6 +43,8 @@ export default function useDraggable() {
 
     if (isOutsideContainerRef.current) {
       setIsDragging(false); // 컨테이너 밖으로 나갔을 때 드래그 중지
+    } else {
+      e.preventDefault();
     }
   };
 

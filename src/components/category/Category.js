@@ -3,7 +3,7 @@
 import * as S from "./categoryStyle";
 import CategoryItem from "./categoryItem";
 import React, { useRef, useState, useEffect } from "react";
-import useDraggable from "../../hooks/useDraggable";
+import useDraggable  from '../../hooks/useDraggable'
 export default function Category() {
   const ctg = [
     {
@@ -48,6 +48,7 @@ export default function Category() {
     },
   ];
   const { containerRef, handleMouseDown, handleMouseMove } = useDraggable();
+
 
   return (
     <S.CategoryContainer

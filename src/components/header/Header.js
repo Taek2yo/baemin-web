@@ -9,8 +9,7 @@ export default function Header() {
   return (
     <S.Container>
       <S.Title>
-        {" "}
-        배달<span>의</span>민족{" "}
+        배달<span>의</span>민족
       </S.Title>
       <S.AddressBtnWrap>
         <S.Address>
