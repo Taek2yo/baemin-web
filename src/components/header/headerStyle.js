@@ -3,10 +3,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
-  height: 140px;
   background-color: #2ac1bc;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
   position: sticky;
   top: 0;
   z-index: 99;
@@ -50,6 +47,16 @@ export const BtnWrap = styled.div`
   display: flex;
   gap: 12px;
 `;
+
+export const SearchBox = styled.div`
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 12px;
+  background-color: #2ac1bc;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+`;
+
 
 export const Searchsection = styled.div`
   background-color: white;

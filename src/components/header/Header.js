@@ -7,6 +7,7 @@ import Link from "next/link";
 
 export default function Header() {
   return (
+    <>
     <S.Container>
       <S.Title>
         배달<span>의</span>민족
@@ -30,13 +31,17 @@ export default function Header() {
           </Link>
         </S.BtnWrap>
       </S.AddressBtnWrap>
+    </S.Container>
 
-      <Link href="/search">
+    <S.SearchBox>
+    <Link href="/search">
         <S.Searchsection>
           <S.SearchIcon> 🔍︎</S.SearchIcon>
           <S.Placeholder> 찾는 맛집 이름이 뭐예요?</S.Placeholder>
         </S.Searchsection>
       </Link>
-    </S.Container>
+      </S.SearchBox>
+    </>
+    
   );
 }
