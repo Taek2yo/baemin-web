@@ -5,7 +5,7 @@ export const CategoryContainer = styled.div`
     display: flex;
     padding: 10px 10px 5px 10px;
     gap : 10px;
-    overflow-x:auto; 
+    overflow-x:scroll; 
     white-space:nowrap; 
     &::-webkit-scrollbar {
       display: none;

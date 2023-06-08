@@ -1,9 +1,8 @@
 "use client";
-
 import * as S from "./categoryStyle";
 import CategoryItem from "./categoryItem";
-import React, { useRef, useState, useEffect } from "react";
-import useDraggable  from '../../hooks/useDraggable'
+import React from "react";
+import useDraggable from "../../hooks/useDraggable";
 export default function Category() {
   const ctg = [
     {
@@ -47,18 +46,23 @@ export default function Category() {
       title: "추천 더 보기👉",
     },
   ];
-  const { containerRef, handleMouseDown, handleMouseMove } = useDraggable();
-
+  const { scrollRef, isDrag, onDragStart, onDragEnd, onThrottleDragMove } = useDraggable();
 
   return (
-    <S.CategoryContainer
-      ref={containerRef}
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-    >
-      {ctg.map((item) => (
-        <CategoryItem item={item} key={item.id} />
-      ))}
-    </S.CategoryContainer>
+    <>
+      {ctg && (
+        <S.CategoryContainer
+          onMouseDown={onDragStart}
+          onMouseMove={onThrottleDragMove}
+          onMouseUp={onDragEnd}
+          onMouseLeave={onDragEnd}
+          ref={scrollRef}
+        >
+          {ctg.map((item) => (
+            <CategoryItem item={item} key={item.id} />
+          ))}
+        </S.CategoryContainer>
+      )}
+    </>
   );
 }

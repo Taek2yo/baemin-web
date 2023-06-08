@@ -8,8 +8,7 @@ import useDraggable from "../../hooks/useDraggable";
 export default function Banner({ banner }) {
   // 현재 배너와 컨테이너 관리
   const [currentBanner, setCurrentBanner] = useState(1);
-  // 커스텀 훅
-  const { containerRef, handleMouseDown, handleMouseMove } = useDraggable();
+  const { scrollRef, isDrag, onDragStart, onDragEnd, onThrottleDragMove } = useDraggable();
 
 
   // 자동 스크롤
@@ -24,7 +23,7 @@ export default function Banner({ banner }) {
 
   const startAutoScroll = () => {
     stopAutoScroll();
-    autoScrollInterval.current = setInterval(scrollToNextBanner, 5000);
+    autoScrollInterval.current = setInterval(scrollToNextBanner, 3000);
   };
 
   const stopAutoScroll = () => {
@@ -32,7 +31,7 @@ export default function Banner({ banner }) {
   };
 
   const scrollToNextBanner = () => {
-    const container = containerRef.current;
+    const container = scrollRef.current;
     const scrollWidth = container.scrollWidth;
     const scrollLeft = container.scrollLeft;
     const clientWidth = container.clientWidth;
@@ -52,21 +51,14 @@ export default function Banner({ banner }) {
     setCurrentBanner(Math.floor(nextScrollLeft / bannerWidth) + 1);
   };
 
-  const handleBannerChange = () => {
-    const containerElement = containerRef.current;
-    const scrollLeft = containerElement.scrollLeft;
-    const bannerWidth = containerElement.children[0].offsetWidth;
-
-    setCurrentBanner(Math.floor(scrollLeft / bannerWidth) + 1);
-  };
-
   return (
     <>
       <S.BannerContainer
-        ref={containerRef}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onScroll={handleBannerChange}
+         onMouseDown={onDragStart}
+         onMouseMove={onThrottleDragMove}
+         onMouseUp={onDragEnd}
+         onMouseLeave={onDragEnd}
+         ref={scrollRef}
       >
         {banner.map((item) => (
           <S.Banner key={item.id}>

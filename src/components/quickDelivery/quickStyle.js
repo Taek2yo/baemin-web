@@ -3,7 +3,8 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
-  height: 300px;
+  height: 100%;
+  padding-bottom: 10px;
   background-color: white;
   font-family: "NanumGothic";
   font-weight: bold;
@@ -15,7 +16,7 @@ export const Title = styled.div`
   text-align: center;
   align-items: center;
   .title {
-    padding: 12px 10px 10px;
+    padding: 8px 10px 10px;
   }
   .title-ad {
     font-size: 14px;

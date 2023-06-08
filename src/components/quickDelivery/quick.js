@@ -82,7 +82,7 @@ export default function Quick() {
       coupone: true,
     },
   ];
-  const { containerRef, handleMouseDown, handleMouseMove } = useDraggable();
+  const { scrollRef, isDrag, onDragStart, onDragEnd, onThrottleDragMove } = useDraggable();
   return (
     <S.Container>
       <S.Title>
@@ -93,15 +93,19 @@ export default function Quick() {
           <Image src={question} alt="?" />
         </span>
       </S.Title>
-      <S.Wrap
-        ref={containerRef}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-      >
-        {data.map((item) => {
-          return <QuickItem item={item} key={item.id} />;
-        })}
-      </S.Wrap>
+      {data && (
+        <S.Wrap
+          onMouseDown={onDragStart}
+          onMouseMove={onThrottleDragMove}
+          onMouseUp={onDragEnd}
+          onMouseLeave={onDragEnd}
+          ref={scrollRef}
+        >
+          {data.map((item) => {
+            return <QuickItem item={item} key={item.id} />;
+          })}
+        </S.Wrap>
+      )}
     </S.Container>
   );
 }
