@@ -3,6 +3,7 @@
 import * as S from "./contentStyle";
 import Image from "next/image";
 import React, { useRef, useState, useEffect } from "react";
+import useDraggable from "../../hooks/useDraggable";
 
 export default function Banner({ banner }) {
   // 드래그 상태
@@ -11,20 +12,10 @@ export default function Banner({ banner }) {
 
   // 현재 배너와 컨테이너 관리
   const [currentBanner, setCurrentBanner] = useState(1);
-  const containerRef = useRef(null);
 
-  useEffect(() => {
-    const handleMouseUp = () => {
-      setIsDragging(false);
-    };
 
-    const containerElement = containerRef.current;
-    containerElement.addEventListener("mouseup", handleMouseUp);
+  const { containerRef, handleMouseDown, handleMouseMove } = useDraggable();
 
-    return () => {
-      containerElement.removeEventListener("mouseup", handleMouseUp);
-    };
-  }, []);
 
   // 자동 스크롤
   const autoScrollInterval = useRef(null);
@@ -64,20 +55,6 @@ export default function Banner({ banner }) {
     });
 
     setCurrentBanner(Math.floor(nextScrollLeft / bannerWidth) + 1);
-  };
-
-  const handleMouseDown = (e) => {
-    e.preventDefault();
-    setIsDragging(true);
-    setStartX(e.clientX);
-  };
-
-  const handleMouseMove = (e) => {
-    if (!isDragging) return;
-    const x = e.clientX;
-    const deltaX = startX - x;
-    containerRef.current.scrollLeft += deltaX;
-    setStartX(x);
   };
 
   const handleBannerChange = () => {

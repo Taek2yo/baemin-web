@@ -3,7 +3,7 @@
 import * as S from "./categoryStyle";
 import CategoryItem from "./categoryItem";
 import React, { useRef, useState, useEffect } from "react";
-
+import useDraggable from "../../hooks/useDraggable";
 export default function Category() {
   const ctg = [
     {
@@ -47,37 +47,7 @@ export default function Category() {
       title: "추천 더 보기👉",
     },
   ];
-
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const containerRef = useRef(null);
-
-  useEffect(() => {
-    const handleMouseUp = () => {
-      setIsDragging(false);
-    };
-
-    const containerElement = containerRef.current;
-    containerElement.addEventListener("mouseup", handleMouseUp);
-
-    return () => {
-      containerElement.removeEventListener("mouseup", handleMouseUp);
-    };
-  }, []);
-
-  const handleMouseDown = (e) => {
-    e.preventDefault();
-    setIsDragging(true);
-    setStartX(e.clientX);
-  };
-
-  const handleMouseMove = (e) => {
-    if (!isDragging) return;
-    const x = e.clientX;
-    const deltaX = startX - x;
-    containerRef.current.scrollLeft += deltaX;
-    setStartX(x);
-  };
+  const { containerRef, handleMouseDown, handleMouseMove } = useDraggable();
 
   return (
     <S.CategoryContainer
