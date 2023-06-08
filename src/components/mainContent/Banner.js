@@ -6,14 +6,9 @@ import React, { useRef, useState, useEffect } from "react";
 import useDraggable from "../../hooks/useDraggable";
 
 export default function Banner({ banner }) {
-  // 드래그 상태
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-
   // 현재 배너와 컨테이너 관리
   const [currentBanner, setCurrentBanner] = useState(1);
-
-
+  // 커스텀 훅
   const { containerRef, handleMouseDown, handleMouseMove } = useDraggable();
 
 
