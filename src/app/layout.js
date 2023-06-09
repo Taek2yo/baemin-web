@@ -1,5 +1,5 @@
-import StyledComponentsRegistry from './registry';
- 
+import StyledComponentsRegistry from './lib/registry'
+import './globals.css'
 export default function RootLayout({ children }) {
   return (
     <html>
@@ -7,5 +7,5 @@ export default function RootLayout({ children }) {
         <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
       </body>
     </html>
-  );
+  )
 }
