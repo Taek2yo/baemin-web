@@ -32,7 +32,6 @@ export default function Header() {
         </S.BtnWrap>
       </S.AddressBtnWrap>
     </S.Container>
-
     <S.SearchBox>
     <Link href="/search">
         <S.Searchsection>
@@ -40,7 +39,7 @@ export default function Header() {
           <S.Placeholder> 찾는 맛집 이름이 뭐예요?</S.Placeholder>
         </S.Searchsection>
       </Link>
-      </S.SearchBox>
+    </S.SearchBox>
     </>
     
   );
