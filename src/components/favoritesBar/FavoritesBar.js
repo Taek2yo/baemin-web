@@ -11,19 +11,19 @@ export default function FavoritesBar() {
     <S.Container>
       <S.Box>
         <S.Item>
-            <Image src={favorite1} alt="favorite-item" width={30}/>
+            <Image src={favorite1} alt="favorite-item" width={27}/>
           <span>포인트</span>
         </S.Item>
         <S.Item line={line}>
-        <Image src={favorite2} alt="favorite-item" width={30}/>
+        <Image src={favorite2} alt="favorite-item" width={27}/>
           <span>쿠폰함</span>
         </S.Item>
         <S.Item line={line}>
-        <Image src={favorite3} alt="favorite-item" width={30}/>
+        <Image src={favorite3} alt="favorite-item" width={27}/>
           <span>선물함</span>
         </S.Item>
         <S.Item line={line}>
-        <Image src={favorite4} alt="favorite-item" width={30}/>
+        <Image src={favorite4} alt="favorite-item" width={27}/>
           <span>찜</span>
         </S.Item>
       </S.Box>
