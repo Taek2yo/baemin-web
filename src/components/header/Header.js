@@ -18,22 +18,22 @@ export default function Header() {
         </S.Address>
 
         <S.BtnWrap>
-          <Link href="/viewAll">
+          <Link href="/viewAll" as='/viewAll'>
             <Image src={allservice} alt="all service view icon" width={35} />
           </Link>
 
-          <Link href="/alarm">
+          <Link href="/alarm" as='/alarm'>
             <Image src={alm} alt="alarm icon" width={32} />
           </Link>
 
-          <Link href="/mypage">
+          <Link href="/mypage" as='/my'>
             <Image src={my} alt="mypage icon" width={38} />
           </Link>
         </S.BtnWrap>
       </S.AddressBtnWrap>
     </S.Container>
     <S.SearchBox>
-    <Link href="/search">
+    <Link href="/search" as='/search'>
         <S.Searchsection>
           <S.SearchIcon> 🔍︎</S.SearchIcon>
           <S.Placeholder> 찾는 맛집 이름이 뭐예요?</S.Placeholder>

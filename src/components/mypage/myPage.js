@@ -20,29 +20,34 @@ export default function MyPage() {
   return (
     <S.Container>
       <S.Header>
-        <Link href="/">
+        <Link href="/" as='/'>
           <Image src={back} width={25} alt="back-btn" />
         </Link>
         <span className="header-title">My배민</span>
-        <Link href="/">
+        <Link href="/" as='/'>
           <Image src={home} width={25} alt="home-btn" />
         </Link>
       </S.Header>
-      <S.Box height={"80"}>
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <Image
-            src={pofile}
-            width={72}
-            alt="profile"
-            style={{ borderRadius: "100%" }}
-          />
-          <S.Accounts>
-            <span className="grade">고마운분,</span>
-            <span className="name"> 반칸</span>
-          </S.Accounts>
-        </div>
-        <S.RightBtn>{right}</S.RightBtn>
-      </S.Box>
+
+  {/* profile */}
+      <Link href="/profile" as='/profile'>
+        <S.Box height={"80"}>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <Image
+              src={pofile}
+              width={72}
+              alt="profile"
+              style={{ borderRadius: "100%" }}
+            />
+            <S.Accounts>
+              <span className="grade">고마운분,</span>
+              <span className="name"> 반칸</span>
+            </S.Accounts>
+          </div>
+          <S.RightBtn>{right}</S.RightBtn>
+        </S.Box>
+      </Link>
+
       <S.Box>
         <Image src={thanks} width={240} alt="grade" />
         <S.Benefit>
