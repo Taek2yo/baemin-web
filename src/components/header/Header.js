@@ -26,7 +26,7 @@ export default function Header() {
             <Image src={alm} alt="alarm icon" width={32} />
           </Link>
 
-          <Link href="/mypage" as='/my'>
+          <Link href="/mypage" as='/mypage'>
             <Image src={my} alt="mypage icon" width={38} />
           </Link>
         </S.BtnWrap>
