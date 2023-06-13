@@ -15,22 +15,26 @@ import banner from "/public/assets/img/banner3.png";
 import cartoon from "/public/assets/img/cartoon.png";
 import baemingreen from "/public/assets/img/baemingreen.png";
 import baeminpay from "/public/assets/img/baeminpay.png";
-export default function MyPage() {
+import LoginOnclick from "./loginOnclick";
+
+export default function MyPage({ session }) {
   const right = ">";
+  console.log(session);
   return (
     <S.Container>
       <S.Header>
-        <Link href="/" as='/'>
+        <Link href="/" as="/">
           <Image src={back} width={25} alt="back-btn" />
         </Link>
         <span className="header-title">My배민</span>
-        <Link href="/" as='/'>
+        <Link href="/" as="/">
           <Image src={home} width={25} alt="home-btn" />
         </Link>
       </S.Header>
 
-  {/* profile */}
-      <Link href="/profile" as='/profile'>
+      {/* profile */}
+
+      {session ? (
         <S.Box height={"80"}>
           <div style={{ display: "flex", alignItems: "center" }}>
             <Image
@@ -46,7 +50,24 @@ export default function MyPage() {
           </div>
           <S.RightBtn>{right}</S.RightBtn>
         </S.Box>
-      </Link>
+      ) : (
+        <Link href="/login" as="/login">
+          <S.Box height={"80"}>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Image
+                src={pofile}
+                width={72}
+                alt="profile"
+                style={{ borderRadius: "100%" }}
+              />
+              <S.Accounts>
+                <LoginOnclick />
+              </S.Accounts>
+            </div>
+            <S.RightBtn>{right}</S.RightBtn>
+          </S.Box>
+        </Link>
+      )}
 
       <S.Box>
         <Image src={thanks} width={240} alt="grade" />

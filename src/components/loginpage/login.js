@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import close from "/public/assets/img/close.png";
 import naver from '/public/assets/img/naver.png'
+import Submit from "./submit";
 export default function Login() {
   return (
     <S.Container>
@@ -11,11 +12,7 @@ export default function Login() {
           <Image src={close} alt="close" width={18} priority={true} />
         </S.Cancle>
       </Link>
-      <S.InputBox>
-        <S.Input placeholder="아이디 또는 이메일"></S.Input>
-        <S.Input placeholder="비밀번호" type="password"></S.Input>
-        <S.LoginBtn>로그인</S.LoginBtn>
-      </S.InputBox>
+      <Submit/>
       <S.FindIdBox>
         <span className="find">아이디 찾기</span>
         <span className="bar">|</span>
@@ -27,7 +24,9 @@ export default function Login() {
     </S.SocialBox>
       <S.SignUp>
         <span>혹시, 배달의민족이 처음이신가요?</span>
+        <Link href='/signUp' as="/signUp">
         <span className="btn">회원가입</span>
+        </Link>
       </S.SignUp>
     </S.Container>
   );

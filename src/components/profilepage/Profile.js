@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import back from "/public/assets/img/left.png";
 import edit from "/public/assets/img/editprofile.png";
+import LogoutOnclick from "./logoutOnclick";
 export default function Profile() {
   const right = ">";
   return (
@@ -55,7 +56,7 @@ export default function Profile() {
         <span className="title">연동된 소셜 계정</span>
       </S.Box>
       <S.AccountBox>
-        <span className="out">로그아웃</span>
+        <LogoutOnclick/>
         <span className="bar">|</span>
         <span className="out">회원탈퇴</span>
       </S.AccountBox>
