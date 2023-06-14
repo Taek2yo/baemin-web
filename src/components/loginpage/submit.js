@@ -1,13 +1,28 @@
 "use client";
 import * as S from "./loginStyle";
 import { signIn } from "next-auth/react";
-
+import { useRouter } from "next/navigation";
 export default function Submit() {
-  const handleSubmit = (e) => {
+  const router = useRouter();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    signIn("credentials", { email, password, redirect: false });
+    const result = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
+    if (result.error) {
+      // 로그인 실패 시 처리
+      // 예: 오류 메시지 출력
+      console.log(result.error);
+    } else {
+      // 로그인 성공 시 처리
+      // 예: 리다이렉트
+      router.push("/");
+    }
   };
 
   return (
