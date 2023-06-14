@@ -19,7 +19,7 @@ import LoginOnclick from "./loginOnclick";
 
 export default function MyPage({ session }) {
   const right = ">";
-  console.log(session);
+  let user = session?.user
   return (
     <S.Container>
       <S.Header>
@@ -35,6 +35,7 @@ export default function MyPage({ session }) {
       {/* profile */}
 
       {session ? (
+        <Link href="/profile" as="/profile">
         <S.Box height={"80"}>
           <div style={{ display: "flex", alignItems: "center" }}>
             <Image
@@ -45,11 +46,12 @@ export default function MyPage({ session }) {
             />
             <S.Accounts>
               <span className="grade">고마운분,</span>
-              <span className="name"> 반칸</span>
+              <span className="name"> {user?.name}</span>
             </S.Accounts>
           </div>
           <S.RightBtn>{right}</S.RightBtn>
         </S.Box>
+        </Link>
       ) : (
         <Link href="/login" as="/login">
           <S.Box height={"80"}>

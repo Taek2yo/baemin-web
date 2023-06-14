@@ -7,7 +7,7 @@ export default function Submit() {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    signIn("credentials", { email, password });
+    signIn("credentials", { email, password, redirect: false });
   };
 
   return (

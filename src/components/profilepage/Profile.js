@@ -4,8 +4,9 @@ import Image from "next/image";
 import back from "/public/assets/img/left.png";
 import edit from "/public/assets/img/editprofile.png";
 import LogoutOnclick from "./logoutOnclick";
-export default function Profile() {
+export default function Profile({session}) {
   const right = ">";
+  let user = session?.user
   return (
     <S.Container>
       <S.Header>
@@ -21,13 +22,13 @@ export default function Profile() {
         <S.Item>
           <span className="title">닉네임</span>
           <div>
-            <span className="sub">반칸</span>
+            <span className="sub">{user?.name}</span>
             <S.RightBtn>{right}</S.RightBtn>
           </div>
         </S.Item>
         <S.Item>
           <span className="title">이메일</span>
-          <span className="sub">789rkd@naver.com</span>
+          <span className="sub">{user?.email}</span>
         </S.Item>
         <S.Item style={{ borderBottom: "none" }}>
           <span className="title">휴대폰 번호 변경</span>
