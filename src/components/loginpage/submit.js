@@ -16,11 +16,11 @@ export default function Submit() {
     });
     if (result.error) {
       // 로그인 실패 시 처리
-      // 예: 오류 메시지 출력
+      window.alert('아이디/비밀번호를 확인해주세요.')
       console.log(result.error);
     } else {
       // 로그인 성공 시 처리
-      // 예: 리다이렉트
+      
       router.push("/");
     }
   };
