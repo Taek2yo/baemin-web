@@ -7,6 +7,6 @@ export default async function signUphandler(req, res) {
       req.body.password = hash;
       let db = (await connectDB).db('baemin');
       await db.collection('accounts').insertOne(req.body);
-      res.status(200).json('성공');
+      res.redirect(302, '/login');
   }
 }; 
