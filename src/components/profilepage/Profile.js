@@ -4,6 +4,7 @@ import Image from "next/image";
 import back from "/public/assets/img/left.png";
 import edit from "/public/assets/img/editprofile.png";
 import LogoutOnclick from "./logoutOnclick";
+import ImageUpload from "./ImageUpload";
 export default function Profile({session}) {
   const right = ">";
   let user = session?.user
@@ -17,7 +18,8 @@ export default function Profile({session}) {
       </S.Header>
 
       <Image src={edit} alt="edit" width={100} />
-
+      <ImageUpload/>
+      
       <S.InfoBox>
         <S.Item>
           <span className="title">닉네임</span>
