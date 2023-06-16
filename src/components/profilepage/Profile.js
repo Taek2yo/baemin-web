@@ -1,13 +1,22 @@
+'use client'
+
 import * as S from "./profileStyle";
 import Link from "next/link";
 import Image from "next/image";
 import back from "/public/assets/img/left.png";
 import edit from "/public/assets/img/editprofile.png";
 import LogoutOnclick from "./logoutOnclick";
-import ImageUpload from "./ImageUpload";
+import useImageUpload from "../../hooks/useImageUpload";
+
 export default function Profile({session}) {
   const right = ">";
   let user = session?.user
+  const { src, handleImageUpload } = useImageUpload();
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    handleImageUpload(file);
+  };
   return (
     <S.Container>
       <S.Header>
@@ -18,7 +27,8 @@ export default function Profile({session}) {
       </S.Header>
 
       <Image src={edit} alt="edit" width={100} />
-      <ImageUpload/>
+      <input type="file" accept="image/*" onChange={handleFileChange} />
+      {src && <img src={src} alt="Uploaded" />}
       
       <S.InfoBox>
         <S.Item>
