@@ -22,10 +22,10 @@ export const Header = styled.div`
 `;
 
 export const submitBtn = styled.button`
-    border: none;
-    background-color: #fff;
-    font-size: 17px;
-    cursor: pointer;
+  border: none;
+  background-color: #fff;
+  font-size: 17px;
+  cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
 `;
 
 export const InputBox = styled.form`
