@@ -10,7 +10,7 @@ import useImageUpload from "../../hooks/useImageUpload";
 
 export default function Profile({session}) {
   const right = ">";
-  let user = session
+  let user = session?.user
   const { src, handleImageUpload } = useImageUpload();
 
   const handleFileChange = (e) => {

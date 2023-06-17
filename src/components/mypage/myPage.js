@@ -1,3 +1,5 @@
+'use client'
+
 import * as S from "./myPageStyle";
 import Link from "next/link";
 import Image from "next/image";
