@@ -3,7 +3,7 @@ import * as S from "./signUpStyle";
 import back from "/public/assets/img/left.png";
 import Link from "next/link";
 import Image from "next/image";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 export default function SignUp() {
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
@@ -24,22 +24,23 @@ export default function SignUp() {
 
   useEffect(() => {
     const isEmpty = !nickname || !email || !password;
-    setIsFormValid(!isEmpty );
+    setIsFormValid(!isEmpty);
   }, [nickname, email, password]);
 
+  const chosungPattern = /^[ㄱ-ㅎㅏ-ㅣ]*$/;
   const handleNicknameBlur = async () => {
-    const response = await fetch('/api/auth/checkNickname', {
-      method: 'POST',
+    const response = await fetch("/api/auth/checkNickname", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ name: nickname }),
     });
     const data = await response.json();
-    console.log(data.exists)
-    setIsNicknameValid(!data.exists);
+    console.log(data.exists);
+    setIsNicknameValid(!data.exists && !chosungPattern.test(nickname));
   };
-  
+
   return (
     <S.Container>
       <S.Header>
@@ -66,7 +67,13 @@ export default function SignUp() {
           onChange={handleNicknameChange}
           onBlur={handleNicknameBlur}
         />
-        {!isNicknameValid ? <span className="error-message">중복된 닉네임 입니다.</span> : <span className="error-message">사용가능한 닉네임 입니다.</span>}
+        {!isNicknameValid && nickname === "" ? null : (
+          <span className={!isNicknameValid ? "error-message" : "ok-message"}>
+            {!isNicknameValid
+              ? "불가능한 닉네임 입니다."
+              : "사용 가능한 닉네임 입니다."}
+          </span>
+        )}
 
         <label htmlFor="email-id" className="label-text">
           이메일 아이디

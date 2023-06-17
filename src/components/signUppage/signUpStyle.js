@@ -31,14 +31,28 @@ export const submitBtn = styled.button`
 export const InputBox = styled.form`
   width: 100%;
   margin-top: 150px;
- 
   .label-text{
+    display: block;
     font-family: "NanumGothic";
     font-size: 17px;
+    margin-top: 10px;
+  }
+  .error-message{
+     display: inline-block;
+    font-family: "NanumGothic";
+    color: red;
+    margin-top: 10px;
+  }
+  .ok-message{
+     display: inline-block;
+    font-family: "NanumGothic";
+    color: green;
+    margin-top: 10px;
   }
 `;
 
 export const Input = styled.input`
+   display: block;
   width: 100%;
   height: 45px;
   font-size: 16px;
