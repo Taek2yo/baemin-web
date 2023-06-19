@@ -23,8 +23,8 @@ export default async function handler(req, res) {
 
   // MongoDB 저장
   const userId = session?.user?.name;
-  const imageUrl = url.url; 
-
+  const value = url.fields.key;
+  
   try {
     const mongoUrl = process.env.MONGO_URL;
     const client = await MongoClient.connect(mongoUrl);
@@ -33,7 +33,7 @@ export default async function handler(req, res) {
     
     await collection.updateOne(
       { name: userId },
-      { $set: { profileImage: imageUrl } }
+      { $set: { profileImage: value} }
     );
 
     client.close();

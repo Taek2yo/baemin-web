@@ -1,8 +1,6 @@
 import { useState } from "react";
-
 export default function useImageUpload() {
   const [src, setSrc] = useState("");
-
   const handleImageUpload = async (file) => {
     try {
       const filename = encodeURIComponent(file.name);
