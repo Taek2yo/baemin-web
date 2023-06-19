@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import * as S from "./profileStyle";
 import Link from "next/link";
@@ -7,17 +7,20 @@ import back from "/public/assets/img/left.png";
 import edit from "/public/assets/img/editprofile.png";
 import LogoutOnclick from "./logoutOnclick";
 import useImageUpload from "../../hooks/useImageUpload";
-
-export default function Profile({session}) {
+import { useSession } from "next-auth/react";
+export default function Profile() {
   const right = ">";
-  let user = session?.user
+  const { data: session, status, update } = useSession();
+  let user = session?.user;
+
   const { src, handleImageUpload } = useImageUpload();
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     handleImageUpload(file);
   };
-  console.log(user)
+  const userProfileImage = user?.profileImage;
+  const profileImageUrl = `https://baemin-taek.s3.amazonaws.com/${userProfileImage}`;
   return (
     <S.Container>
       <S.Header>
@@ -26,11 +29,18 @@ export default function Profile({session}) {
         </Link>
         <span className="header-title">내 정보 수정</span>
       </S.Header>
-
-      <Image src={edit} alt="edit" width={100} />
+      {userProfileImage ? (
+        <Image
+          src={profileImageUrl}
+          alt="profile-image"
+          width={100}
+          height={100}
+        />
+      ) : (
+        <Image src={edit} alt="edit" width={100} height={100} />
+      )}
       <input type="file" accept="image/*" onChange={handleFileChange} />
-      {src && <img src={src} alt="Uploaded" />}
-      
+
       <S.InfoBox>
         <S.Item>
           <span className="title">닉네임</span>
@@ -70,7 +80,7 @@ export default function Profile({session}) {
         <span className="title">연동된 소셜 계정</span>
       </S.Box>
       <S.AccountBox>
-        <LogoutOnclick/>
+        <LogoutOnclick />
         <span className="bar">|</span>
         <span className="out">회원탈퇴</span>
       </S.AccountBox>

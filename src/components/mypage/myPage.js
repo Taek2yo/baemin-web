@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import * as S from "./myPageStyle";
 import Link from "next/link";
@@ -18,9 +18,11 @@ import cartoon from "/public/assets/img/cartoon.png";
 import baemingreen from "/public/assets/img/baemingreen.png";
 import baeminpay from "/public/assets/img/baeminpay.png";
 import LoginOnclick from "./loginOnclick";
+import { useSession } from "next-auth/react";
 
-export default function MyPage({ session }) {
+export default function MyPage() {
   const right = ">";
+  const { data: session } = useSession();
   let user = session?.user
   return (
     <S.Container>
@@ -38,21 +40,21 @@ export default function MyPage({ session }) {
 
       {session ? (
         <Link href="/profile" as="/profile">
-        <S.Box height={"80"}>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <Image
-              src={pofile}
-              width={72}
-              alt="profile"
-              style={{ borderRadius: "100%" }}
-            />
-            <S.Accounts>
-              <span className="grade">고마운분,</span>
-              <span className="name"> {user?.name}</span>
-            </S.Accounts>
-          </div>
-          <S.RightBtn>{right}</S.RightBtn>
-        </S.Box>
+          <S.Box height={"80"}>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Image
+                src={pofile}
+                width={72}
+                alt="profile"
+                style={{ borderRadius: "100%" }}
+              />
+              <S.Accounts>
+                <span className="grade">고마운분,</span>
+                <span className="name"> {user?.name}</span>
+              </S.Accounts>
+            </div>
+            <S.RightBtn>{right}</S.RightBtn>
+          </S.Box>
         </Link>
       ) : (
         <Link href="/login" as="/login">
