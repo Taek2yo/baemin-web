@@ -23,7 +23,9 @@ import { useSession } from "next-auth/react";
 export default function MyPage() {
   const right = ">";
   const { data: session } = useSession();
-  let user = session?.user
+  let user = session?.user;
+  const userProfileImage = user?.profileImage;
+  const profileImageUrl = `https://baemin-taek.s3.amazonaws.com/${userProfileImage}`;
   return (
     <S.Container>
       <S.Header>
@@ -43,9 +45,11 @@ export default function MyPage() {
           <S.Box height={"80"}>
             <div style={{ display: "flex", alignItems: "center" }}>
               <Image
-                src={pofile}
+                src={profileImageUrl}
                 width={72}
-                alt="profile"
+                height={72}
+                priority
+                alt="profile-image"
                 style={{ borderRadius: "100%" }}
               />
               <S.Accounts>
