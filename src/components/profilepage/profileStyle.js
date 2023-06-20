@@ -95,3 +95,16 @@ export const AccountBox = styled.div`
     cursor: pointer;
   }
 `;
+
+export const HiddenLabel = styled.label`
+  border-radius: 100%;
+  width: 130px;
+  height: 130px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow : hidden;
+  object-fit: cover;
+  cursor: pointer;
+`;

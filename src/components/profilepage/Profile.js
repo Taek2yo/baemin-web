@@ -10,17 +10,20 @@ import useImageUpload from "../../hooks/useImageUpload";
 import { useSession } from "next-auth/react";
 export default function Profile() {
   const right = ">";
-  const { data: session, status, update } = useSession();
+  const { data: session, update: sessionUpdate } = useSession();
   let user = session?.user;
-
   const { src, handleImageUpload } = useImageUpload();
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     handleImageUpload(file);
+    sessionUpdate({
+      info: file.name,
+    });
   };
   const userProfileImage = user?.profileImage;
   const profileImageUrl = `https://baemin-taek.s3.amazonaws.com/${userProfileImage}`;
+
   return (
     <S.Container>
       <S.Header>
@@ -29,17 +32,29 @@ export default function Profile() {
         </Link>
         <span className="header-title">내 정보 수정</span>
       </S.Header>
+
       {userProfileImage ? (
-        <Image
-          src={profileImageUrl}
-          alt="profile-image"
-          width={100}
-          height={100}
-        />
+        <S.HiddenLabel htmlFor="input-file">
+          <Image
+            src={profileImageUrl}
+            alt="profile-image"
+            fill={true}
+            sizes="130px"
+            priority 
+          />
+        </S.HiddenLabel>
       ) : (
-        <Image src={edit} alt="edit" width={100} height={100} />
+        <S.HiddenLabel>
+          <Image src={edit} alt="edit" fill={true} htmlFor="input-file" sizes="130px" priority/>
+        </S.HiddenLabel>
       )}
-      <input type="file" accept="image/*" onChange={handleFileChange} />
+      <input
+        id="input-file"
+        type="file"
+        accept="image/*"
+        onChange={handleFileChange}
+        style={{display:'none'}}
+      />
 
       <S.InfoBox>
         <S.Item>
