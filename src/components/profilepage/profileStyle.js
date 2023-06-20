@@ -7,7 +7,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-family: 'none';
+  font-family: "none";
 `;
 
 export const Header = styled.div`
@@ -39,19 +39,19 @@ export const InfoBox = styled.div`
   border: 1px solid #d3d3d3;
   border-radius: 10px;
   margin-top: 30px;
-`
+`;
 
 export const Item = styled.div`
   padding: 15px;
   border-bottom: 1px solid #ccc;
   display: flex;
   justify-content: space-between;
-  .title{
+  .title {
     color: black;
     font-weight: bold;
     font-size: 16px;
   }
-  .sub{
+  .sub {
     margin-right: 7px;
     color: gray;
   }
@@ -66,18 +66,18 @@ export const Box = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  .title{
+  .title {
     color: black;
     font-weight: bold;
     font-size: 16px;
     margin-left: 15px;
   }
-  .disc{
+  .disc {
     margin-left: 15px;
     font-size: 12px;
     color: gray;
   }
-`
+`;
 
 export const AccountBox = styled.div`
   display: flex;
@@ -104,7 +104,15 @@ export const HiddenLabel = styled.label`
   justify-content: center;
   align-items: center;
   position: relative;
-  overflow : hidden;
+  overflow: hidden;
   object-fit: cover;
   cursor: pointer;
+`;
+
+export const DeleteImage = styled.span`
+  font-size: 15px;
+  margin-top: 20px;
+  cursor: pointer;
+  color: gray;
+  font-family: "NanumGothic";
 `;

@@ -7,18 +7,28 @@ import back from "/public/assets/img/left.png";
 import edit from "/public/assets/img/editprofile.png";
 import LogoutOnclick from "./logoutOnclick";
 import useImageUpload from "../../hooks/useImageUpload";
+import useImageDelete from "../../hooks/useImageDelete";
 import { useSession } from "next-auth/react";
+
 export default function Profile() {
   const right = ">";
   const { data: session, update: sessionUpdate } = useSession();
   let user = session?.user;
   const { src, handleImageUpload } = useImageUpload();
+  const { deleteProfileImage } = useImageDelete();
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     handleImageUpload(file);
     sessionUpdate({
       info: file.name,
+    });
+  };
+
+  const handleDeleteImage = () => {
+    deleteProfileImage();
+    sessionUpdate({
+      info: "",
     });
   };
   const userProfileImage = user?.profileImage;
@@ -33,28 +43,31 @@ export default function Profile() {
         <span className="header-title">내 정보 수정</span>
       </S.Header>
 
-      {userProfileImage ? (
-        <S.HiddenLabel htmlFor="input-file">
+      <S.HiddenLabel>
+        {userProfileImage ? (
           <Image
             src={profileImageUrl}
             alt="profile-image"
             fill={true}
             sizes="130px"
-            priority 
+            priority
           />
-        </S.HiddenLabel>
-      ) : (
-        <S.HiddenLabel>
-          <Image src={edit} alt="edit" fill={true} htmlFor="input-file" sizes="130px" priority/>
-        </S.HiddenLabel>
+        ) : (
+          <Image src={edit} alt="edit" fill={true} sizes="130px" priority />
+        )}
+        <input
+          id="input-file"
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          style={{ display: "none" }}
+        />
+      </S.HiddenLabel>
+      {userProfileImage && (
+        <S.DeleteImage onClick={handleDeleteImage}>
+          프로필 사진 삭제
+        </S.DeleteImage>
       )}
-      <input
-        id="input-file"
-        type="file"
-        accept="image/*"
-        onChange={handleFileChange}
-        style={{display:'none'}}
-      />
 
       <S.InfoBox>
         <S.Item>
