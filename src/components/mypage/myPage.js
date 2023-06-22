@@ -22,14 +22,20 @@ import { signIn } from "next-auth/react";
 
 export default function MyPage() {
   const right = ">";
+
+  // 유저 정보
   const { data: session } = useSession();
   let user = session?.user;
+
   // 일반 로그인시 프로필 사진
   const userProfileImage = user?.profileImage;
-  const profileImageUrl = userProfileImage   ? `https://baemin-taek.s3.amazonaws.com/${userProfileImage}` : null;
+  const profileImageUrl = userProfileImage
+    ? `https://baemin-taek.s3.amazonaws.com/${userProfileImage}`
+    : null;
+
   // 네이버 로그인시 프로필 사진
   const userImage = user?.picture;
-  console.log(userImage)
+
   return (
     <S.Container>
       <S.Header>
@@ -48,20 +54,38 @@ export default function MyPage() {
         <Link href="/profile" as="/profile">
           <S.Box height={"80"}>
             <div style={{ display: "flex", alignItems: "center" }}>
-              <Image
-                src={userProfileImage ? profileImageUrl : userImage}
-                width={72}
-                height={72}
-                priority
-                alt="profile-image"
-                style={{ borderRadius: "100%" }}
-              />
-              <S.Accounts>
-                <span className="grade">고마운분,</span>
-                <span className="name"> {user?.name}</span>
-              </S.Accounts>
+              {userProfileImage || userImage ? (
+                <>
+                  <Image
+                    src={userProfileImage ? profileImageUrl : userImage}
+                    width={72}
+                    height={72}
+                    priority
+                    alt="profile-image"
+                    style={{ borderRadius: "100%" }}
+                  />
+                  <S.Accounts>
+                    <span className="grade">고마운분,</span>
+                    <span className="name"> {user?.name}</span>
+                  </S.Accounts>
+                </>
+              ) : (
+                <>
+                  <Image
+                    src={profile}
+                    width={72}
+                    height={72}
+                    priority
+                    alt="profile-image"
+                    style={{ borderRadius: "100%" }}
+                  />
+                  <S.Accounts>
+                    <span className="grade">고마운분,</span>
+                    <span className="name"> {user?.name}</span>
+                  </S.Accounts>
+                </>
+              )}
             </div>
-            <S.RightBtn>{right}</S.RightBtn>
           </S.Box>
         </Link>
       ) : (
@@ -85,7 +109,6 @@ export default function MyPage() {
           <S.RightBtn>{right}</S.RightBtn>
         </S.Box>
       )}
-
       <S.Box>
         <Image src={thanks} width={240} alt="grade" />
         <S.Benefit>
