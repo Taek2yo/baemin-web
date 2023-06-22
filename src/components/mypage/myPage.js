@@ -6,7 +6,7 @@ import Image from "next/image";
 import back from "/public/assets/img/left.png";
 import home from "/public/assets/img/home.png";
 import thanks from "/public/assets/img/thanks.png";
-import pofile from "/public/assets/img/profile.png";
+import profile from "/public/assets/img/profile.png";
 import point from "/public/assets/img/point.webp";
 import coupone from "/public/assets/img/coupone.webp";
 import gift from "/public/assets/img/gift.webp";
@@ -17,15 +17,19 @@ import banner from "/public/assets/img/banner3.png";
 import cartoon from "/public/assets/img/cartoon.png";
 import baemingreen from "/public/assets/img/baemingreen.png";
 import baeminpay from "/public/assets/img/baeminpay.png";
-import LoginOnclick from "./loginOnclick";
 import { useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 
 export default function MyPage() {
   const right = ">";
   const { data: session } = useSession();
   let user = session?.user;
+  // 일반 로그인시 프로필 사진
   const userProfileImage = user?.profileImage;
-  const profileImageUrl = `https://baemin-taek.s3.amazonaws.com/${userProfileImage}`;
+  const profileImageUrl = userProfileImage   ? `https://baemin-taek.s3.amazonaws.com/${userProfileImage}` : null;
+  // 네이버 로그인시 프로필 사진
+  const userImage = user?.picture;
+  console.log(userImage)
   return (
     <S.Container>
       <S.Header>
@@ -45,7 +49,7 @@ export default function MyPage() {
           <S.Box height={"80"}>
             <div style={{ display: "flex", alignItems: "center" }}>
               <Image
-                src={profileImageUrl}
+                src={userProfileImage ? profileImageUrl : userImage}
                 width={72}
                 height={72}
                 priority
@@ -61,22 +65,25 @@ export default function MyPage() {
           </S.Box>
         </Link>
       ) : (
-        <Link href="/login" as="/login">
-          <S.Box height={"80"}>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <Image
-                src={pofile}
-                width={72}
-                alt="profile"
-                style={{ borderRadius: "100%" }}
-              />
-              <S.Accounts>
-                <LoginOnclick />
-              </S.Accounts>
-            </div>
-            <S.RightBtn>{right}</S.RightBtn>
-          </S.Box>
-        </Link>
+        <S.Box
+          height={"80"}
+          onClick={() => {
+            signIn();
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <Image
+              src={profile}
+              width={72}
+              alt="profile"
+              style={{ borderRadius: "100%" }}
+            />
+            <S.Accounts>
+              <span className="grade">로그인해주세요.</span>
+            </S.Accounts>
+          </div>
+          <S.RightBtn>{right}</S.RightBtn>
+        </S.Box>
       )}
 
       <S.Box>

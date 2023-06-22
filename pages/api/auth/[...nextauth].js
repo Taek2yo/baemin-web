@@ -3,6 +3,8 @@ import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
+import NaverProvider from 'next-auth/providers/naver'
+
 
 export const authOptions = {
   pages: {
@@ -40,6 +42,10 @@ export const authOptions = {
         return user;
       },
     }),
+    NaverProvider({
+      clientId: process.env.NAVER_CLIENT_ID,
+      clientSecret: process.env.NAVER_CLIENT_SECRET
+    })
   ],
 
   //3. jwt + jwt 만료일설정
@@ -60,6 +66,9 @@ export const authOptions = {
       }
       if( trigger === 'update'){
         token.user.profileImage = session.info
+      }
+      if (token.picture) {
+        token.user.picture = token.picture;
       }
       return token;
     },
