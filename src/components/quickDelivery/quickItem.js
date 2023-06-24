@@ -1,11 +1,17 @@
 import * as S from "./quickStyle";
 import Image from "next/image";
 import one from "/public/assets/img/oneDelivery.webp";
+import url from "url";
 export default function QuickItem({ item }) {
+  const getImageUrl = (relativePath) => {
+    const publicUrl = "/public";
+    const imageUrl = url.resolve(publicUrl, relativePath);
+    return imageUrl;
+  };
   return (
     <S.Box>
       <S.thumbnail>
-        <Image src={item.img} alt="food"/>
+        <Image src={getImageUrl(item.img)} alt="food" width={100} height={100}/>
       </S.thumbnail> 
       <S.ItemTitle>
         <span className="item-title">{item.title}</span>
