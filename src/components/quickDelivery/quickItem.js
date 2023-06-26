@@ -27,7 +27,7 @@ export default function QuickItem({ item }) {
         </div>
         <div>
           <span>배달팁</span>
-          {item.tip}
+          {item.onetip}
         </div>
       </S.TimeTip>
       {item.onedelivery ? (
