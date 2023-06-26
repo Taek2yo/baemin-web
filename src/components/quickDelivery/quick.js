@@ -8,24 +8,26 @@ import question from "/public/assets/img/questionmark.png";
 import useDraggable from "../../hooks/useDraggable";
 import { useEffect, useState } from "react";
 
+
 export default function Quick() {
   const [stores, setStores] = useState([]);
- 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/store/data');
+        const response = await fetch("/api/store/data");
         const data = await response.json();
         setStores(data);
       } catch (error) {
-        console.error('데이터 가져오기 에러:', error);
+        console.error("데이터 가져오기 에러:", error);
       }
     };
-  
+
     fetchData();
   }, []);
 
-  const { scrollRef, isDrag, onDragStart, onDragEnd, onThrottleDragMove } = useDraggable();
+  const { scrollRef, isDrag, onDragStart, onDragEnd, onThrottleDragMove } =
+    useDraggable();
   return (
     <S.Container>
       <S.Title>

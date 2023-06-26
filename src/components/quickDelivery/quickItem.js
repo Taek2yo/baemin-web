@@ -2,6 +2,7 @@ import * as S from "./quickStyle";
 import Image from "next/image";
 import one from "/public/assets/img/oneDelivery.webp";
 import url from "url";
+import Link from "next/link";
 export default function QuickItem({ item }) {
   const getImageUrl = (relativePath) => {
     const publicUrl = "/public";
@@ -9,6 +10,7 @@ export default function QuickItem({ item }) {
     return imageUrl;
   };
   return (
+    <Link href={`/detail/${item._id}`}>
     <S.Box>
       <S.thumbnail>
         <Image src={getImageUrl(item.img)} alt="food" width={100} height={100}/>
@@ -38,5 +40,6 @@ export default function QuickItem({ item }) {
         {item.coupone ? <S.Coupone>쿠폰</S.Coupone> : null}
       </S.NewCouponeWrap>
     </S.Box>
+    </Link>
   );
 }
