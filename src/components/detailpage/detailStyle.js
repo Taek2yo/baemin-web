@@ -1,5 +1,5 @@
 "use client";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Header = styled.div`
   width: 100%;
@@ -18,7 +18,7 @@ export const Wrap = styled.div`
     color: #f5c220;
     font-size: 32px;
   }
-  .point{
+  .point {
     font-size: 24px;
     font-weight: bold;
     margin-top: 3px;
@@ -44,7 +44,6 @@ export const Container = styled.div`
   justify-content: center;
 `;
 
-
 export const Carousel = styled.div`
   width: 100%;
   height: 300px;
@@ -63,15 +62,15 @@ export const TextWrap = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top : 10px;
-  .text{
+  margin-top: 10px;
+  .text {
     font-size: 18px;
-    color: #A2A2A2;
+    color: #a2a2a2;
   }
-  .bar{
+  .bar {
     color: #d3d3d3;
   }
-`
+`;
 
 export const OptionWrap = styled.div`
   display: flex;
@@ -92,11 +91,21 @@ export const OrderMethod = styled.div`
 export const Method = styled.div`
   padding: 12px;
   cursor: pointer;
-`
+  ${(props) =>
+    props.active
+      ? css`
+          font-weight: bold;
+          border-bottom: 3px solid black;
+          color: black;
+        `
+      : css`
+          color: #a2a2a2;
+        `}
+`;
 
 export const InfoBox = styled.div`
   width: 100%;
-  border-top : 1px solid #d3d3d3;
+  border-top: 1px solid #d3d3d3;
   border-bottom: 1px solid #d3d3d3;
   display: flex;
 `;
@@ -111,13 +120,13 @@ export const InfoKeyWrap = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-`
+`;
 
 export const InfoValueWrap = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-`
+`;
 
 export const Time = styled.div`
   display: flex;
@@ -127,4 +136,41 @@ export const Time = styled.div`
     margin-left: 5px;
     cursor: pointer;
   }
+`;
+
+export const MenuTabWrap = styled.div`
+  width: 100%;
+  margin-top: 12px;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const MenuTab = styled.div`
+  width: 100%;
+  height: 25px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  color: ${({ active }) => (active ? "black" : "#a2a2a2")};
+  box-shadow: ${({ active }) =>
+    active ? "0px 2px 0px 0px black inset" : "none"};
+  border-right: ${({ tabType, active }) =>
+    (tabType === "Menu" || tabType === "Info") && active
+      ? "1px solid #d3d3d3"
+      : "none"};
+  border-left: ${({ tabType, active }) =>
+    (tabType === "Info" || tabType === "Review") && active
+      ? "1px solid #d3d3d3"
+      : "none"};
+  border-bottom: ${({ active }) => (active ? "none" : "1px solid #d3d3d3")};
+  font-weight: ${({ active }) => (active ? "bold" : "normal")};
+  cursor: pointer;
+`;
+
+
+export const TabContainer = styled.div`
+  padding: 10px;
 `

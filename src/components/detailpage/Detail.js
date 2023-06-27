@@ -12,15 +12,24 @@ import share from "/public/assets/img/share.png";
 import together from "/public/assets/img/together.png";
 import question from "/public/assets/img/questionmark.png";
 import { useRouter } from "next/navigation";
+import PackingOrder from "./packingOrder";
+import Signature from "./Signature";
+import Information from "./Information";
+import Review from "./Review";
+import Infoicon from "/public/assets/img/infoicon.png"
+
 
 export default function Detail({ storeId }) {
-  // select state
-  const [select, setSelect] = useState(false);
-  console.log(select)
-  const handleSelect = () => {
-    setSelect(prevSelect => !prevSelect);
+  // orderType state
+  const [orderType, setOrderType] = useState("delivery");
+  const handleSelectOrderType = (type) => {
+    setOrderType(type);
   };
-
+  // menu tab state
+  const [tabType, setTaptype] = useState("Menu");
+  const handleTabType = (type) => {
+    setTaptype(type);
+  };
 
   // 가게 정보
   /* const [stores, setStores] = useState({});
@@ -83,48 +92,100 @@ export default function Detail({ storeId }) {
         </S.TextWrap>
         <S.OptionWrap>
           <S.Wrap>
-            <Image src={call} width={20} height={20} alt="call"/>
+            <Image src={call} width={20} height={20} alt="call" />
             <span>전화</span>
           </S.Wrap>
           <S.Wrap>
-            <Image src={heart} width={20} height={20} alt="zzim"/>
+            <Image src={heart} width={20} height={20} alt="zzim" />
             <span>100</span>
           </S.Wrap>
           <S.Wrap>
-            <Image src={share} width={20} height={20} alt="share"/>
+            <Image src={share} width={20} height={20} alt="share" />
             <span> 공유</span>
           </S.Wrap>
           <S.Wrap>
-            <Image src={together} width={20} height={20} alt="order-together"/>
+            <Image src={together} width={20} height={20} alt="order-together" />
             <span>함께주문</span>
           </S.Wrap>
         </S.OptionWrap>
+
+        {/* Order Info Tab start */}
         <S.OrderMethod>
-          <S.Method onClick={()=>{handleSelect()}}>배달주문</S.Method>
-          <S.Method onClick={()=>{handleSelect()}}>포장/방문주문</S.Method>
+          <S.Method
+            onClick={() => handleSelectOrderType("delivery")}
+            active={orderType === "delivery"}
+          >
+            배달주문
+          </S.Method>
+          <S.Method
+            onClick={() => handleSelectOrderType("takeout")}
+            active={orderType === "takeout"}
+          >
+            포장/방문주문
+          </S.Method>
         </S.OrderMethod>
         <S.InfoBox>
           <S.KeyValueWrap>
-            <S.InfoKeyWrap>
-              <span>최소주문금액</span>
-              <span>결제방법</span>
-              <span>배달시간</span>
-              <span>배달팁</span>
-            </S.InfoKeyWrap>
-            <S.InfoValueWrap>
-              <span>1</span>
-              <span>1</span>
-              <S.Time>
-                <span>소요 예상</span>
-                <span className="question-mark">
-                  <Image src={question} alt="?" />
-                </span>
-              </S.Time>
+            {orderType === "delivery" ? (
+              <>
+                <S.InfoKeyWrap>
+                  <span>최소주문금액</span>
+                  <span>결제방법</span>
+                  <span>배달시간</span>
+                  <span>배달팁</span>
+                </S.InfoKeyWrap>
 
-              <span>1</span>
-            </S.InfoValueWrap>
+                <S.InfoValueWrap>
+                  <span>1</span>
+                  <span>바로결제, 만나서결제</span>
+                  <S.Time>
+                    <span>소요 예상</span>
+                    <span className="question-mark">
+                      <Image src={question} alt="?" />
+                    </span>
+                  </S.Time>
+                  <span>1</span>
+                </S.InfoValueWrap>
+              </>
+            ) : (
+              <PackingOrder />
+            )}
           </S.KeyValueWrap>
         </S.InfoBox>
+        {/* Order Info Tab End */}
+
+        {/* Menu Tab start */}
+        <S.MenuTabWrap>
+          <S.MenuTab
+            onClick={() => handleTabType("Menu")}
+            active={tabType === "Menu"}
+            tabType={tabType}
+          >
+            메뉴
+          </S.MenuTab>
+          <S.MenuTab
+            onClick={() => handleTabType("Info")}
+            active={tabType === "Info"}
+            tabType={tabType}
+          >
+            정보
+            <Image src={Infoicon} width={22} height={22}/>
+          </S.MenuTab>
+          <S.MenuTab
+            onClick={() => handleTabType("Review")}
+            active={tabType === "Review"}
+            tabType={tabType}
+          >
+            리뷰
+          </S.MenuTab>
+        </S.MenuTabWrap>
+        {tabType === "Menu" ? (
+          <Signature />
+        ) : tabType === "Info" ? (
+          <Information />
+        ) : tabType === "Review" ? (
+          <Review />
+        ) : null}
       </S.Container>
     </>
   );
