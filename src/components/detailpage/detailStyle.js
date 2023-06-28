@@ -91,6 +91,7 @@ export const OrderMethod = styled.div`
 export const Method = styled.div`
   padding: 12px;
   cursor: pointer;
+
   ${(props) =>
     props.active
       ? css`
@@ -171,19 +172,17 @@ export const MenuTab = styled.div`
 `;
 
 export const TabWrap = styled.div`
-  
   display: flex;
-`
+`;
 
 export const TabContainer = styled.div`
   padding: 10px;
-  
   display: block;
-`
+`;
 
 export const DescBox = styled.div`
   width: 100%;
-  .up{
+  .up {
     transform: rotate(180deg);
   }
-`
+`;

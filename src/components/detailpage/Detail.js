@@ -12,7 +12,7 @@ import share from "/public/assets/img/share.png";
 import together from "/public/assets/img/together.png";
 import question from "/public/assets/img/questionmark.png";
 import { useRouter } from "next/navigation";
-import PackingOrder from "./packingOrder";
+import PackingOrder from "./PackingOrder";
 import Signature from "./Signature";
 import Information from "./Information";
 import Review from "./Review";

@@ -1,9 +1,9 @@
-'use client'
-import * as S from "./detailStyle"
+"use client";
+import * as S from "./detailStyle";
 import { useState } from "react";
 import Image from "next/image";
-import down from "/public/assets/img/down-arrow.png"
-export default function MenuDesc (){
+import down from "/public/assets/img/down-arrow.png";
+export default function MenuDesc() {
   const content = `저희 가게는 대표 메뉴와 함께 고객에게 특별한 경험을 제공하는 곳입니다.
   \n우리의 대표 메뉴는 풍부한 맛과 향을 자랑하는 요리들로 구성되어 있습니다.
   \n신선한 재료와 정교한 조리법을 통해 완벽한 조화를 이룬 요리들은 맛있는 한 끼를 보장합니다.
@@ -16,25 +16,40 @@ export default function MenuDesc (){
   const toggleExpanded = () => {
     setExpanded(!expanded);
   };
-  const maxLength = 126;
+  const maxLength = 80;
   const subsText = content.substring(0, maxLength);
   const remainingText = content.substring(maxLength, content.length);
 
   return (
     <div>
-      <div style={{whiteSpace:"pre-line"}}>
+      <div style={{ whiteSpace: "pre-line" }}>
         {content.length <= maxLength
           ? content
           : expanded
           ? subsText + remainingText
-          : subsText + '...'}
+          : subsText + "..."}
       </div>
-      <div style={{textAlign:"center", marginTop:"10px"}}>
-      {content.length > maxLength && (
-        <span onClick={()=>{toggleExpanded()}} style={{cursor:'pointer'}}>
-          {expanded ? <Image src={down} alt="down-arrow" width={20} height={20} className="up"/> : <Image src={down} alt="down-arrow" width={20} height={20}/>}
-        </span>
-      )}
+      <div style={{ textAlign: "center", marginTop: "10px", whiteSpace: "pre-line" }}>
+        {content.length > maxLength && (
+          <span
+            onClick={() => {
+              toggleExpanded();
+            }}
+            style={{ cursor: "pointer" }}
+          >
+            {expanded ? (
+              <Image
+                src={down}
+                alt="down-arrow"
+                width={20}
+                height={20}
+                className="up"
+              />
+            ) : (
+              <Image src={down} alt="down-arrow" width={20} height={20} />
+            )}
+          </span>
+        )}
       </div>
     </div>
   );
