@@ -2,7 +2,7 @@
 import * as S from "./detailStyle";
 import { useState } from "react";
 import Image from "next/image";
-import down from "/public/assets/img/down-arrow.png";
+import arrow from "/public/assets/img/down-arrow.png";
 export default function MenuDesc() {
   const content = `저희 가게는 대표 메뉴와 함께 고객에게 특별한 경험을 제공하는 곳입니다.
   \n우리의 대표 메뉴는 풍부한 맛과 향을 자랑하는 요리들로 구성되어 있습니다.
@@ -29,7 +29,7 @@ export default function MenuDesc() {
           ? subsText + remainingText
           : subsText + "..."}
       </div>
-      <div style={{ textAlign: "center", marginTop: "10px", whiteSpace: "pre-line" }}>
+      <div style={{ textAlign: "center", marginTop: "10px", whiteSpace: "pre-line", marginBottom:"10px" }}>
         {content.length > maxLength && (
           <span
             onClick={() => {
@@ -39,14 +39,14 @@ export default function MenuDesc() {
           >
             {expanded ? (
               <Image
-                src={down}
+                src={arrow}
                 alt="down-arrow"
                 width={20}
                 height={20}
                 className="up"
               />
             ) : (
-              <Image src={down} alt="down-arrow" width={20} height={20} />
+              <Image src={arrow} alt="down-arrow" width={20} height={20} />
             )}
           </span>
         )}

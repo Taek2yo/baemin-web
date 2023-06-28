@@ -1,6 +1,6 @@
 "use client";
 import styled, { css } from "styled-components";
-
+import Image from "next/image";
 export const Header = styled.div`
   font-family: "NanumGothic";
   display: flex;
@@ -177,13 +177,67 @@ export const TabWrap = styled.div`
 
 export const TabContainer = styled.div`
   padding: 10px;
-  
 `;
 
 export const DescBox = styled.div`
   width: 100%;
-
   .up {
     transform: rotate(180deg);
   }
+`;
+
+export const MenuContainer = styled.div`
+  width: 100%;
+  border: 3px solid #b5966f;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const ItemContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #b5966f;
+  padding: 18px;
+  cursor: pointer;
+`;
+
+export const SignatureTitle = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  margin-bottom: 10px;
+`
+
+export const ItemWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100px;
+`
+
+export const ItemTitle = styled.div`
+  font-weight: bold;
+  font-size: 18px;
+
+`;
+
+export const ItemDesc = styled.div`
+  font-size: 15px;
+  color: #a2a2a2;
+  width: 280px;
+  white-space: pre-line;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+`;
+
+export const ItemImage = styled.div`
+  width: 110px;
+  height: 105px;
+  border: 1px solid gray;
+  border-radius: 10px;
 `;
