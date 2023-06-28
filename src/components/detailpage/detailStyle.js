@@ -2,10 +2,9 @@
 import styled, { css } from "styled-components";
 
 export const Header = styled.div`
-  width: 100%;
   font-family: "NanumGothic";
   display: flex;
-  padding: 18px 20px 5px 3px;
+  padding: 10px 3px 10px 3px;
   align-items: center;
   justify-content: space-between;
 `;
@@ -42,6 +41,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 `;
 
 export const Carousel = styled.div`
@@ -177,11 +177,12 @@ export const TabWrap = styled.div`
 
 export const TabContainer = styled.div`
   padding: 10px;
-  display: block;
+  
 `;
 
 export const DescBox = styled.div`
   width: 100%;
+
   .up {
     transform: rotate(180deg);
   }
