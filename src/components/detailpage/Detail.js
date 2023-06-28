@@ -179,6 +179,7 @@ export default function Detail({ storeId }) {
             리뷰
           </S.MenuTab>
         </S.MenuTabWrap>
+       <S.TabWrap>
         {tabType === "Menu" ? (
           <Signature />
         ) : tabType === "Info" ? (
@@ -186,6 +187,7 @@ export default function Detail({ storeId }) {
         ) : tabType === "Review" ? (
           <Review />
         ) : null}
+        </S.TabWrap>
       </S.Container>
     </>
   );

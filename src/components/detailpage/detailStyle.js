@@ -170,13 +170,19 @@ export const MenuTab = styled.div`
   cursor: pointer;
 `;
 
+export const TabWrap = styled.div`
+  
+  display: flex;
+`
 
 export const TabContainer = styled.div`
   padding: 10px;
+  
+  display: block;
 `
 
 export const DescBox = styled.div`
-  white-space: pre-line;
+  width: 100%;
   .up{
     transform: rotate(180deg);
   }
