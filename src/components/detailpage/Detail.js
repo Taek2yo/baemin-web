@@ -169,7 +169,7 @@ export default function Detail({ storeId }) {
             tabType={tabType}
           >
             정보
-            <Image src={Infoicon} width={22} height={22}/>
+            <Image src={Infoicon} width={22} height={22} alt="info-ico"/>
           </S.MenuTab>
           <S.MenuTab
             onClick={() => handleTabType("Review")}

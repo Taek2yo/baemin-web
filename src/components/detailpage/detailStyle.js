@@ -174,3 +174,10 @@ export const MenuTab = styled.div`
 export const TabContainer = styled.div`
   padding: 10px;
 `
+
+export const DescBox = styled.div`
+  white-space: pre-line;
+  .up{
+    transform: rotate(180deg);
+  }
+`
