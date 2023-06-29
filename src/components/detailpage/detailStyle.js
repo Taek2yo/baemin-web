@@ -42,6 +42,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  height: 100%;
 `;
 
 export const Carousel = styled.div`
@@ -112,7 +113,7 @@ export const InfoBox = styled.div`
 `;
 
 export const KeyValueWrap = styled.div`
-  padding: 20px;
+  padding: ${props => props.padding};
   display: flex;
   gap: 20px;
 `;
@@ -126,7 +127,7 @@ export const InfoKeyWrap = styled.div`
 export const InfoValueWrap = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
 `;
 
 export const Time = styled.div`
@@ -241,3 +242,33 @@ export const ItemImage = styled.div`
   border: 1px solid gray;
   border-radius: 10px;
 `;
+
+export const Introduction = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+export const InfoTitle = styled.div`
+  color: black;
+  font-weight: bold;
+  font-size: 17px;
+  padding: ${props => props.padding};
+`
+
+export const IntroContent = styled.div`
+  white-space: pre-line;
+  margin-top: 20px;
+`
+
+export const SalesInfo = styled.div`
+
+`
+
+export const Date = styled.div`
+  color: #a2a2a2;
+  font-size: 12px;
+`
+
+export const GraphContainer = styled.div`
+
+`

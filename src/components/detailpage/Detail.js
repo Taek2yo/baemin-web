@@ -32,11 +32,11 @@ export default function Detail({ storeId }) {
   };
 
   // 가게 정보
-  /* const [stores, setStores] = useState({});
+  const [stores, setStores] = useState({});
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/detail/${storeId}`);
+        const response = await fetch(`/api/detail/${storeId}`, { next : { revalidate : 3600 }});
         const data = await response.json();
         setStores(data);
       } catch (error) {
@@ -46,9 +46,11 @@ export default function Detail({ storeId }) {
 
     fetchData();
   }, []);
-  const store = stores?.store; */
+  const store = stores?.store;
+  const menu = stores?.menu;
+  const menuInfo = menu?.menu_info;
 
-  // handleButton
+  // goBackBtn
   const router = useRouter();
   const goBack = () => {
     router.back();
@@ -66,7 +68,7 @@ export default function Detail({ storeId }) {
           >
             <Image src={back} width={25} alt="back-btn" priority />
           </S.Back>
-          <S.StoreName>{/* {store?.title} */}</S.StoreName>
+          <S.StoreName>{store?.title}</S.StoreName>
         </S.Wrap>
         <S.Wrap>
           <Link href="/" as="/">
@@ -80,10 +82,10 @@ export default function Detail({ storeId }) {
 
       <S.Container>
         <S.Carousel></S.Carousel>
-        <S.Title>{/* {store?.title} */}</S.Title>
+        <S.Title>{store?.title}</S.Title>
         <S.Wrap>
           <span className="star">★★★★★</span>
-          <span className="point">{/* {store?.stars} */}</span>
+          <span className="point">{store?.stars}</span>
         </S.Wrap>
         <S.TextWrap>
           <span className="text">최근리뷰 0</span>
@@ -125,7 +127,7 @@ export default function Detail({ storeId }) {
           </S.Method>
         </S.OrderMethod>
         <S.InfoBox>
-          <S.KeyValueWrap>
+          <S.KeyValueWrap padding={"20px"}>
             {orderType === "delivery" ? (
               <>
                 <S.InfoKeyWrap>
@@ -181,7 +183,7 @@ export default function Detail({ storeId }) {
         </S.MenuTabWrap>
        <S.TabWrap>
         {tabType === "Menu" ? (
-          <Signature />
+          <Signature menuInfo={menuInfo}/>
         ) : tabType === "Info" ? (
           <Information />
         ) : tabType === "Review" ? (
