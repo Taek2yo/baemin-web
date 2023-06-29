@@ -4,9 +4,9 @@ import one from "/public/assets/img/oneDelivery.webp";
 import url from "url";
 import Link from "next/link";
 export default function QuickItem({ item }) {
-  const getImageUrl = (relativePath) => {
+  const getImageUrl = (path) => {
     const publicUrl = "/public";
-    const imageUrl = url.resolve(publicUrl, relativePath);
+    const imageUrl = url.resolve(publicUrl, path);
     return imageUrl;
   };
   return (

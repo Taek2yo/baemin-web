@@ -47,8 +47,33 @@ export const Container = styled.div`
 
 export const Carousel = styled.div`
   width: 100%;
-  height: 300px;
-  background-color: skyblue;
+  display: flex;
+  overflow-x:auto; 
+  white-space:nowrap;
+  &::-webkit-scrollbar {
+    display: none;
+    }
+  img{
+    width: 100%;
+    height: 100%;
+  }
+`;
+
+export const ThumbnailCounter = styled.div`
+  font-size: 10px;
+  width: 50px;
+  height: 10px;
+  background-color: black;
+  text-align: center;
+  padding: 4px;
+  border-radius: 12px;
+  opacity: 0.5;
+  color: white;
+  position: relative;
+  align-self: flex-start;
+  left: calc(100% - 70px);
+  bottom: 35px;
+  z-index  : 1;
 `;
 
 export const Title = styled.div`
@@ -121,7 +146,7 @@ export const KeyValueWrap = styled.div`
 export const InfoKeyWrap = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
 `;
 
 export const InfoValueWrap = styled.div`
@@ -239,8 +264,12 @@ export const ItemDesc = styled.div`
 export const ItemImage = styled.div`
   width: 110px;
   height: 105px;
-  border: 1px solid gray;
-  border-radius: 10px;
+  img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+  }
 `;
 
 export const Introduction = styled.div`
@@ -253,6 +282,7 @@ export const InfoTitle = styled.div`
   font-weight: bold;
   font-size: 17px;
   padding: ${props => props.padding};
+  margin: ${props => props.margin};
 `
 
 export const IntroContent = styled.div`

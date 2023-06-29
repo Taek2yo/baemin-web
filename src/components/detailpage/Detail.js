@@ -17,9 +17,10 @@ import Signature from "./Signature";
 import Information from "./Information";
 import Review from "./Review";
 import Infoicon from "/public/assets/img/infoicon.png"
-
+import Thumbnail from "./Thumbnail";
 
 export default function Detail({ storeId }) {
+  
   // orderType state
   const [orderType, setOrderType] = useState("delivery");
   const handleSelectOrderType = (type) => {
@@ -32,11 +33,12 @@ export default function Detail({ storeId }) {
   };
 
   // 가게 정보
-  const [stores, setStores] = useState({});
+  const [stores, setStores] = useState(null);
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/detail/${storeId}`, { next : { revalidate : 3600 }});
+        const response = await fetch(`/api/detail/${storeId}`);
         const data = await response.json();
         setStores(data);
       } catch (error) {
@@ -46,16 +48,21 @@ export default function Detail({ storeId }) {
 
     fetchData();
   }, []);
+
   const store = stores?.store;
   const menu = stores?.menu;
   const menuInfo = menu?.menu_info;
+  const thumbnail = menu?.thumbnail
 
   // goBackBtn
   const router = useRouter();
   const goBack = () => {
     router.back();
   };
-
+  
+  if (stores === null) {
+    return <div>Loading...</div>;
+  }
   return (
     <>
       {/* Header( Button Menu ) */}
@@ -66,7 +73,7 @@ export default function Detail({ storeId }) {
               goBack();
             }}
           >
-            <Image src={back} width={25} alt="back-btn" priority />
+            <Image src={back} width={25} alt="back-btn" />
           </S.Back>
           <S.StoreName>{store?.title}</S.StoreName>
         </S.Wrap>
@@ -81,7 +88,7 @@ export default function Detail({ storeId }) {
       </S.Header>
 
       <S.Container>
-        <S.Carousel></S.Carousel>
+       <Thumbnail thumbnail={thumbnail}/>
         <S.Title>{store?.title}</S.Title>
         <S.Wrap>
           <span className="star">★★★★★</span>
