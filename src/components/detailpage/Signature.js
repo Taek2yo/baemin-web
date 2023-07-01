@@ -18,7 +18,7 @@ export default function Signature({ menuInfo }) {
       </S.DescBox>
       <S.MenuContainer>
         <S.SignatureTitle>
-          <Image src={signature} alt="대표메뉴"/>
+          <Image src={signature} alt="대표메뉴" priority/>
         </S.SignatureTitle>
         {menuInfo?.map((item, index) => {
           return (

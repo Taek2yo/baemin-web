@@ -41,7 +41,7 @@ export default function Thumbnail({ thumbnail }) {
         onScroll={handleScroll}
         ref={scrollRef}
       >
-        {thumbnail.map((item, index) => (
+        {thumbnail?.map((item, index) => (
           <Image
             src={getImageUrl(item)}
             alt="thumbnail"
