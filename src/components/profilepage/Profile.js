@@ -31,9 +31,11 @@ export default function Profile() {
       info: "",
     });
   };
+  // 일반 로그인시 프로필 사진
   const userProfileImage = user?.profileImage;
   const profileImageUrl = `https://baemin-taek.s3.amazonaws.com/${userProfileImage}`;
-
+  // 네이버 로그인시 프로필 사진
+  const userImage = user?.picture;
   return (
     <S.Container>
       <S.Header>
@@ -44,9 +46,9 @@ export default function Profile() {
       </S.Header>
 
       <S.HiddenLabel>
-        {userProfileImage ? (
+        {userProfileImage || userImage ? (
           <Image
-            src={profileImageUrl}
+            src={userProfileImage ? profileImageUrl : userImage}
             alt="profile-image"
             fill={true}
             sizes="130px"
@@ -63,7 +65,7 @@ export default function Profile() {
           style={{ display: "none" }}
         />
       </S.HiddenLabel>
-      {userProfileImage && (
+      {(userProfileImage || userImage) && (
         <S.DeleteImage onClick={handleDeleteImage}>
           프로필 사진 삭제
         </S.DeleteImage>
