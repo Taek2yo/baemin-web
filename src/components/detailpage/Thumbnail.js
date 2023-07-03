@@ -4,7 +4,7 @@ import * as S from "./detailStyle";
 import Image from "next/image";
 import url from "url";
 import useDraggable from "@/hooks/useDraggable";
-import React, { useState, useEffect } from "react";
+import React, { useRef ,useState, useEffect } from "react";
 
 export default function Thumbnail({ thumbnail }) {
   const getImageUrl = (path) => {
@@ -14,22 +14,46 @@ export default function Thumbnail({ thumbnail }) {
   };
   // 썸네일 관리
   const [currentThumbnail, setCurrentThumbnail] = useState(1);
-  const [thumbnailWidth, setThumbnailWidth] = useState(400);
-  const [totalThumbnails, setTotalThumbnails] = useState(0);
   const { scrollRef, isDrag, onDragStart, onDragEnd, onThrottleDragMove } = useDraggable();
   
+  const autoScrollInterval = useRef(null);
   useEffect(() => {
-    if (scrollRef.current) {
-      setThumbnailWidth(scrollRef.current.clientWidth);
-      setTotalThumbnails(scrollRef.current.scrollWidth / thumbnailWidth);
-    }
-  }, [thumbnailWidth]);
-  
-  const handleScroll = () => {
-    const scrollLeft = scrollRef.current.scrollLeft;
-    const newThumbnailIndex = Math.floor(scrollLeft / thumbnailWidth) + 1;
-    setCurrentThumbnail(newThumbnailIndex);
+    startAutoScroll();
+
+    return () => {
+      stopAutoScroll();
+    };
+  }, []);
+
+  const startAutoScroll = () => {
+    stopAutoScroll();
+    autoScrollInterval.current = setInterval(scrollToNextThumbnail, 3000);
   };
+
+  const stopAutoScroll = () => {
+    clearInterval(autoScrollInterval.current);
+  };
+
+  const scrollToNextThumbnail = () => {
+    const container = scrollRef.current;
+    const scrollWidth = container.scrollWidth;
+    const scrollLeft = container.scrollLeft;
+    const clientWidth = container.clientWidth;
+    const thumbnailWidth = container.children[0].offsetWidth;
+
+    let nextScrollLeft = scrollLeft + clientWidth;
+    if (nextScrollLeft + clientWidth > scrollWidth) {
+      nextScrollLeft = 0;
+    }
+
+    container.scroll({
+      left: nextScrollLeft,
+      behavior: "smooth",
+    });
+
+    setCurrentThumbnail(Math.floor(nextScrollLeft / thumbnailWidth) + 1);
+  };
+
 
   return (
     <>
@@ -38,7 +62,6 @@ export default function Thumbnail({ thumbnail }) {
         onMouseMove={onThrottleDragMove}
         onMouseUp={onDragEnd}
         onMouseLeave={onDragEnd}
-        onScroll={handleScroll}
         ref={scrollRef}
       >
         {thumbnail?.map((item, index) => (
