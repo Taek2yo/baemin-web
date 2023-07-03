@@ -121,54 +121,54 @@ export const TakeOutContent = styled.div`
   padding-left: 15px;
 `;
 
-
 export const SubContents = styled.div`
-    display: flex;
-    margin: 10px;
-    gap: 10px;
+  display: flex;
+  margin: 10px;
+  gap: 10px;
 `;
 
 export const SubItem = styled.div`
-    width: 120px;
-    height: 75px;
-    border-radius: 12px;
-    background-color: white;
-    box-shadow: 0 2px 2px -1px gray;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    font-size: 16px;
-    img{
-        width: 58px;
-        height: 42px;
-    }
+  width: 120px;
+  height: 75px;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: 0 2px 2px -1px gray;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  font-size: 16px;
+  img {
+    width: 58px;
+    height: 42px;
+  }
 `;
-
 
 export const BannerContainer = styled.div`
   display: flex;
-  overflow-x:auto; 
-  white-space:nowrap;
+  overflow-x: auto;
+  white-space: nowrap;
   margin: 12px;
   border-radius: 12px;
   height: 144px;
   &::-webkit-scrollbar {
     display: none;
-    }
-`
-
+  }
+`;
 
 export const Banner = styled.div`
   border-radius: 12px;
   cursor: pointer;
+  img {
+    flex-shrink: 0;
+    object-fit: cover;
+  }
 `;
 
-
 export const BannerCounter = styled.div`
-  font-family: 'NanumGothic';
+  font-family: "NanumGothic";
   font-size: 10px;
   width: 80px;
   height: 10px;
@@ -182,5 +182,5 @@ export const BannerCounter = styled.div`
   bottom: 40px;
   float: right;
   margin-right: 22px;
-  z-index  : 1;
+  z-index: 1;
 `;

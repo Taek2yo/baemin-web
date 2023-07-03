@@ -65,7 +65,7 @@ export default function Profile() {
           style={{ display: "none" }}
         />
       </S.HiddenLabel>
-      {(userProfileImage || userImage) && (
+      {userProfileImage && (
         <S.DeleteImage onClick={handleDeleteImage}>
           프로필 사진 삭제
         </S.DeleteImage>
