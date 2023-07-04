@@ -35,6 +35,7 @@ export default function Detail({ storeId }) {
   // 가게 정보
   const [stores, setStores] = useState(null);
   
+  // 가게 정보 가져오기
   useEffect(() => {
     const fetchData = async () => {
       try {

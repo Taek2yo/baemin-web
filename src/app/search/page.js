@@ -1,5 +1,7 @@
+import Search from "@/components/search/Search"
+
 export default function SearchPage (){
     return(
-        <div>검색페이지</div>
+        <Search/>
     )   
 }
