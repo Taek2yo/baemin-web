@@ -1,12 +1,12 @@
 import { connectDB } from "@/util/database";
 
 export default async function SearchHandler(req, res) {
+  console.log(req.query)
   try {
     if (req.method !== "GET") {
       res.status(400).json({ message: "Bad Request" });
       return;
     }
-
     const searchTerm = req.query.searchTerm;
     const db = (await connectDB).db("baemin");
     const result = await db
@@ -18,7 +18,6 @@ export default async function SearchHandler(req, res) {
         ],
       })
       .toArray();
-
     res.status(200).json(result);
 
   } catch (error) {
