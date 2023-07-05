@@ -7,16 +7,20 @@ import { useEffect, useState } from "react";
 
 export const dynamic = 'force-dynamic'
 export default function SearchResult() {
+  const router = useRouter();
   const [value, setValue] = useState("");
   const [searchData, setSearchData] = useState([]);
-  const router = useRouter();
+  // place holder text state
   const param = useParams();
   const placeHolderText = decodeURIComponent(param.terms)
+  const [phText, setPhText] = useState(placeHolderText);
+
   const handleInputChange = (e) => {
     setValue(e.target.value);
   };
   const handleClearClick = () => {
     setValue("");
+    setPhText("")
   };
   // goBackBtn
   const goBack = () => {
@@ -64,7 +68,7 @@ export default function SearchResult() {
           <S.SearchIcon> 🔍︎</S.SearchIcon>
           <input
             type="search"
-            placeholder={placeHolderText}
+            placeholder={phText}
             value={value}
             onChange={handleInputChange}
           />

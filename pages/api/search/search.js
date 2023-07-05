@@ -1,7 +1,6 @@
 import { connectDB } from "@/util/database";
 
 export default async function SearchHandler(req, res) {
-  console.log(req.query)
   try {
     if (req.method !== "GET") {
       res.status(400).json({ message: "Bad Request" });
