@@ -6,8 +6,8 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 export default function Search() {
-  const [value, setValue] = useState("")
-  
+  const [value, setValue] = useState("");
+
   const router = useRouter();
   const handleInputChange = (e) => {
     setValue(e.target.value);
@@ -25,22 +25,20 @@ export default function Search() {
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    if (value.trim() !== '') {
-      try {
-        const encodedValue = encodeURIComponent(value)
-        const response = await fetch(`/api/search/search?searchTerm=${encodedValue}`);
-        const result = await response.json();
-        router.push(`/search/${encodedValue}`)
-      } catch (error) {
-        console.error('API 요청 에러:', error);
-      }
+    if (value.trim() !== "") {
+      const encodedValue = encodeURIComponent(value);
+      router.push(`/search/${encodedValue}`);
     }
   };
-  
+
   return (
     <S.Container>
       <S.Header>
-        <S.Back onClick={() => {goBack()}}>
+        <S.Back
+          onClick={() => {
+            goBack();
+          }}
+        >
           <Image src={back} width={25} alt="back-btn" />
         </S.Back>
         <S.Searchsection onSubmit={handleSearch} name="search" type="text">
@@ -53,7 +51,9 @@ export default function Search() {
           />
           {value && (
             <S.ClearButton
-              onClick={() => {handleClearClick()}}
+              onClick={() => {
+                handleClearClick();
+              }}
             >
               X
             </S.ClearButton>
@@ -64,7 +64,6 @@ export default function Search() {
         <S.Title>최근 검색어</S.Title>
         <S.DeleteBtn>전체삭제</S.DeleteBtn>
       </S.RecentSearches>
-      
     </S.Container>
   );
 }
