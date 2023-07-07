@@ -9,13 +9,13 @@ import useDraggable from "../../hooks/useDraggable";
 import AD from "/public/assets/img/searchBanner.png";
 import question from "/public/assets/img/questionmark.png";
 import PersonalItem from "./PersonalItem";
-import character from "/public/assets/img/popular.png"
+import character from "/public/assets/img/popular.png";
 import Ranking from "./Ranking";
-import banner from "/public/assets/img/banner5.png"
+import banner from "/public/assets/img/banner5.png";
 export default function Search() {
   const [value, setValue] = useState("");
   const [stores, setStores] = useState([]);
-
+  const [recentWords, setRecentWords] = useState([]);
   const router = useRouter();
   const handleInputChange = (e) => {
     setValue(e.target.value);
@@ -33,12 +33,35 @@ export default function Search() {
   };
 
   // search event
+  useEffect(() => {
+    const storedWords = JSON.parse(localStorage.getItem("words") || "[]");
+    setRecentWords(storedWords);
+  }, []);
+
+  const saveRecentWords = (words) => {
+    localStorage.setItem("words", JSON.stringify(words));
+  };
+
   const handleSearch = (e) => {
     e.preventDefault();
     if (value.trim() !== "") {
       const encodedValue = encodeURIComponent(value);
       router.push(`/search/${encodedValue}`);
     }
+    const updatedWords = [value, ...recentWords.filter((w) => w !== value)];
+    setRecentWords(updatedWords);
+    saveRecentWords(updatedWords);
+  };
+
+  const handleDeleteOne = (word) => {
+    const updatedWords = recentWords.filter((w) => w !== word);
+    setRecentWords(updatedWords);
+    localStorage.setItem("words", JSON.stringify(updatedWords));
+  };
+
+  const handleDeleteAll = () => {
+    setRecentWords([]);
+    localStorage.removeItem("words");
   };
 
   // 맞춤 맛집 데이터 가져오기
@@ -56,13 +79,15 @@ export default function Search() {
     fetchData();
   }, []);
 
-  const { scrollRef, isDrag, onDragStart, onDragEnd, onThrottleDragMove } =
-    useDraggable();
-
-  // recent search event
-  const clickRecentWord = () =>{
-    
-  }
+  // drag
+  const { scrollRef, isDrag, onDragStart, onDragEnd, onThrottleDragMove } = useDraggable();
+  
+  // date
+  const today = new Date();
+  const month = ('0' + (today.getMonth() + 1)).slice(-2);
+  const day = ('0' + today.getDate()).slice(-2);
+  const hours = ('0' + today.getHours()).slice(-2);
+ 
   return (
     <S.Container>
       <S.Header>
@@ -92,16 +117,50 @@ export default function Search() {
           )}
         </S.Searchsection>
       </S.Header>
-      <S.RecentSearches>
-        <S.Recent>최근 검색어</S.Recent>
-        <S.DeleteBtn>전체삭제</S.DeleteBtn>
-      </S.RecentSearches>
-      <S.RSItemWrap>
-        <S.RSItem>
-          <span className="word">검색어</span>
-          <span className="x-btn">✕</span>
-        </S.RSItem>
-      </S.RSItemWrap>
+      {recentWords.length > 0 && (
+        <>
+          <S.RecentSearches>
+            <S.Recent>최근 검색어</S.Recent>
+            <S.DeleteBtn
+              onClick={() => {
+                handleDeleteAll();
+              }}
+            >
+              전체삭제
+            </S.DeleteBtn>
+          </S.RecentSearches>
+          <S.RSItemWrap
+            onMouseDown={onDragStart}
+            onMouseMove={onThrottleDragMove}
+            onMouseUp={onDragEnd}
+            onMouseLeave={onDragEnd}
+            ref={scrollRef}
+          >
+            {recentWords.map((words, index) => {
+              return (
+                <S.RSItem key={index}>
+                  <span
+                    className="word"
+                    onClick={() => {
+                      router.push(`/search/${words}`);
+                    }}
+                  >
+                    {words}
+                  </span>
+                  <span
+                    className="x-btn"
+                    onClick={() => {
+                      handleDeleteOne(words);
+                    }}
+                  >
+                    ✕
+                  </span>
+                </S.RSItem>
+              );
+            })}
+          </S.RSItemWrap>
+        </>
+      )}
       <S.Banner>
         <S.AD>
           <Image src={AD} alt="search-adv" />
@@ -131,19 +190,19 @@ export default function Search() {
       </S.Personalized>
       <S.MostSearchBox>
         <S.SRTextWrap>
-        <S.Most>
-          <span>가장 많이</span>
-          <span>검색하고 있어요</span>
-        </S.Most>
-        <S.Date>07.07 15:00 기준</S.Date>
+          <S.Most>
+            <span>가장 많이</span>
+            <span>검색하고 있어요</span>
+          </S.Most>
+          <S.Date>{month}.{day} {hours}:00 기준</S.Date>
         </S.SRTextWrap>
         <S.Character>
-          <Image src={character} alt="search-ranking character" width={90}/>
+          <Image src={character} alt="search-ranking character" width={90} />
         </S.Character>
       </S.MostSearchBox>
-      <Ranking/>
+      <Ranking />
       <S.BottomAD>
-        <Image src={banner} alt="bottom-adv"/>
+        <Image src={banner} alt="bottom-adv" />
       </S.BottomAD>
     </S.Container>
   );

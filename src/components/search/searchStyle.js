@@ -92,8 +92,14 @@ export const DeleteBtn = styled.div`
 `;
 
 export const RSItemWrap = styled.div`
-  padding: 10px;
   background-color: white;
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  gap: 5px;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const RSItem = styled.div`
@@ -103,9 +109,14 @@ export const RSItem = styled.div`
   color: #2ac1bc;
   background-color: #d6f6f5;
   display: inline-block;
+  .word{
+    cursor: pointer;
+  }
   .x-btn{
     margin-left: 7px;
+    cursor: pointer;
   }
+  margin-top: 5px;
 `;
 
 export const Banner = styled.div`
