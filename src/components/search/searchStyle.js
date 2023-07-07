@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   font-family: "NanumGothic";
+  background-color: #f0ededd3;
 `;
 
 export const Header = styled.div`
@@ -10,6 +11,10 @@ export const Header = styled.div`
   justify-content: space-between;
   padding: 10px 3px 10px 3px;
   width: 100%;
+  background-color: white;
+  position: sticky;
+  top: 0;
+  z-index: 99;
 `;
 
 export const Back = styled.div`
@@ -65,22 +70,221 @@ export const ClearButton = styled.span`
   cursor: pointer;
 `;
 
-
 export const RecentSearches = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
 `;
 
-export const Title = styled.div`
-    font-weight: bold;
+export const Recent = styled.div`
+  font-weight: bold;
 `;
 
 export const DeleteBtn = styled.div`
-    cursor: pointer;
-    background-color: #f5f5f5;
-    border-radius: 20px;
-    padding: 7px;
+  cursor: pointer;
+  background-color: #f5f5f5;
+  border-radius: 20px;
+  padding: 7px;
+  font-size: 14px;
+  margin-top: 5px;
+`;
+
+export const RSItemWrap = styled.div`
+  padding: 10px;
+  background-color: white;
+`;
+
+export const RSItem = styled.div`
+  font-size: 14px;
+  padding: 7px;
+  border-radius: 18px;
+  color: #2ac1bc;
+  background-color: #d6f6f5;
+  display: inline-block;
+  .x-btn{
+    margin-left: 7px;
+  }
+`;
+
+export const Banner = styled.div`
+  width: 100%;
+  height: 140px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  box-shadow: 0 2px 2px -2px black;
+`;
+
+export const AD = styled.div`
+  border-radius: 10px;
+  margin: 12px;
+  width: 100%;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+`;
+
+export const Personalized = styled.div`
+  background-color: white;
+  margin-top: 10px;
+  box-shadow: 0 2px 2px -2px black;
+  padding-bottom: 15px;
+  .title-ad {
     font-size: 14px;
+    color: gray;
+    font-weight: 500;
+    margin-left: 5px;
+  }
+  .question-mark {
+    margin-top: 5px;
+    margin-left: 5px;
+  }
+`;
+
+export const PTextWrap = styled.div`
+  display: flex;
+  align-items: center;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-left: 10px;
+`;
+
+export const Ptitle = styled.div`
+  font-weight: bold;
+  font-size: 22px;
+`;
+
+//-------- Personal Item -------//
+export const Box = styled.div``;
+
+export const thumbnail = styled.div`
+  position: relative;
+  width: 180px;
+  height: 150px;
+  img {
+    position: absolute;
+    border-radius: 12px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+`;
+
+export const ItemTitle = styled.div`
+  display: flex;
+  margin: 8px 8px 8px 0px;
+  align-items: center;
+  font-weight: bold;
+  .item-title {
+    display: inline-block;
+    width: 120px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .star {
+    color: #f5c220;
+    margin-left: 5px;
+  }
+`;
+
+export const TimeTip = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-weight: normal;
+  span {
+    color: gray;
+    margin-right: 5px;
+  }
+`;
+
+export const Wrap = styled.div`
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  margin-left: 10px;
+  gap: 15px;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+// ---- Search Ranking --- //
+
+export const MostSearchBox = styled.div`
+  margin-top: 10px;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const Most = styled.div`
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 4px;
+`;
+export const Date = styled.div`
+  color: gray;
+`;
+
+export const SRTextWrap = styled.div`
+  padding: 10px 10px 0px 10px;
+  margin-top: 12px;
+`;
+
+export const Character = styled.div`
+  margin-right: 10px;
+`;
+
+
+export const RankingContainer = styled.div`
+  width: 100%;
+  background-color: white;
+  display: flex;
+  gap: 20px;
+  box-shadow: 0 2px 2px -2px black;
+`;
+
+export const RankWrap = styled.div`
+  width: 100%;
+`
+
+export const RankItem = styled.div`
+  height: 50px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  img{
+    padding: 10px;
+  }
+`;
+
+export const RankNumber = styled.div`
+  font-weight: bold;
+  font-size: 20px;
+  padding: 10px;
+`
+
+export const RankTextWrap = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+export const BottomAD = styled.div`
+  margin-top: 10px;
+  width: 100%;
+  img{
+    width: 100%;
+    height: 100px;
+  }
 `;
