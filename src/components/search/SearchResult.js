@@ -4,24 +4,29 @@ import Image from "next/image";
 import back from "/public/assets/img/left.png";
 import { useRouter, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-
+import SearchResultItem from "./SearchResultItem";
 export const dynamic = "force-dynamic";
 export default function SearchResult() {
   const router = useRouter();
   const [value, setValue] = useState("");
   const [searchData, setSearchData] = useState([]);
-  // place holder text state
+  const [tab, setTab] = useState("all");
+
+  // place holder text
   const param = useParams();
   const placeHolderText = decodeURIComponent(param.terms);
   const [phText, setPhText] = useState(placeHolderText);
-  const datalength = searchData.length;
+  const datalength = searchData?.storeResult?.length;
+
   const handleInputChange = (e) => {
     setValue(e.target.value);
   };
+
   const handleClearClick = () => {
     setValue("");
     setPhText("");
   };
+
   // goBackBtn
   const goBack = () => {
     router.back();
@@ -52,6 +57,14 @@ export default function SearchResult() {
     fetchData();
   }, []);
 
+  const handleTab = (type) => {
+    setTab(type);
+  };
+
+  const menuResult = searchData?.menuResult;
+  const storeResult = searchData?.storeResult;
+  const info = menuResult?.map((v) => v.menu_info);
+  const arrow = ">";
   return (
     <S.Container>
       <S.Header>
@@ -70,16 +83,75 @@ export default function SearchResult() {
             value={value}
             onChange={handleInputChange}
           />
-
           <S.ClearButton
             onClick={() => {
               handleClearClick();
             }}
           >
-            X
+            ✕
           </S.ClearButton>
         </S.Searchsection>
       </S.Header>
+      <S.TabWrap>
+        <S.Tab
+          onClick={() => handleTab("all")}
+          active={tab === "all"}
+          tab={tab}
+        >
+          전체
+        </S.Tab>
+        <S.Tab
+          onClick={() => handleTab("delivery")}
+          active={tab === "delivery"}
+          tab={tab}
+        >
+          배달 {storeResult?.length}
+        </S.Tab>
+        <S.Tab
+          onClick={() => handleTab("packaging")}
+          active={tab === "packaging"}
+          tab={tab}
+        >
+          포장 0
+        </S.Tab>
+        <S.Tab
+          onClick={() => handleTab("B-mart")}
+          active={tab === "B-mart"}
+          tab={tab}
+        >
+          B마트 0
+        </S.Tab>
+        <S.Tab
+          onClick={() => handleTab("live")}
+          active={tab === "live"}
+          tab={tab}
+        >
+          쇼핑라이브
+        </S.Tab>
+      </S.TabWrap>
+      <S.Delivery>
+        <S.DeliveryTitle>배달</S.DeliveryTitle>
+        {storeResult?.map((item, index) => {
+          if (index < 3) {
+            return (
+              <SearchResultItem
+                item={item}
+                key={item._id}
+                info={info[index]}
+                phText={phText}
+              />
+            );
+          }
+          return null;
+        })}
+        <S.MoreBtnSection>
+          <S.MoreBtn>
+            <span className="search-terms">{phText} </span>
+            <span>검색결과 더보기</span>
+            <span className="arrow">{arrow}</span>
+          </S.MoreBtn>
+        </S.MoreBtnSection>
+      </S.Delivery>
     </S.Container>
   );
 }

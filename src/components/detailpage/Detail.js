@@ -34,7 +34,7 @@ export default function Detail({ storeId }) {
 
   // 가게 정보
   const [stores, setStores] = useState(null);
-  
+  console.log(stores.store)
   // 가게 정보 가져오기
   useEffect(() => {
     const fetchData = async () => {
@@ -146,7 +146,7 @@ export default function Detail({ storeId }) {
                 </S.InfoKeyWrap>
 
                 <S.InfoValueWrap>
-                  <span>1</span>
+                  <span>{store.min_delivery_price}</span>
                   <span>바로결제, 만나서결제</span>
                   <S.Time>
                     <span>소요 예상</span>
@@ -154,7 +154,7 @@ export default function Detail({ storeId }) {
                       <Image src={question} alt="?" />
                     </span>
                   </S.Time>
-                  <span>1</span>
+                  <span>{store.delivery_tip}</span>
                 </S.InfoValueWrap>
               </>
             ) : (

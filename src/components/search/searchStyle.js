@@ -109,10 +109,10 @@ export const RSItem = styled.div`
   color: #2ac1bc;
   background-color: #d6f6f5;
   display: inline-block;
-  .word{
+  .word {
     cursor: pointer;
   }
-  .x-btn{
+  .x-btn {
     margin-left: 7px;
     cursor: pointer;
   }
@@ -255,7 +255,6 @@ export const Character = styled.div`
   margin-right: 10px;
 `;
 
-
 export const RankingContainer = styled.div`
   width: 100%;
   background-color: white;
@@ -266,7 +265,7 @@ export const RankingContainer = styled.div`
 
 export const RankWrap = styled.div`
   width: 100%;
-`
+`;
 
 export const RankItem = styled.div`
   height: 50px;
@@ -275,7 +274,7 @@ export const RankItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  img{
+  img {
     padding: 10px;
   }
 `;
@@ -284,18 +283,145 @@ export const RankNumber = styled.div`
   font-weight: bold;
   font-size: 20px;
   padding: 10px;
-`
+`;
 
 export const RankTextWrap = styled.div`
   display: flex;
   align-items: center;
-`
+`;
 
 export const BottomAD = styled.div`
   margin-top: 10px;
   width: 100%;
-  img{
+  img {
     width: 100%;
     height: 100px;
+  }
+`;
+
+export const TabWrap = styled.div`
+  width: 100%;
+  padding-top: 10px;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0 2px 2px -2px black;
+`;
+
+export const Tab = styled.div`
+  padding: 7px;
+  color: ${({ active }) => (active ? "black" : "#a2a2a2")};
+  border-bottom: ${({ active }) => (active ? "2px solid black" : "none")};
+  font-weight: ${({ active }) => (active ? "bold" : "normal")};
+  cursor: pointer;
+`;
+
+export const Delivery = styled.div`
+  margin-top: 10px;
+  background-color: white;
+`;
+
+export const DeliveryTitle = styled.div`
+  display: inline-block;
+  background: linear-gradient(transparent 50%, #d6f6f5 50%);
+  border-radius: 10px;
+  font-size: 25px;
+  font-weight: bold;
+  margin-top: 15px;
+  margin-bottom: 15px;
+`;
+
+export const ItemContainer = styled.div`
+  width: 100%;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 12px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid #d3d3d3;
+`;
+
+export const ContentSection = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+`
+
+export const ItemImage = styled.div`
+  width: 85px;
+  height: 90px;
+  margin: 10px;
+  img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+`;
+
+export const ItemContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+`;
+
+export const ContentTitle = styled.div`
+  font-weight: bold;
+`;
+
+export const ItemStar = styled.div`
+  .score {
+    font-weight: bold;
+  }
+  .star {
+    color: #f5c220;
+  }
+`;
+
+export const ItemDesc = styled.div`
+  color: #a2a2a2;
+  width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
+export const ItemDeliveryTime = styled.div``;
+
+export const ItemTip = styled.div``;
+
+export const MinimumOrder = styled.div`
+  .minimum{
+    color: #a2a2a2;
+  }
+`;
+
+export const ItemWrap = styled.div`
+  display: flex;
+  gap: 7px;
+`;
+
+
+export const MoreBtnSection = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
+export const MoreBtn = styled.div`
+  display: flex;
+  border: 1px solid #d3d3d3;
+  padding: 10px 17px 10px 17px;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  .search-terms{
+    font-weight: bold;
+  }
+  .arrow{
+    font-weight: bold;
+    font-size: 13px;
   }
 `;
