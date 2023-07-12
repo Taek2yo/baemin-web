@@ -327,8 +327,8 @@ export const DeliveryTitle = styled.div`
   border-radius: 10px;
   font-size: 25px;
   font-weight: bold;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-top: 12px;
+  margin-bottom: 10px;
 `;
 
 export const ItemContainer = styled.div`
@@ -337,8 +337,7 @@ export const ItemContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 12px;
-  padding-bottom: 7px;
+  margin-top: 5px;
   border-bottom: 1px solid #d3d3d3;
 `;
 
@@ -399,14 +398,17 @@ export const MinimumOrder = styled.div`
 
 export const ItemWrap = styled.div`
   display: flex;
-  gap: 7px;
+  gap: 10px;
 `;
 
 
 export const MoreBtnSection = styled.div`
   width: 100%;
+  height: 100px;
   display: flex;
   justify-content: center;
+  align-items: center;
+  background-color: white;
 `;
 
 export const MoreBtn = styled.div`
@@ -416,7 +418,9 @@ export const MoreBtn = styled.div`
   border-radius: 20px;
   justify-content: center;
   align-items: center;
+  height: 18px;
   gap: 3px;
+  cursor: pointer;
   .search-terms{
     font-weight: bold;
   }

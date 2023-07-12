@@ -5,7 +5,7 @@ import back from "/public/assets/img/left.png";
 import { useRouter, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import SearchResultItem from "./SearchResultItem";
-export const dynamic = "force-dynamic";
+
 export default function SearchResult() {
   const router = useRouter();
   const [value, setValue] = useState("");
@@ -16,8 +16,8 @@ export default function SearchResult() {
   const param = useParams();
   const placeHolderText = decodeURIComponent(param.terms);
   const [phText, setPhText] = useState(placeHolderText);
-  const datalength = searchData?.storeResult?.length;
-
+  const datalength = searchData?.length;
+  const arrow = ">";
   const handleInputChange = (e) => {
     setValue(e.target.value);
   };
@@ -61,10 +61,6 @@ export default function SearchResult() {
     setTab(type);
   };
 
-  const menuResult = searchData?.menuResult;
-  const storeResult = searchData?.storeResult;
-  const info = menuResult?.map((v) => v.menu_info);
-  const arrow = ">";
   return (
     <S.Container>
       <S.Header>
@@ -105,7 +101,7 @@ export default function SearchResult() {
           active={tab === "delivery"}
           tab={tab}
         >
-          배달 {storeResult?.length}
+          배달 {datalength}
         </S.Tab>
         <S.Tab
           onClick={() => handleTab("packaging")}
@@ -131,20 +127,12 @@ export default function SearchResult() {
       </S.TabWrap>
       <S.Delivery>
         <S.DeliveryTitle>배달</S.DeliveryTitle>
-        {storeResult?.map((item, index) => {
-          if (index < 3) {
-            return (
-              <SearchResultItem
-                item={item}
-                key={item._id}
-                info={info[index]}
-                phText={phText}
-              />
-            );
-          }
-          return null;
+        {searchData.map((item, index)=>{
+          return(     
+            <SearchResultItem key={item._id} item={item} phText={phText}/>
+          )
         })}
-        <S.MoreBtnSection>
+         <S.MoreBtnSection>
           <S.MoreBtn>
             <span className="search-terms">{phText} </span>
             <span>검색결과 더보기</span>

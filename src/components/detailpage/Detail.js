@@ -34,7 +34,7 @@ export default function Detail({ storeId }) {
 
   // 가게 정보
   const [stores, setStores] = useState(null);
-  console.log(stores.store)
+
   // 가게 정보 가져오기
   useEffect(() => {
     const fetchData = async () => {
@@ -54,7 +54,7 @@ export default function Detail({ storeId }) {
   const menu = stores?.menu;
   const menuInfo = menu?.menu_info;
   const thumbnail = menu?.thumbnail
-
+  console.log(store)
   // goBackBtn
   const router = useRouter();
   const goBack = () => {
@@ -149,7 +149,7 @@ export default function Detail({ storeId }) {
                   <span>{store.min_delivery_price}</span>
                   <span>바로결제, 만나서결제</span>
                   <S.Time>
-                    <span>소요 예상</span>
+                    <span>{store.delivery_time} 소요 예상</span>
                     <span className="question-mark">
                       <Image src={question} alt="?" />
                     </span>
