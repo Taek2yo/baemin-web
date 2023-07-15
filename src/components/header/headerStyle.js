@@ -1,4 +1,3 @@
-"use client";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -7,10 +6,10 @@ export const Container = styled.div`
   position: sticky;
   top: 0;
   z-index: 99;
+  color: white;
 `;
 
 export const Title = styled.div`
-  color: white;
   font-size: 25px;
   font-family: "Hanna";
   padding-top: 10px;
@@ -83,3 +82,4 @@ export const Placeholder = styled.span`
   font-size: 12px;
   padding-left: 5px;
 `
+

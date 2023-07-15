@@ -54,7 +54,7 @@ export default function Detail({ storeId }) {
   const menu = stores?.menu;
   const menuInfo = menu?.menu_info;
   const thumbnail = menu?.thumbnail
-  console.log(store)
+  
   // goBackBtn
   const router = useRouter();
   const goBack = () => {

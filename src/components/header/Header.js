@@ -1,11 +1,17 @@
+'use client'
 import * as S from "./headerStyle";
 import Image from "next/image";
 import alm from "/public/assets/img/alm.png";
 import allservice from "/public/assets/img/allservice.png";
 import my from "/public/assets/img/my.png";
 import Link from "next/link";
-
+import React, { useState } from "react";
+import SetAddress from "../address/SetAddress";
 export default function Header() {
+  const [isOpen, setIsOpen] = useState(false);
+  const handleModal = () =>{
+    setIsOpen(!isOpen)
+  }
   return (
     <>
     <S.Container>
@@ -13,10 +19,9 @@ export default function Header() {
         배달<span>의</span>민족
       </S.Title>
       <S.AddressBtnWrap>
-        <S.Address>
-          주소시 주소로 <p>▼</p>
+        <S.Address onClick={() => {handleModal();}}>
+        주소시 주소로 <p>▼</p>
         </S.Address>
-
         <S.BtnWrap>
           <Link href="/viewAll" as='/viewAll'>
             <Image src={allservice} alt="all service view icon" width={35} />
@@ -40,6 +45,7 @@ export default function Header() {
         </S.Searchsection>
       </Link>
     </S.SearchBox>
+    <SetAddress handleModal={handleModal} isOpen={isOpen}/>
     </>
     
   );
