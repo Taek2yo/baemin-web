@@ -66,13 +66,20 @@ export const Touch = styled.div`
   width: 45px;
   cursor: pointer;
 `
+export const EmptyDiv = styled.div`
+  width: 35px;
+`
 export const HeaderWrap = styled.div`
   width: 100%;
   padding-top: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-weight: bolder;
+  font-weight: bold;
+  .edit{
+    width: 35px;
+    cursor: pointer;
+  }
 `;
 
 export const Back = styled.div`
@@ -83,8 +90,12 @@ export const Back = styled.div`
   align-items: center;
 `;
 
-export const HeaderTitle = styled.span`
+export const HeaderTitle = styled.div`
+  width: 410px;
   font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const SearchSection = styled.div`
@@ -119,22 +130,68 @@ export const CurrentLocation = styled.div`
   justify-content: space-between;
   padding: 5px 15px 15px 15px;
   box-shadow: 0 4px 4px -4px #a3a3a3;
+  cursor: pointer;
   .set{
     margin-left: 5px;
   }
   .arrow{
     color: #a2a2a2;
     font-weight: bold;
-    cursor: pointer;
   }
 `
 
 export const CurrentWrap = styled.div`
   display: flex;
   align-items: center;
+`;
+
+export const MyHome = styled.div`
+  width: 100%;
+  margin-top: 10px;
+  background-color: white;
+`;
+
+export const MyHomeAddress = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  justify-content: space-between;
   cursor: pointer;
 `;
 
-export const BottomSheetContent = styled.div`
+export const Icon = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
+export const AddressWrap = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+  gap: 5px;
+  .address-detail{
+    color: gray;
+  }
+`;
+
+export const AddHome = styled.span`
+  font-weight: bold;
+  font-size: 17px;
+`;
+
+export const CheckBox = styled.div`
+  font-size: 23px;
+  font-weight: bold;
+`;
+
+export const AddressList = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  justify-content: space-between;
+  background-color: white;
+  margin-top: 1px;
+  box-shadow: 0 4px 4px -4px #a3a3a3;
+  cursor: pointer;
 `;
