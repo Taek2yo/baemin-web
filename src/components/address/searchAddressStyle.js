@@ -52,7 +52,7 @@ export const CurrentLocation = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 5px 15px 15px 15px;
+  padding: 5px 20px 15px 20px;
   box-shadow: 0 4px 4px -4px #a3a3a3;
   cursor: pointer;
   .set{
@@ -71,5 +71,30 @@ export const CurrentWrap = styled.div`
 `;
 
 export const Guide = styled.div`
+  padding: 35px;
+  display: flex;
+  justify-content: space-between;
+`;
 
+export const GuideWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+`;
+
+export const GuideTitle = styled.span`
+  font-weight: bold;
+  font-size: 18px;
+`
+
+export const GuideLi = styled.li`
+  margin-top: 10px;
+`;
+
+export const GuideEx = styled.span`
+  color: #a2a2a2;
+`;
+
+export const ImageWrap = styled.div`
+  margin-top: 15px;
 `;
