@@ -1,4 +1,5 @@
-"use client";
+'use client'
+
 import * as S from "./searchAddressStyle";
 import location from "/public/assets/img/location.png";
 import Guide from "./Guide";
@@ -6,11 +7,11 @@ import Image from "next/image";
 import { useState } from "react";
 import AddressResults from "./AddressResults";
 
-export function SearchAddress({ section }) {
+export function SearchAddress({ section, setSection }) {
   const arrow = ">";
   const [keyword, setKeyword] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  console.log(searchResults);
+  
   const getAddrLoc = async () => {
     if (!checkSearchedWord(keyword)) {
       return;
@@ -68,26 +69,26 @@ export function SearchAddress({ section }) {
     return true;
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      getAddrLoc();
+    }
+  };
+
   return (
     <>
       <S.SearchSection>
         <S.SearchForm>
-          <S.SearchIcon> 🔍︎</S.SearchIcon>
+          <S.SearchIcon>🔍︎</S.SearchIcon>
           <input
             type="search"
             placeholder="지번, 도로명, 건물명으로 검색"
             name="keyword"
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
+            onKeyDown={handleKeyPress}
           />
-          <button
-            type="button"
-            onClick={() => {
-              getAddrLoc();
-            }}
-          >
-            검색
-          </button>
         </S.SearchForm>
       </S.SearchSection>
       <S.CurrentLocation>
@@ -99,7 +100,7 @@ export function SearchAddress({ section }) {
       </S.CurrentLocation>
       {searchResults.length > 0 ? (
         searchResults.map((item, index) => (
-          <AddressResults item={item} key={index} />
+          <AddressResults item={item} key={index} setSection={setSection} section={section}/>
         ))
       ) : (
         <Guide />

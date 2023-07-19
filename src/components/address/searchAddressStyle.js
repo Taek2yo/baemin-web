@@ -54,6 +54,7 @@ export const CurrentLocation = styled.div`
   justify-content: space-between;
   padding: 5px 20px 15px 20px;
   box-shadow: 0 4px 4px -4px #a3a3a3;
+  margin-bottom: 10px;
   cursor: pointer;
   .set{
     margin-left: 5px;

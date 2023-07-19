@@ -7,13 +7,20 @@ import home from "/public/assets/img/addresshome.png";
 import pin from "/public/assets/img/pin.png";
 import { useState } from "react";
 import { SearchAddress } from "./SearchAddress";
+import AddDetailInfo from "./AddDetailInfo";
 
 export default function SetAddress({ isOpen, handleModal }) {
   const arrow = ">";
   const [section, setSection] = useState("set");
-  const handlSection = (sect) => {
-    setSection(sect);
+  
+  const handleSection = () => {
+    if (section === "add-detail") {
+      setSection("search");
+    } else {
+      setSection("set");
+    }
   };
+  
   return (
     <S.Container className={isOpen ? "open" : ""}>
       <S.BottomSheetHeader>
@@ -30,7 +37,7 @@ export default function SetAddress({ isOpen, handleModal }) {
           ) : (
             <S.Back
               onClick={() => {
-                handlSection("set");
+                handleSection();
               }}
             >
               <Image src={back} width={23} alt="back-btn" />
@@ -42,9 +49,9 @@ export default function SetAddress({ isOpen, handleModal }) {
               <span>주소 설정</span>
             ) : section === "search" ? (
               <span>주소 검색</span>
-            ) : (
-              "안녕"
-            )}
+            ) : section === "add-detail" ? (
+              <span>상세 정보 입력</span>
+            ) : null}
           </S.HeaderTitle>
           {section === "set" ? (
             <div className="edit">편집</div>
@@ -58,7 +65,7 @@ export default function SetAddress({ isOpen, handleModal }) {
           <S.SearchSection>
             <S.SearchInput
               onClick={() => {
-                handlSection("search");
+                setSection("search");
               }}
             >
               <S.SearchIcon> 🔍︎</S.SearchIcon>
@@ -100,7 +107,9 @@ export default function SetAddress({ isOpen, handleModal }) {
           </S.AddressList>
         </>
       ) : section === "search" ? (
-        <SearchAddress section={section} handlSection={handlSection} />
+        <SearchAddress section={section} setSection={setSection} />
+      ) : section === "add-detail" ? (
+        <AddDetailInfo />
       ) : null}
     </S.Container>
   );

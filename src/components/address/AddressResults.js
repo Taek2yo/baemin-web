@@ -1,7 +1,9 @@
+''
 import * as S from "./resultsStyle";
-export default function AddressResults({ item }) {
+export default function AddressResults({ item, section, setSection }) {
+ 
   return (
-    <S.Container>
+    <S.Container onClick={()=>{setSection("add-detail")}}>
         <S.ContentWrap>
       <S.RoadAddrTitle>{item.roadAddr}</S.RoadAddrTitle>
       <S.Wrap>
