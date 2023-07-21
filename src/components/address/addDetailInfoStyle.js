@@ -34,11 +34,16 @@ export const RoadName = styled.div`
   padding: 2px 5px 2px 5px;
   font-size: 14px;
   text-align: center;
+  height: 18px;
+  width: 48px;
 `;
 
 export const RoadAddr = styled.span`
   font-size: 16px;
   margin-left: 7px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const InputWrap = styled.div`

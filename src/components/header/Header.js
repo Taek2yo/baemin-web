@@ -7,11 +7,14 @@ import my from "/public/assets/img/my.png";
 import Link from "next/link";
 import React, { useState } from "react";
 import SetAddress from "../address/SetAddress";
+import { useSession } from "next-auth/react";
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const handleModal = () =>{
     setIsOpen(!isOpen)
   }
+  /* const {data : session} = useSession();
+  console.log(session.user.address[0].Addr) */
   return (
     <>
     <S.Container>

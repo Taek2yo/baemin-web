@@ -12,7 +12,7 @@ import AddDetailInfo from "./AddDetailInfo";
 export default function SetAddress({ isOpen, handleModal }) {
   const arrow = ">";
   const [section, setSection] = useState("set");
-  
+  const addrDetailInfo = section.itemData;
   const handleSection = () => {
     if (section === "add-detail") {
       setSection("search");
@@ -20,16 +20,18 @@ export default function SetAddress({ isOpen, handleModal }) {
       setSection("set");
     }
   };
-  
+
   return (
     <S.Container className={isOpen ? "open" : ""}>
       <S.BottomSheetHeader>
         <S.DragBar>
-          <S.Touch
-            onClick={() => {
-              handleModal();
-            }}
-          ></S.Touch>
+          {section === "set" ? (
+            <S.Touch
+              onClick={() => {
+                handleModal();
+              }}
+            />
+          ) : null}
         </S.DragBar>
         <S.HeaderWrap>
           {section === "set" ? (
@@ -49,7 +51,7 @@ export default function SetAddress({ isOpen, handleModal }) {
               <span>주소 설정</span>
             ) : section === "search" ? (
               <span>주소 검색</span>
-            ) : section === "add-detail" ? (
+            ) : section.sectionName === "add-detail" ? (
               <span>상세 정보 입력</span>
             ) : null}
           </S.HeaderTitle>
@@ -108,8 +110,8 @@ export default function SetAddress({ isOpen, handleModal }) {
         </>
       ) : section === "search" ? (
         <SearchAddress section={section} setSection={setSection} />
-      ) : section === "add-detail" ? (
-        <AddDetailInfo />
+      ) : section.sectionName === "add-detail" ? (
+        <AddDetailInfo addrDetailInfo={addrDetailInfo}/>
       ) : null}
     </S.Container>
   );
