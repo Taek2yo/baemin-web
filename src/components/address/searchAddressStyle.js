@@ -99,3 +99,15 @@ export const GuideEx = styled.span`
 export const ImageWrap = styled.div`
   margin-top: 15px;
 `;
+
+export const ResultWrap = styled.div`
+  overflow-y: auto;
+  max-height: 100%;
+  ::-webkit-scrollbar{
+    width: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #d3d3d3;
+    border-radius: 15px;
+  }
+`;

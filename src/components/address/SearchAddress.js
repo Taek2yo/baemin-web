@@ -98,6 +98,7 @@ export function SearchAddress({ section, setSection }) {
         </S.CurrentWrap>
         <span className="arrow">{arrow}</span>
       </S.CurrentLocation>
+      <S.ResultWrap>
       {searchResults.length > 0 ? (
         searchResults.map((item, index) => (
           <AddressResults item={item} key={index} setSection={setSection} section={section}/>
@@ -105,6 +106,7 @@ export function SearchAddress({ section, setSection }) {
       ) : (
         <Guide />
       )}
+      </S.ResultWrap>
     </>
   );
 }
