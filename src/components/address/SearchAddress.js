@@ -75,7 +75,7 @@ export function SearchAddress({ section, setSection }) {
       getAddrLoc();
     }
   };
-  console.log(searchResults)
+  
   return (
     <>
       <S.SearchSection>
