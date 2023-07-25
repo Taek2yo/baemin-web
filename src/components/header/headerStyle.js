@@ -45,6 +45,9 @@ export const Address = styled.span`
 export const BtnWrap = styled.div`
   display: flex;
   gap: 12px;
+  img{
+    cursor: pointer;
+  }
 `;
 
 export const SearchBox = styled.div`
