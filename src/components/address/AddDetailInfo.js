@@ -25,7 +25,7 @@ export default function AddDetailInfo({ addrDetailInfo }) {
   const { roadAddr, roadAddrPart1 } = addrDetailInfo;
   const [detailAddress, setDetailAddress] = useState("");
   const handleAddAddress = async () => {
-    const roadAddToAdd = roadAddr;
+    const roadAddToAdd = roadAddrPart1;
     try {
       await fetch("/api/address/addAddress", {
         method: "POST",
