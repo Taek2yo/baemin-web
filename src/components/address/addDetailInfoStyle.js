@@ -75,6 +75,7 @@ export const Category = styled.div`
   align-items: center;
   padding: 10px;
   gap: 5px;
+  cursor: pointer;
 `;
 
 export const BtnWrap = styled.div`
