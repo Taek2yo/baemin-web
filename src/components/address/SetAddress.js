@@ -90,9 +90,6 @@ export default function SetAddress({ isOpen, handleModal }) {
                 <S.AddHome>우리집 추가</S.AddHome>
                 <span className="address-detail">우리집 주소</span>
               </S.AddressWrap>
-              <S.CheckBox>
-                <span>✔</span>
-              </S.CheckBox>
             </S.MyHomeAddress>
           </S.MyHome>
           <S.AddressList>
