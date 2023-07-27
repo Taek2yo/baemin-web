@@ -4,15 +4,16 @@ import Image from "next/image";
 import back from "/public/assets/img/left.png";
 import location from "/public/assets/img/location.png";
 import home from "/public/assets/img/addresshome.png";
-import pin from "/public/assets/img/pin.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { SearchAddress } from "./SearchAddress";
 import AddDetailInfo from "./AddDetailInfo";
-
+import { useSession } from "next-auth/react";
+import RegisteredAddress from "./RegisteredAddress";
 export default function SetAddress({ isOpen, handleModal }) {
   const arrow = ">";
   const [section, setSection] = useState("set");
   const addrDetailInfo = section.itemData;
+
   const handleSection = () => {
     if (section === "add-detail") {
       setSection("search");
@@ -21,6 +22,29 @@ export default function SetAddress({ isOpen, handleModal }) {
     }
   };
 
+  // 유저 이메일 이용, DB에 이메일 일치하는 주소 데이터 가져오기.
+  const { data: session, status } = useSession();
+  const email = session?.user?.email;
+  const encodedEmail = encodeURIComponent(email || "");
+  const [addressData, setAddressData] = useState([]);
+  useEffect(() => {
+    if (status === "authenticated" && encodedEmail) {
+      const fetchData = async () => {
+        try {
+          const response = await fetch(
+            `/api/address/getAddress?email=${encodedEmail}`
+          );
+          const result = await response.json();
+          setAddressData(result);
+        } catch (error) {
+          console.error("데이터 가져오기 에러:", error);
+        }
+      };
+      fetchData();
+    }
+  }, [status, encodedEmail]);
+  const address = addressData[0]?.address;
+  
   return (
     <S.Container className={isOpen ? "open" : ""}>
       <S.BottomSheetHeader>
@@ -92,23 +116,16 @@ export default function SetAddress({ isOpen, handleModal }) {
               </S.AddressWrap>
             </S.MyHomeAddress>
           </S.MyHome>
-          <S.AddressList>
-            <S.Icon>
-              <Image src={pin} alt="address-pin" />
-            </S.Icon>
-            <S.AddressWrap>
-              <S.AddHome>address</S.AddHome>
-              <span className="address-detail">address detail</span>
-            </S.AddressWrap>
-            <S.CheckBox>
-              <span>✔</span>
-            </S.CheckBox>
-          </S.AddressList>
+          { address?.map((item)=>{
+            return (
+              <RegisteredAddress item={item} key={item.addressId}/>
+            )
+          })}
         </>
       ) : section === "search" ? (
         <SearchAddress section={section} setSection={setSection} />
       ) : section.sectionName === "add-detail" ? (
-        <AddDetailInfo addrDetailInfo={addrDetailInfo}/>
+        <AddDetailInfo addrDetailInfo={addrDetailInfo} />
       ) : null}
     </S.Container>
   );

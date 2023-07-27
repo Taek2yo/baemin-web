@@ -1,7 +1,7 @@
 import { connectDB } from "@/util/database";
-
+import { ObjectId } from "mongodb";
 export default async function addAddressHandler(req, res) {
-  const { user, Addr, addrDetail } = JSON.parse(req.body);
+  const { user, Addr, addrDetail, isSelected } = JSON.parse(req.body);
   try {
     if (req.method !== "POST") {
       res.status(400).json({ message: "Bad Request" });
@@ -15,6 +15,8 @@ export default async function addAddressHandler(req, res) {
           address: {
             Addr,
             addrDetail,
+            addressId: new ObjectId(),
+            isSelected,
           },
         },
       }

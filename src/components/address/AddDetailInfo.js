@@ -1,7 +1,7 @@
 "use client";
 import * as S from "./addDetailInfoStyle";
 import Image from "next/image";
-import home from "/public/assets/img/home.png";
+import home from "/public/assets/img/addresshome.png";
 import company from "/public/assets/img/company.png";
 import pin from "/public/assets/img/pin.png";
 import { useState } from "react";
@@ -33,6 +33,7 @@ export default function AddDetailInfo({ addrDetailInfo }) {
           Addr: roadAddToAdd,
           addrDetail: detailAddress,
           user: session.user.email,
+          isSelected : false,
         }),
       });
       alert("주소가 설정되었습니다.");

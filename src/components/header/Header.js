@@ -5,7 +5,7 @@ import alm from "/public/assets/img/alm.png";
 import allservice from "/public/assets/img/allservice.png";
 import my from "/public/assets/img/my.png";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState,useEffect } from "react";
 import SetAddress from "../address/SetAddress";
 import { useSession } from "next-auth/react";
 
@@ -15,22 +15,20 @@ export default function Header() {
   const handleModal = () => {
     setIsOpen(!isOpen);
   };
-
   const { data: session, status } = useSession();
   const email = session?.user?.email;
   const encodedEmail = encodeURIComponent(email || "");
-  const [addressData, setAddressData] = useState([]);
-
+  const [address, setAddress] = useState([]);
   useEffect(() => {
     if (status === "authenticated" && encodedEmail) {
-      // 세션 데이터가 로딩된 이후에, 그리고 이메일이 존재하는 경우에만 fetchData 함수를 실행합니다.
       const fetchData = async () => {
         try {
-          const response = await fetch(
-            `/api/address/getAddress?email=${encodedEmail}`
-          );
+          const response = await fetch(`/api/address/getAddress?email=${encodedEmail}`);
           const result = await response.json();
-          setAddressData(result);
+          // isSelected가 true인 주소만 필터링합니다.
+          const selectedAddresses = result[0].address.filter((item) => item.isSelected === true);
+         
+          setAddress(selectedAddresses);
         } catch (error) {
           console.error("데이터 가져오기 에러:", error);
         }
@@ -38,10 +36,9 @@ export default function Header() {
       fetchData();
     }
   }, [status, encodedEmail]);
-  
-  const selectedAddress = addressData[0]?.address[0]?.Addr
-  const processedAddr = selectedAddress?.split(" ")?.splice(2)?.join(" ");
-  console.log(processedAddr)
+
+  const str = address[0]?.Addr
+  const processedAddress = str?.split(" ").filter((v) => !v.includes("도") && !v.includes("특별")).join(" ")
   return (
     <>
       <S.Container>
@@ -54,7 +51,7 @@ export default function Header() {
               handleModal();
             }}
           >
-          {processedAddr}<p>▼</p>
+          {processedAddress}<p>▼</p>
           </S.Address>
           <S.BtnWrap>
             <Image src={allservice} alt="all service view icon" width={35} />

@@ -30,7 +30,7 @@ export const AddressBtnWrap = styled.div`
 export const Address = styled.span`
   color: white;
   font-family: 'NanumGothic';
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 550;
   align-items: center;
   text-align: center;

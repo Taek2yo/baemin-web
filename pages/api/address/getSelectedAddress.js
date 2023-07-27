@@ -1,13 +1,13 @@
 import { connectDB } from "@/util/database";
 
-export default async function getAddressHandler(req, res) {
+export default async function getSelectedAddresses(req, res) {
   const { email } = req.query;
-  
+ console.log(email)
   try {
     const db = (await connectDB).db("baemin");
     const result = await db
       .collection("accounts")
-      .find({ email: email }) // 이메일과 일치하는 주소 정보만 가져오도록 쿼리 설정
+      .find({ email: email, "address.isSelected": true })
       .project({ _id: 0, address: 1 })
       .toArray();
 
