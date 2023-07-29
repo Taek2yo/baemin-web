@@ -18,6 +18,7 @@ import Information from "./Information";
 import Review from "./Review";
 import Infoicon from "/public/assets/img/infoicon.png"
 import Thumbnail from "./Thumbnail";
+import Loading from "@/app/loading";
 
 export default function Detail({ storeId }) {
   
@@ -62,7 +63,7 @@ export default function Detail({ storeId }) {
   };
   
   if (stores === null) {
-    return <div>Loading...</div>;
+    return <Loading/>
   }
   return (
     <>
