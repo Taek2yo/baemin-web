@@ -7,7 +7,7 @@ import sub1 from "/public/assets/img/1.webp";
 import sub2 from "/public/assets/img/2.webp";
 import sub3 from "/public/assets/img/3.webp";
 import sub4 from "/public/assets/img/4.webp";
-
+import Link from "next/link";
 import banner1 from "/public/assets/img/banner1.png";
 import banner2 from "/public/assets/img/banner2.png";
 import banner3 from "/public/assets/img/banner3.png";
@@ -73,6 +73,7 @@ export default function MainContent() {
             <Image src={baeminy} alt="baeminy" width={100} height={100} />
           </S.Character>
         </S.BaeminOne>
+        <Link href='/delivery'>
         <S.Delivery>
           <S.DeliveryTitle>배달</S.DeliveryTitle>
           <S.Content>
@@ -80,6 +81,7 @@ export default function MainContent() {
             맛집은 많다
           </S.Content>
         </S.Delivery>
+        </Link>
       </S.Container>
       <S.TakeOut>
         <S.TextWrap>

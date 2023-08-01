@@ -4,6 +4,7 @@ import Category from "@/components/category/Category";
 import MainContent from "@/components/mainContent/MainContent";
 import Quick from "@/components/quickDelivery/quick";
 import FavoritesBar from "@/components/favoritesBar/FavoritesBar";
+import Footer from "@/components/footer/Footer";
 export default function Home() {
   return (
       <div className="background">
@@ -12,6 +13,7 @@ export default function Home() {
         <MainContent />
         <Quick/>
         <FavoritesBar/>
+        <Footer/>
       </div>
   );
 }
