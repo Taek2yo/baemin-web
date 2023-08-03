@@ -1,5 +1,5 @@
 "use client";
-import * as S from "./addDetailInfoStyle";
+import * as S from "./addrDetailInfoStyle";
 import Image from "next/image";
 import home from "/public/assets/img/addresshome.png";
 import company from "/public/assets/img/company.png";
