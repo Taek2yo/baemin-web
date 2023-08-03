@@ -6,7 +6,7 @@ import location from "/public/assets/img/location.png";
 import home from "/public/assets/img/addresshome.png";
 import { useState, useEffect } from "react";
 import { SearchAddress } from "./SearchAddress";
-import AddDetailInfo from "./AddDetailInfo";
+import AddDetailInfo from "./AddrDetailInfo";
 import { useSession } from "next-auth/react";
 import RegisteredAddress from "./RegisteredAddress";
 export default function SetAddress({ isOpen, handleModal }) {
