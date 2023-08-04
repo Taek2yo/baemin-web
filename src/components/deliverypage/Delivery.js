@@ -11,6 +11,8 @@ import SetAddress from "../address/SetAddress";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import useAddressFetch from "@/hooks/useAddressFetch";
+import DeliveryPageBanner from "./DeliveryPageBanner";
+import CategorySection from "./CategorySection";
 
 export default function Delivery() {
   const router = useRouter();
@@ -32,7 +34,6 @@ export default function Delivery() {
   
   return (
     <>
-      {/* Header( Button Menu ) */}
       <S.Header>
         <S.Wrap>
           <S.Back
@@ -61,6 +62,8 @@ export default function Delivery() {
         {processedAddress}<p>▼</p>
       </S.Address>
       <SetAddress handleModal={handleModal} isOpen={isOpen} />
+      <DeliveryPageBanner/>
+      <CategorySection/>
     </>
   );
 }

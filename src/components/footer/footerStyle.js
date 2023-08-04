@@ -2,7 +2,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 100%;
+  width: 500px;
   height: 90px;
   background-color: white;
   box-shadow: 0px -5px 5px -2px #b3b3b3;
@@ -13,7 +13,7 @@ export const Container = styled.div`
   justify-content: space-evenly;
   font-family: "NanumGothic";
   gap: 10px;
-  position: sticky;
+  position: fixed;
   bottom: 0;
 `;
 
