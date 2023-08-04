@@ -2,19 +2,17 @@
 import * as S from "./searchStyle";
 import Image from "next/image";
 import back from "/public/assets/img/left.png";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import useDraggable from "../../hooks/useDraggable";
 import AD from "/public/assets/img/searchBanner.png";
-import question from "/public/assets/img/questionmark.png";
-import PersonalItem from "./PersonalItem";
 import character from "/public/assets/img/popular.png";
 import Ranking from "./Ranking";
 import banner from "/public/assets/img/banner5.png";
+import Personalized from "./Personalized";
+
 export default function Search() {
   const [value, setValue] = useState("");
-  const [stores, setStores] = useState([]);
   const [recentWords, setRecentWords] = useState([]);
   const router = useRouter();
   const handleInputChange = (e) => {
@@ -23,9 +21,6 @@ export default function Search() {
   const handleClearClick = () => {
     setValue("");
   };
-  // session
-  const { data: session } = useSession();
-  let user = session?.user;
 
   // goBackBtn
   const goBack = () => {
@@ -64,24 +59,9 @@ export default function Search() {
     localStorage.removeItem("words");
   };
 
-  // 맞춤 맛집 데이터 가져오기
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("/api/store/data");
-        const data = await response.json();
-        setStores(data);
-      } catch (error) {
-        console.error("데이터 가져오기 에러:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
   // drag
-  const { scrollRef, isDrag, onDragStart, onDragEnd, onThrottleDragMove } = useDraggable();
-  
+  const { scrollRef, isDrag, onDragStart, onDragEnd, onThrottleDragMove } =
+  useDraggable();  
   // date
   const today = new Date();
   const month = ('0' + (today.getMonth() + 1)).slice(-2);
@@ -161,33 +141,13 @@ export default function Search() {
           </S.RSItemWrap>
         </>
       )}
+
       <S.Banner>
         <S.AD>
           <Image src={AD} alt="search-adv" />
         </S.AD>
       </S.Banner>
-      <S.Personalized>
-        <S.PTextWrap>
-          <S.Ptitle>{user?.name}님을 위한 맞춤 맛집</S.Ptitle>
-          <span className="title-ad">광고</span>
-          <span className="question-mark">
-            <Image src={question} alt="?" />
-          </span>
-        </S.PTextWrap>
-        {stores && (
-          <S.Wrap
-            onMouseDown={onDragStart}
-            onMouseMove={onThrottleDragMove}
-            onMouseUp={onDragEnd}
-            onMouseLeave={onDragEnd}
-            ref={scrollRef}
-          >
-            {stores.map((item) => {
-              return <PersonalItem item={item} key={item._id} />;
-            })}
-          </S.Wrap>
-        )}
-      </S.Personalized>
+      <Personalized/>
       <S.MostSearchBox>
         <S.SRTextWrap>
           <S.Most>
