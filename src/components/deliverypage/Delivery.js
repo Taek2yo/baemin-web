@@ -1,24 +1,14 @@
 "use client";
 import * as S from "./deliveryStyle";
-import Image from "next/image";
-import back from "/public/assets/img/left.png";
-import home from "/public/assets/img/home.png";
-import cart from "/public/assets/img/cart.png";
-import title from "/public/assets/img/deliveryTitle.png";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
 import SetAddress from "../address/SetAddress";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import useAddressFetch from "@/hooks/useAddressFetch";
 import DeliveryPageBanner from "./DeliveryPageBanner";
 import CategorySection from "./CategorySection";
+import DeliveryHeader from "./DeliveryHeader";
 
 export default function Delivery() {
-  const router = useRouter();
-  const goBack = () => {
-    router.back();
-  };
   const [isOpen, setIsOpen] = useState(false);
 
   const handleModal = () => {
@@ -36,29 +26,12 @@ export default function Delivery() {
     .join(" ");
   return (
     <>
-      <S.Header>
-        <S.Wrap>
-          <S.Back
-            onClick={() => {
-              goBack();
-            }}
-          >
-            <Image src={back} width={25} height="auto" alt="back-btn" />
-          </S.Back>
-          <Image src={title} width={70} height="auto" alt="delivery-title" />
-        </S.Wrap>
-        <S.Wrap>
-          <Link href="/" as="/">
-            <Image src={home} width={25} height="auto" alt="home-btn" />
-          </Link>
-          <Link href="/cart" as="/cart">
-            <Image src={cart} width={40} height="auto" alt="cart-btn" />
-          </Link>
-        </S.Wrap>
-      </S.Header>
+      <DeliveryHeader/>
       <S.Address
         onClick={() => {
-          status === 'unauthenticated' ? (window.location.href = '/login') : handleModal();
+          status === "unauthenticated"
+            ? (window.location.href = "/login")
+            : handleModal();
         }}
       >
         {status === "authenticated" ? processedAddress : "로그인을 해주세요"}

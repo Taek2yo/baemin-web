@@ -118,16 +118,16 @@ export const Method = styled.div`
   padding: 12px;
   cursor: pointer;
 
-  ${(props) =>
-    props.active
-      ? css`
-          font-weight: bold;
-          border-bottom: 3px solid black;
-          color: black;
-        `
-      : css`
-          color: #a2a2a2;
-        `}
+    ${(props) =>
+      props.active
+        ? css`
+            font-weight: bold;
+            border-bottom: 3px solid black;
+            color: black;
+          `
+        : css`
+            color: #a2a2a2;
+          `}
 `;
 
 export const InfoBox = styled.div`
