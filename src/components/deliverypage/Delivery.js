@@ -43,16 +43,16 @@ export default function Delivery() {
               goBack();
             }}
           >
-            <Image src={back} width={25} alt="back-btn" />
+            <Image src={back} width={25} height="auto" alt="back-btn" />
           </S.Back>
-          <Image src={title} width={70} alt="delivery-title" />
+          <Image src={title} width={70} height="auto" alt="delivery-title" />
         </S.Wrap>
         <S.Wrap>
           <Link href="/" as="/">
-            <Image src={home} width={25} alt="home-btn" />
+            <Image src={home} width={25} height="auto" alt="home-btn" />
           </Link>
           <Link href="/cart" as="/cart">
-            <Image src={cart} width={40} alt="cart-btn" />
+            <Image src={cart} width={40} height="auto" alt="cart-btn" />
           </Link>
         </S.Wrap>
       </S.Header>

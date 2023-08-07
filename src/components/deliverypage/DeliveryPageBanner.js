@@ -86,8 +86,8 @@ export default function DeliveryPageBanner() {
           <Image 
             src={item.image} 
             alt="thumbnail" 
-            width={500}
-            height={100}
+            width='auto'
+            height='auto'
             key={item.id}
             />
         ))}

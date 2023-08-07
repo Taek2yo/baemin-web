@@ -47,7 +47,7 @@ export const Banner = styled.div`
   }
   img {
     min-width: 500px;
-    height: 100%;
+    height: auto;
     background-color: white;
   }
 `;
