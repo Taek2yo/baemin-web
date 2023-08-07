@@ -10,6 +10,7 @@ export const Container = styled.div`
 export const Cancle = styled.div`
   display: flex;
   float: left;
+  cursor: pointer;
 `;
 
 export const InputBox = styled.form`

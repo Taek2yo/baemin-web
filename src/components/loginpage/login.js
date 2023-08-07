@@ -1,19 +1,20 @@
+"use client"
 import * as S from "./loginStyle";
 import Link from "next/link";
 import Image from "next/image";
 import close from "/public/assets/img/close.png";
 import Submit from "./submit";
 import SocialLogin from "./SocialLogin";
+import { useRouter } from 'next/navigation'
 export default function Login(  ) {
-  
+  const router = useRouter();
+
   return (
     <S.Container>
-      <Link href="/mypage" as="/mypage">
-        <S.Cancle>
+        <S.Cancle onClick={()=>router.back()}>
           <Image src={close} alt="close" width={18} priority={true} />
         </S.Cancle>
-      </Link>
-      
+
       <Submit />
       <S.FindIdBox>
         <span className="find">아이디 찾기</span>
