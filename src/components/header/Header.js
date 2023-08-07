@@ -20,8 +20,11 @@ export default function Header() {
   const email = session?.user?.email;
   const encodedEmail = encodeURIComponent(email || "");
   const address = useAddressFetch(status, encodedEmail);
-  const str = address[0]?.Addr
-  const processedAddress = str?.split(" ").filter((v) => !v.includes("도") && !v.includes("특별")).join(" ")
+  const str = address[0]?.Addr;
+  const processedAddress = str
+    ?.split(" ")
+    .filter((v) => !v.includes("도") && !v.includes("특별"))
+    .join(" ");
   return (
     <>
       <S.Container>
@@ -31,10 +34,13 @@ export default function Header() {
         <S.AddressBtnWrap>
           <S.Address
             onClick={() => {
-              handleModal();
+              status === 'unauthenticated' ? (window.location.href = '/login') : handleModal();
             }}
           >
-          {processedAddress}<p>▼</p>
+            {status === "authenticated"
+              ? processedAddress
+              : "로그인을 해주세요"}{" "}
+            <p>▼</p>
           </S.Address>
           <S.BtnWrap>
             <Image src={allservice} alt="all service view icon" width={35} />

@@ -30,8 +30,10 @@ export default function Delivery() {
   const encodedEmail = encodeURIComponent(email || "");
   const address = useAddressFetch(status, encodedEmail);
   const str = address[0]?.Addr;
-  const processedAddress = str?.split(" ").filter((v) => !v.includes("도") && !v.includes("특별")).join(" ");
-  
+  const processedAddress = str
+    ?.split(" ")
+    .filter((v) => !v.includes("도") && !v.includes("특별"))
+    .join(" ");
   return (
     <>
       <S.Header>
@@ -56,14 +58,15 @@ export default function Delivery() {
       </S.Header>
       <S.Address
         onClick={() => {
-          handleModal();
+          status === 'unauthenticated' ? (window.location.href = '/login') : handleModal();
         }}
       >
-        {processedAddress}<p>▼</p>
+        {status === "authenticated" ? processedAddress : "로그인을 해주세요"}
+        <p>▼</p>
       </S.Address>
       <SetAddress handleModal={handleModal} isOpen={isOpen} />
-      <DeliveryPageBanner/>
-      <CategorySection/>
+      <DeliveryPageBanner />
+      <CategorySection />
     </>
   );
 }
