@@ -19,7 +19,7 @@ export default function DeliveryCategory() {
   const [storeData, setStoreData] = useState([]);  
   const changeCategory = (title) => {
     if (categoryTitle !== title) {
-      router.replace(`/delivery/category?=${title}`);
+      router.replace(`/delivery/category?category=${title}`);
       setCategoryTitle(title);
     }
   };

@@ -101,7 +101,7 @@ export const SelectTitle = styled.div`
   display: flex;
   width: 100%;
   border-bottom: 1.7px solid #d3d3d3;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   text-align : center;
 `;
