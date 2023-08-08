@@ -7,6 +7,7 @@ import useAddressFetch from "@/hooks/useAddressFetch";
 import DeliveryPageBanner from "./DeliveryPageBanner";
 import CategorySection from "./CategorySection";
 import DeliveryHeader from "./DeliveryHeader";
+import Recommend from "./Recommend";
 
 export default function Delivery() {
   const [isOpen, setIsOpen] = useState(false);
@@ -39,6 +40,7 @@ export default function Delivery() {
       </S.Address>
       <SetAddress handleModal={handleModal} isOpen={isOpen} />
       <DeliveryPageBanner />
+      <Recommend/>
       <CategorySection />
     </>
   );

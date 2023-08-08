@@ -103,7 +103,7 @@ export const SelectTitle = styled.div`
   border-bottom: 1.7px solid #d3d3d3;
   justify-content: space-around;
   align-items: center;
-  text-align : center;
+  text-align: center;
 `;
 
 export const Title = styled.div`
@@ -111,15 +111,15 @@ export const Title = styled.div`
   font-size: 15px;
   padding: 7px;
   ${(props) =>
-      props.active
-        ? css`
-            font-weight: bold;
-            border-bottom: 3px solid black;
-            color: black;
-          `
-        : css`
-            color: #a2a2a2;
-          `}
+    props.active
+      ? css`
+          font-weight: bold;
+          border-bottom: 3px solid black;
+          color: black;
+        `
+      : css`
+          color: #a2a2a2;
+        `}
 `;
 
 export const ItemContainer = styled.div`
@@ -130,20 +130,20 @@ export const ItemContainer = styled.div`
   align-items: center;
   margin-top: 5px;
   border-bottom: 1px solid #d3d3d3;
-  font-family: 'NanumGothic';
+  font-family: "NanumGothic";
 `;
 
 export const ContentSection = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-`
+`;
 
 export const ItemImage = styled.div`
   width: 85px;
   height: 90px;
   margin: 10px;
-  img{
+  img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -183,7 +183,7 @@ export const ItemDeliveryTime = styled.div``;
 export const ItemTip = styled.div``;
 
 export const MinimumOrder = styled.div`
-  .minimum{
+  .minimum {
     color: #a2a2a2;
   }
 `;
@@ -191,4 +191,24 @@ export const MinimumOrder = styled.div`
 export const ItemWrap = styled.div`
   display: flex;
   gap: 10px;
+`;
+
+export const RecommendContainer = styled.div`
+  display: flex;
+  padding: 5px;
+  gap: 7px;
+  overflow-x: scroll;
+  white-space: nowrap;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+export const RecommendItem = styled.div`
+  border-radius: 12px;
+  cursor: pointer;
+  img{
+    object-fit: cover;
+    border-radius: 12px;
+  }
 `;
