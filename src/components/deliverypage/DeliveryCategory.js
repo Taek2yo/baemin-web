@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import * as S from "./deliveryStyle";
 import DeliveryHeader from "./DeliveryHeader";
 import StoreDataItem from "./StoreDataItem";
@@ -15,7 +15,9 @@ const categories = [
 
 export default function DeliveryCategory() {
   const router = useRouter();
-  const [categoryTitle, setCategoryTitle] = useState("oneserving");
+  const searchParam = useSearchParams();
+  const getParam = searchParam.get('category')
+  const [categoryTitle, setCategoryTitle] = useState(getParam);
   const [storeData, setStoreData] = useState([]);  
   const changeCategory = (title) => {
     if (categoryTitle !== title) {
