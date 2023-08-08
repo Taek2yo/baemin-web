@@ -1,7 +1,6 @@
 import { connectDB } from "@/util/database";
 
 export default async function getCategoryHandler(req, res) {
-  console.log(req.query)
   const { category } = req.query;
   try {
     const db = (await connectDB).db("baemin");
