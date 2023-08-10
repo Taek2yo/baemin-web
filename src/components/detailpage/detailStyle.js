@@ -48,12 +48,12 @@ export const Container = styled.div`
 export const Carousel = styled.div`
   width: 100%;
   display: flex;
-  overflow-x:auto; 
-  white-space:nowrap;
+  overflow-x: auto;
+  white-space: nowrap;
   &::-webkit-scrollbar {
     display: none;
-    }
-  img{
+  }
+  img {
     width: 100%;
     height: 100%;
   }
@@ -73,7 +73,7 @@ export const ThumbnailCounter = styled.div`
   align-self: flex-start;
   left: calc(100% - 70px);
   bottom: 35px;
-  z-index  : 1;
+  z-index: 1;
 `;
 
 export const Title = styled.div`
@@ -118,16 +118,16 @@ export const Method = styled.div`
   padding: 12px;
   cursor: pointer;
 
-    ${(props) =>
-      props.active
-        ? css`
-            font-weight: bold;
-            border-bottom: 3px solid black;
-            color: black;
-          `
-        : css`
-            color: #a2a2a2;
-          `}
+  ${(props) =>
+    props.active
+      ? css`
+          font-weight: bold;
+          border-bottom: 3px solid black;
+          color: black;
+        `
+      : css`
+          color: #a2a2a2;
+        `}
 `;
 
 export const InfoBox = styled.div`
@@ -138,7 +138,7 @@ export const InfoBox = styled.div`
 `;
 
 export const KeyValueWrap = styled.div`
-  padding: ${props => props.padding};
+  padding: ${(props) => props.padding};
   display: flex;
   gap: 20px;
 `;
@@ -234,19 +234,18 @@ export const SignatureTitle = styled.div`
   justify-content: center;
   margin-top: 50px;
   margin-bottom: 10px;
-`
+`;
 
 export const ItemWrap = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
   height: 100px;
-`
+`;
 
 export const ItemTitle = styled.div`
   font-weight: bold;
   font-size: 18px;
-
 `;
 
 export const ItemDesc = styled.div`
@@ -264,7 +263,7 @@ export const ItemDesc = styled.div`
 export const ItemImage = styled.div`
   width: 110px;
   height: 105px;
-  img{
+  img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -275,30 +274,84 @@ export const ItemImage = styled.div`
 export const Introduction = styled.div`
   display: flex;
   flex-direction: column;
-`
+`;
 
 export const InfoTitle = styled.div`
   color: black;
   font-weight: bold;
   font-size: 17px;
-  padding: ${props => props.padding};
-  margin: ${props => props.margin};
-`
+  padding: ${(props) => props.padding};
+  margin: ${(props) => props.margin};
+`;
 
 export const IntroContent = styled.div`
   white-space: pre-line;
   margin-top: 20px;
-`
+`;
 
-export const SalesInfo = styled.div`
-
-`
+export const SalesInfo = styled.div``;
 
 export const Date = styled.div`
   color: #a2a2a2;
   font-size: 12px;
+`;
+
+export const GraphContainer = styled.div``;
+
+// --- MenuDetail --- //
+export const HeaderBtnWrap = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+`;
+
+export const MenuDetailImage = styled.div`
+  width: 100%;
 `
 
-export const GraphContainer = styled.div`
+export const MenuTitle = styled.span`
+  font-family: 'NanumGothic';
+  font-weight: bold;
+  font-size: 18px;
+  overflow: hidden;
+  width: 80%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
 
-`
+export const MenuDetailFooter = styled.div`
+  font-family: 'NanumGothic';
+  position: fixed;
+  bottom: 0;
+  width: 500px;
+  height: 90px;
+  display: flex;
+  border-top: 1px solid #a3a3a3;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const MinPrice = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 30vh;
+  gap: 7px;
+  .text{
+    color: gray;
+  }
+  .price{
+    font-weight: bold;
+  }
+`;
+
+export const AddCart = styled.div`
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  background-color: #2ac1bc;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 20px;
+  width: 70vh;
+`;

@@ -1,16 +1,18 @@
-"use client";
+'use client'
 import * as S from "./detailStyle";
 import Image from "next/image";
 import MenuDesc from "./MenuDesc";
 import signature from "/public/assets/img/signature.png";
 import url from 'url';
-
-export default function Signature({ menuInfo }) {
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+export default function Signature({ menuInfo, storeId }) {
   const getImageUrl = (path) => {
     const publicUrl = "/public";
     const imageUrl = url.resolve(publicUrl, path);
     return imageUrl;
   };
+  const router = useRouter();
   return (
     <S.TabContainer>
       <S.DescBox>
@@ -22,7 +24,7 @@ export default function Signature({ menuInfo }) {
         </S.SignatureTitle>
         {menuInfo?.map((item, index) => {
           return (
-            <S.ItemContainer key={index}>
+            <S.ItemContainer key={index} onClick={()=>router.push(`/detail/${storeId}/menuId?menuId=${item.id}`)} >
               <S.ItemWrap>
                 <S.ItemTitle>{item.name}</S.ItemTitle>
                 <S.ItemDesc>{item.desc}</S.ItemDesc>

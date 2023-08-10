@@ -21,7 +21,6 @@ import Thumbnail from "./Thumbnail";
 import Loading from "@/app/loading";
 
 export default function Detail({ storeId }) {
-  
   // orderType state
   const [orderType, setOrderType] = useState("delivery");
   const handleSelectOrderType = (type) => {
@@ -55,7 +54,6 @@ export default function Detail({ storeId }) {
   const menu = stores?.menu;
   const menuInfo = menu?.menu_info;
   const thumbnail = menu?.thumbnail
-  
   // goBackBtn
   const router = useRouter();
   const goBack = () => {
@@ -192,7 +190,7 @@ export default function Detail({ storeId }) {
         </S.MenuTabWrap>
        <S.TabWrap>
         {tabType === "Menu" ? (
-          <Signature menuInfo={menuInfo}/>
+          <Signature menuInfo={menuInfo} storeId={storeId}/>
         ) : tabType === "Info" ? (
           <Information />
         ) : tabType === "Review" ? (
