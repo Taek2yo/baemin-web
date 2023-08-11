@@ -2,7 +2,6 @@ import { connectDB } from "@/util/database";
 
 export default async function getSelectedAddresses(req, res) {
   const { email } = req.query;
- console.log(email)
   try {
     const db = (await connectDB).db("baemin");
     const result = await db

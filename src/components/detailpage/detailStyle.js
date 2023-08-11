@@ -299,6 +299,7 @@ export const Date = styled.div`
 export const GraphContainer = styled.div``;
 
 // --- MenuDetail --- //
+
 export const HeaderBtnWrap = styled.div`
   display: flex;
   align-items: center;
@@ -354,4 +355,8 @@ export const AddCart = styled.div`
   font-weight: bold;
   padding: 20px;
   width: 70vh;
+`;
+
+export const Description = styled.div`
+  
 `;
