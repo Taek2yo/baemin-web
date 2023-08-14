@@ -37,8 +37,15 @@ export default function MenuDetail({ storeId }) {
   }, [storeId, menuId]);
   const router = useRouter();
   const MenuImage = menuInfo?.image;
-  console.log(menuInfo?.options);
   const options = menuInfo?.options;
+
+  // Basic Options data
+  const basicOptions = options?.basic_options;
+  const basicChoices = basicOptions?.select_options;
+
+  // Additional Options data
+  const additionalOptions = options?.additional_options;
+
   return (
     <S.Container>
       {menuInfo && (
@@ -75,7 +82,7 @@ export default function MenuDetail({ storeId }) {
               src={getImageUrl(MenuImage)}
               alt="menu-image"
               width={500}
-              height={300}
+              height={280}
               priority
             />
           </S.MenuDetailImage>
@@ -89,45 +96,70 @@ export default function MenuDetail({ storeId }) {
               <span>{menuInfo.price}</span>
             </S.Price>
           </S.Description>
-          
+
           <S.BasicOptions>
             <S.OptionWrap>
-              <S.OptionsTitle>기본옵션</S.OptionsTitle>
+              <S.OptionsTitle>{basicOptions.title}</S.OptionsTitle>
               <S.Required>
                 <span>필수</span>
               </S.Required>
             </S.OptionWrap>
-            <S.OptionWrap>
-              <S.ChekWrap>
-                <S.BasicOptionLabel>
-                  <S.BasicOptionInput type="checkbox" /> 우유식빵
-                </S.BasicOptionLabel>
-              </S.ChekWrap>
-              <span>+0원</span>
-            </S.OptionWrap>
+            {basicChoices?.map((item, i) => {
+              return (
+                <S.OptionWrap key={i}>
+                  <S.ChekWrap>
+                    <S.BasicOptionLabel>
+                      <S.BasicOptionInput type="checkbox" />
+                      <span>{item.name}</span>
+                    </S.BasicOptionLabel>
+                  </S.ChekWrap>
+                  <S.OptionPrice>+{item.price}원</S.OptionPrice>
+                </S.OptionWrap>
+              );
+            })}
           </S.BasicOptions>
-
-          <S.AdditionalOptions>
-            <S.OptionWrap>
-              <div
-                style={{ display: "flex", flexDirection: "column", gap: "7px" }}
-              >
-                <S.OptionsTitle>추가옵션</S.OptionsTitle>
-                <S.Max>최대 x개 선택</S.Max>
-              </div>
-              <S.Selection>
-                <span>선택</span>
-              </S.Selection>
-            </S.OptionWrap>
-            <S.OptionWrap>
-              <S.ChekWrap>
-                <S.AdditionalInput type="checkbox" id="additional-option1" />
-                <label htmlFor="additional-option1">생와사비 2p</label>
-              </S.ChekWrap>
-              <span>+500원</span>
-            </S.OptionWrap>
-          </S.AdditionalOptions>
-
+          {additionalOptions.map((item, i) => {
+            return (
+              <S.AdditionalOptions key={i}>
+                <S.OptionWrap>
+                  <S.MaxSelections>
+                    <S.OptionsTitle>{item.title}</S.OptionsTitle>
+                   {item.required ? null : <S.Max>최대 {item.select_options.length}개 선택</S.Max>} 
+                  </S.MaxSelections>
+                  {item.required ? (
+                    <S.Required>
+                      <span>필수</span>
+                    </S.Required>
+                  ) : (
+                    <S.Selection>
+                      <span>선택</span>
+                    </S.Selection>
+                  )}
+                </S.OptionWrap>
+                {item.select_options.map((v, idx) => {
+                  return (
+                    <S.OptionWrap key={idx}>
+                      <S.ChekWrap>
+                        <S.AdditionalLable>
+                          <S.AdditionalInput type="checkbox" />
+                          <span>{v.name}</span>
+                        </S.AdditionalLable>
+                      </S.ChekWrap>
+                      <S.OptionPrice>+{v.price}원</S.OptionPrice>
+                    </S.OptionWrap>
+                  );
+                })}
+              </S.AdditionalOptions>
+            );
+          })}
+          <S.Total>
+            <span className="total-products">수량</span>
+            <S.Quantity>
+              <S.DecreaseBtn>ㅡ</S.DecreaseBtn>
+              <span>1개</span>
+              <S.IncreaseBtn>+</S.IncreaseBtn>
+            </S.Quantity>
+          </S.Total>
           <S.MenuDetailFooter>
             <S.MinPrice>
               <span className="text">배달최소주문금액</span>

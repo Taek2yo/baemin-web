@@ -7,6 +7,8 @@ export const Container = styled.div`
 `;
 
 export const Header = styled.div`
+position: sticky;
+top: 0;
   display: flex;
   padding: 10px 3px 10px 3px;
   align-items: center;
@@ -32,7 +34,10 @@ export const HeaderBtnWrap = styled.div`
 
 export const MenuDetailImage = styled.div`
   width: 100%;
-  height: 300px;
+  height: 280px;
+  img{
+    object-fit: cover;
+  }
 `;
 
 export const MenuTitle = styled.span`
@@ -46,14 +51,16 @@ export const MenuTitle = styled.span`
 `;
 
 export const MenuDetailFooter = styled.div`
-  position: fixed;
+  position: sticky;
   bottom: 0;
   width: 500px;
-  height: 90px;
+  height: 80px;
   display: flex;
   border-top: 1px solid #a3a3a3;
   align-items: center;
   justify-content: space-between;
+  background-color: white;
+  margin-top: 10px;
 `;
 
 export const MinPrice = styled.div`
@@ -70,7 +77,7 @@ export const MinPrice = styled.div`
 `;
 
 export const AddCart = styled.div`
-  border-radius: 12px;
+  border-radius: 7px;
   text-align: center;
   cursor: pointer;
   background-color: #2ac1bc;
@@ -176,4 +183,58 @@ export const AdditionalInput = styled.input``;
 export const Max = styled.span`
   color: #a2a2a2;
   font-size: 14px;
+`;
+
+
+export const MaxSelections = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+`;
+
+export const AdditionalLable = styled.label`
+`;
+
+export const OptionPrice = styled.span`
+`;
+
+
+export const Total = styled.div`
+  height: 45px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  padding: 10px;
+  .total-products{
+    font-size: 20px;
+    font-weight: bold;
+  }
+`;
+
+export const Quantity = styled.div`
+  border: 1px solid #a2a2a2;
+  border-radius: 5px;
+  padding: 5px;
+  width: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const DecreaseBtn = styled.span`
+  font-size: 20px;
+  font-weight: bold;
+  color: #a2a2a2;
+  cursor: pointer;
+  padding-left: 5px;
+`;
+
+export const IncreaseBtn = styled.span`
+  font-size: 30px;
+  color: #212121;
+  font-weight: bold;
+  padding-right: 5px;
+  cursor: pointer;
 `;
