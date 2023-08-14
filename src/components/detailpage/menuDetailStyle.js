@@ -51,8 +51,8 @@ export const MenuTitle = styled.span`
 `;
 
 export const MenuDetailFooter = styled.div`
-  position: sticky;
   bottom: 0;
+  position: sticky;
   width: 500px;
   height: 80px;
   display: flex;
@@ -60,7 +60,6 @@ export const MenuDetailFooter = styled.div`
   align-items: center;
   justify-content: space-between;
   background-color: white;
-  margin-top: 10px;
 `;
 
 export const MinPrice = styled.div`
@@ -237,4 +236,15 @@ export const IncreaseBtn = styled.span`
   font-weight: bold;
   padding-right: 5px;
   cursor: pointer;
+`;
+
+export const Warnning = styled.div`
+  height: 50px;
+  color: #a2a2a2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 14px;
+  padding: 10px;
 `;

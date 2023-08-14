@@ -4,11 +4,14 @@ import url from "url";
 import Link from "next/link";
 
 export default function StoreDataItem({item}){
+   
     const getImageUrl = (path) => {
         const publicUrl = "/public";
         const imageUrl = url.resolve(publicUrl, path);
         return imageUrl;
       };
+    const deliveryTip = item.delivery_tip.toLocaleString(); 
+    const minDeliveryPrice =  item.min_delivery_price.toLocaleString(); 
     return(
         <Link key={item._id} href={`/detail/${item._id}`}>
         <S.ItemContainer>
@@ -29,21 +32,17 @@ export default function StoreDataItem({item}){
                   <span className="star">★</span>
                   <span className="score">{item.stars}</span>
                 </S.ItemStar>
-                <S.ItemDesc>
-                  {/* {item.menu_info.map((menu, index) => (
-                    <span key={index}>{menu.name}</span>
-                  ))} */}
-                </S.ItemDesc>
+                
               </S.ItemWrap>
               <S.ItemWrap>
                 <S.ItemDeliveryTime>
                   배달 {item.delivery_time}
                 </S.ItemDeliveryTime>
-                <S.ItemTip>배달팁 {item.delivery_tip}</S.ItemTip>
+                <S.ItemTip>배달팁 {deliveryTip}원</S.ItemTip>
               </S.ItemWrap>
               <S.MinimumOrder>
                 <span className="minimum">최소주문 </span>
-                <span>{item.min_delivery_price}</span>
+                <span>{minDeliveryPrice}원</span>
               </S.MinimumOrder>
             </S.ItemContent>
           </S.ContentSection>

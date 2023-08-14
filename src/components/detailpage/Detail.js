@@ -60,6 +60,9 @@ export default function Detail({ storeId }) {
     router.back();
   };
   
+  // format number
+  const minDeliveryPrice = store?.min_delivery_price.toLocaleString();
+  const deliveryTip = store?.delivery_tip.toLocaleString();
   if (stores === null) {
     return <Loading/>
   }
@@ -145,7 +148,7 @@ export default function Detail({ storeId }) {
                 </S.InfoKeyWrap>
 
                 <S.InfoValueWrap>
-                  <span>{store.min_delivery_price}</span>
+                  <span>{minDeliveryPrice}원</span>
                   <span>바로결제, 만나서결제</span>
                   <S.Time>
                     <span>{store.delivery_time} 소요 예상</span>
@@ -153,7 +156,7 @@ export default function Detail({ storeId }) {
                       <Image src={question} alt="?" />
                     </span>
                   </S.Time>
-                  <span>{store.delivery_tip}</span>
+                  <span>{deliveryTip}원</span>
                 </S.InfoValueWrap>
               </>
             ) : (

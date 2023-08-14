@@ -160,6 +160,9 @@ export default function MenuDetail({ storeId }) {
               <S.IncreaseBtn>+</S.IncreaseBtn>
             </S.Quantity>
           </S.Total>
+          <S.Warnning>
+            <span>⚠ 메뉴 사진은 연출된 이미지로 실제 조리된 음식과 다를 수 있습니다.</span>
+          </S.Warnning>
           <S.MenuDetailFooter>
             <S.MinPrice>
               <span className="text">배달최소주문금액</span>

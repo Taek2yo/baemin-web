@@ -13,6 +13,7 @@ export default function Signature({ menuInfo, storeId }) {
     return imageUrl;
   };
   const router = useRouter();
+ 
   return (
     <S.TabContainer>
       <S.DescBox>
@@ -28,7 +29,7 @@ export default function Signature({ menuInfo, storeId }) {
               <S.ItemWrap>
                 <S.ItemTitle>{item.name}</S.ItemTitle>
                 <S.ItemDesc>{item.desc}</S.ItemDesc>
-                <span>{item.price}</span>
+                <span>{item.price.toLocaleString()}원</span>
               </S.ItemWrap>
               <S.ItemImage>
                 <Image src={getImageUrl(item.image)} width={200} height={200} alt="menu-image" priority/>
