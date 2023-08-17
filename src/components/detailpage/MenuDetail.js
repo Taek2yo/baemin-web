@@ -12,6 +12,7 @@ import url from "url";
 export default function MenuDetail({ storeId }) {
   const [menuInfo, setMenuInfo] = useState(null);
   const [minDeliveryPrice, setPrice] = useState("");
+  const [selectedValues, setSelectedValues] = useState([]);
   const getImageUrl = (path) => {
     const publicUrl = "/public";
     const imageUrl = url.resolve(publicUrl, path);
@@ -46,6 +47,40 @@ export default function MenuDetail({ storeId }) {
   // Additional Options data
   const additionalOptions = options?.additional_options;
 
+  // option handler
+  useEffect(() => {
+    if (basicChoices?.length > 0) {
+      setSelectedValues([basicChoices[0]]);
+    }
+  }, [basicChoices]);
+
+  const handleOptionSelection = (value, isRadio) => {
+    if (isRadio) {
+      setSelectedValues([value]);
+    } else {
+      if (selectedValues.includes(value)) {
+        setSelectedValues(selectedValues.filter((v) => v !== value));
+      } else {
+        setSelectedValues([...selectedValues, value]);
+      }
+    }
+  };
+
+  // calculate price
+  const calculatePrice = () => {
+    let basicPrice = menuInfo?.price[0];
+
+    if (selectedValues.length === 0) {
+      return basicPrice.toLocaleString();
+    } else {
+      const optionPrice = selectedValues
+        .map((v) => v.price)
+        .reduce((a, c) => a + c);
+      const totalPrice = basicPrice + optionPrice;
+      return totalPrice.toLocaleString();
+    }
+  };
+  console.log(selectedValues)
   return (
     <S.Container>
       {menuInfo && (
@@ -93,7 +128,7 @@ export default function MenuDetail({ storeId }) {
             <S.Desc>{menuInfo.desc}</S.Desc>
             <S.Price>
               <span>가격</span>
-              <span>{menuInfo.price}</span>
+              <span>{menuInfo.price[0].toLocaleString()}원</span>
             </S.Price>
           </S.Description>
 
@@ -105,15 +140,24 @@ export default function MenuDetail({ storeId }) {
               </S.Required>
             </S.OptionWrap>
             {basicChoices?.map((item, i) => {
+              const isSelected = selectedValues.includes(item);
               return (
                 <S.OptionWrap key={i}>
                   <S.ChekWrap>
                     <S.BasicOptionLabel>
-                      <S.BasicOptionInput type="checkbox" />
+                      <S.BasicOptionInput
+                        type="radio"
+                        name="basic"
+                        value={item.name}
+                        checked={isSelected}
+                        onChange={() => handleOptionSelection(item, true)}
+                      />
                       <span>{item.name}</span>
                     </S.BasicOptionLabel>
                   </S.ChekWrap>
-                  <S.OptionPrice>+{item.price}원</S.OptionPrice>
+                  <S.OptionPrice>
+                    +{item.price.toLocaleString()}원
+                  </S.OptionPrice>
                 </S.OptionWrap>
               );
             })}
@@ -124,7 +168,9 @@ export default function MenuDetail({ storeId }) {
                 <S.OptionWrap>
                   <S.MaxSelections>
                     <S.OptionsTitle>{item.title}</S.OptionsTitle>
-                   {item.required ? null : <S.Max>최대 {item.select_options.length}개 선택</S.Max>} 
+                    {item.required ? null : (
+                      <S.Max>최대 {item.select_options.length}개 선택</S.Max>
+                    )}
                   </S.MaxSelections>
                   {item.required ? (
                     <S.Required>
@@ -137,15 +183,33 @@ export default function MenuDetail({ storeId }) {
                   )}
                 </S.OptionWrap>
                 {item.select_options.map((v, idx) => {
+                  const isSelected = selectedValues.includes(v);
+           
                   return (
                     <S.OptionWrap key={idx}>
                       <S.ChekWrap>
                         <S.AdditionalLable>
-                          <S.AdditionalInput type="checkbox" />
+                          {item.required ? (
+                            <S.AdditionalInput
+                              type="radio"
+                              name={`additional`}
+                              checked={isSelected} 
+                              onChange={() => handleOptionSelection(v, true)}
+                            />
+                          ) : (
+                            <S.AdditionalInput
+                              type="checkbox"
+                              name={`additional`}
+                              checked={isSelected}
+                              onChange={() => handleOptionSelection(v, false)}
+                            />
+                          )}
                           <span>{v.name}</span>
                         </S.AdditionalLable>
                       </S.ChekWrap>
-                      <S.OptionPrice>+{v.price}원</S.OptionPrice>
+                      <S.OptionPrice>
+                        +{v.price.toLocaleString()}원
+                      </S.OptionPrice>
                     </S.OptionWrap>
                   );
                 })}
@@ -161,15 +225,19 @@ export default function MenuDetail({ storeId }) {
             </S.Quantity>
           </S.Total>
           <S.Warnning>
-            <span>⚠ 메뉴 사진은 연출된 이미지로 실제 조리된 음식과 다를 수 있습니다.</span>
+            <span>
+              ⚠ 메뉴 사진은 연출된 이미지로 실제 조리된 음식과 다를 수 있습니다.
+            </span>
           </S.Warnning>
           <S.MenuDetailFooter>
             <S.MinPrice>
               <span className="text">배달최소주문금액</span>
-              <span className="price">{minDeliveryPrice}</span>
+              <span className="price">
+                {minDeliveryPrice.toLocaleString()}원
+              </span>
             </S.MinPrice>
             <S.AddCart>
-              <span>{menuInfo.price} 담기</span>
+              <span>{calculatePrice()}원 담기</span>
             </S.AddCart>
           </S.MenuDetailFooter>
         </>
