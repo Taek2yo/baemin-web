@@ -1,9 +1,9 @@
-'use client'
+"use client";
 import * as S from "./detailStyle";
 import Image from "next/image";
 import MenuDesc from "./MenuDesc";
 import signature from "/public/assets/img/signature.png";
-import url from 'url';
+import url from "url";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 export default function Signature({ menuInfo, storeId }) {
@@ -13,7 +13,7 @@ export default function Signature({ menuInfo, storeId }) {
     return imageUrl;
   };
   const router = useRouter();
- 
+
   return (
     <S.TabContainer>
       <S.DescBox>
@@ -21,18 +21,36 @@ export default function Signature({ menuInfo, storeId }) {
       </S.DescBox>
       <S.MenuContainer>
         <S.SignatureTitle>
-          <Image src={signature} alt="대표메뉴" priority/>
+          <Image src={signature} alt="대표메뉴" priority />
         </S.SignatureTitle>
         {menuInfo?.map((item, index) => {
           return (
-            <S.ItemContainer key={index} onClick={()=>router.push(`/detail/${storeId}/menuId?menuId=${item.id}`)} >
+            <S.ItemContainer
+              key={index}
+              onClick={() =>
+                router.push(`/detail/${storeId}/menuId?menuId=${item.id}`)
+              }
+            >
               <S.ItemWrap>
                 <S.ItemTitle>{item.name}</S.ItemTitle>
                 <S.ItemDesc>{item.desc}</S.ItemDesc>
-                <span>{item.price.toLocaleString()}원</span>
+                {item.price.length > 1 ? (
+                  <span>
+                    {item.price[0].toLocaleString()}원 ~
+                    {item.price[item.price.length - 1].toLocaleString()}원
+                  </span>
+                ) : (
+                  <span>{item.price[0].toLocaleString()}원</span>
+                )}
               </S.ItemWrap>
               <S.ItemImage>
-                <Image src={getImageUrl(item.image)} width={200} height={200} alt="menu-image" priority/>
+                <Image
+                  src={getImageUrl(item.image)}
+                  width={200}
+                  height={200}
+                  alt="menu-image"
+                  priority
+                />
               </S.ItemImage>
             </S.ItemContainer>
           );
