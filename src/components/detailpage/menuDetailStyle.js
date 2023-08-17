@@ -4,6 +4,21 @@ import styled from "styled-components";
 export const Container = styled.div`
   font-family: "NanumGothic";
   background-color: #f0ededd3;
+  height: 100vh;
+  overflow: auto;
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #d3d3d3;
+    border-radius: 7px;
+  }
+ 
 `;
 
 export const Header = styled.div`
@@ -52,7 +67,7 @@ export const MenuTitle = styled.span`
 
 export const MenuDetailFooter = styled.div`
   bottom: 0;
-  position: sticky;
+  position: fixed;
   width: 500px;
   height: 80px;
   display: flex;
