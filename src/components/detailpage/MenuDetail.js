@@ -26,14 +26,20 @@ export default function MenuDetail({ storeId }) {
         const response = await fetch(
           `/api/detail/getMenuInfo?storeId=${storeId}&menuId=${menuId}`
         );
+        if (!response.ok) {
+          throw new Error('네트워크 요청에 실패했습니다.');
+        }
         const data = await response.json();
+        if (!data.selectedMenuItem) {
+          throw new Error('메뉴 정보를 가져오는 데 실패했습니다.');
+        }
         setMenuInfo(data.selectedMenuItem);
         setPrice(data.minDeliveryPrice);
       } catch (error) {
         console.error("데이터 가져오기 에러:", error);
       }
     };
-
+  
     fetchData();
   }, [storeId, menuId]);
   const router = useRouter();
@@ -68,8 +74,7 @@ export default function MenuDetail({ storeId }) {
 
   // calculate price
   const calculatePrice = () => {
-    let basicPrice = menuInfo?.price[0];
-
+    const basicPrice = basicChoices && basicChoices[0]?.price === 0 ? menuInfo.price[0] : 0;
     if (selectedValues.length === 0) {
       return basicPrice.toLocaleString();
     } else {
@@ -80,7 +85,7 @@ export default function MenuDetail({ storeId }) {
       return totalPrice.toLocaleString();
     }
   };
-  console.log(selectedValues)
+ 
   return (
     <S.Container>
       {menuInfo && (
