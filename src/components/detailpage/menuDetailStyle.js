@@ -240,7 +240,7 @@ export const Quantity = styled.div`
 export const DecreaseBtn = styled.span`
   font-size: 20px;
   font-weight: bold;
-  color: #a2a2a2;
+  color: ${(props) => (props.disabled ? '#a2a2a2' : 'black')};
   cursor: pointer;
   padding-left: 5px;
 `;

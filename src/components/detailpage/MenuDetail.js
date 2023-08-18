@@ -13,6 +13,7 @@ export default function MenuDetail({ storeId }) {
   const [menuInfo, setMenuInfo] = useState(null);
   const [minDeliveryPrice, setPrice] = useState("");
   const [selectedValues, setSelectedValues] = useState([]);
+  const [quantity, setQuantity] = useState(1);
   const getImageUrl = (path) => {
     const publicUrl = "/public";
     const imageUrl = url.resolve(publicUrl, path);
@@ -81,11 +82,21 @@ export default function MenuDetail({ storeId }) {
       const optionPrice = selectedValues
         .map((v) => v.price)
         .reduce((a, c) => a + c);
-      const totalPrice = basicPrice + optionPrice;
+      const totalPrice = (basicPrice + optionPrice) * quantity;
       return totalPrice.toLocaleString();
     }
   };
- 
+
+  // handle Quantity
+  const handleIncreaseQuantity = () => {
+    setQuantity(prevQuantity => prevQuantity + 1);
+  };
+
+  const handleDecreaseQuantity = () => {
+    if (quantity > 1) {
+      setQuantity(prevQuantity => prevQuantity - 1);
+    }
+  };
   return (
     <S.Container>
       {menuInfo && (
@@ -224,9 +235,9 @@ export default function MenuDetail({ storeId }) {
           <S.Total>
             <span className="total-products">수량</span>
             <S.Quantity>
-              <S.DecreaseBtn>ㅡ</S.DecreaseBtn>
-              <span>1개</span>
-              <S.IncreaseBtn>+</S.IncreaseBtn>
+              <S.DecreaseBtn onClick={()=>{handleDecreaseQuantity()}}  disabled={quantity === 1}>ㅡ</S.DecreaseBtn>
+              <span>{quantity}개</span>
+              <S.IncreaseBtn onClick={()=>{handleIncreaseQuantity()}}>+</S.IncreaseBtn>
             </S.Quantity>
           </S.Total>
           <S.Warnning>
