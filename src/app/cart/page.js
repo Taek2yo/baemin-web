@@ -1,5 +1,6 @@
+import Cart from "@/components/cartpage/Cart"
 export default function CartPage(){
     return(
-        <>장바구니 페이지</>
+        <Cart/>
     )
 }
