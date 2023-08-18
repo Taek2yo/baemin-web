@@ -63,6 +63,7 @@ export const authOptions = {
         token.user.name = user.name;
         token.user.email = user.email;
         token.user.address = user.address;
+        token.user.cart = user.cart;
         token.user.profileImage = user.profileImage;
       }
       if( trigger === 'update'){

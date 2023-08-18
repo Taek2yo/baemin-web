@@ -10,7 +10,7 @@ export default async function getMenuInfoHandler(req, res) {
     
     // 상점 정보 조회
     const storeResult = await db.collection('store').findOne({ _id: new ObjectId(storeId) });
-    const { min_delivery_price, title, delivery_time, delivery_tip, menuId: storeMenuId } = storeResult;
+    const { min_delivery_price, title, delivery_time, delivery_tip, _id ,menuId: storeMenuId } = storeResult;
     
     // 메뉴 정보 조회
     const menuResult = await db.collection('menu').findOne({_id : new ObjectId(storeMenuId)});
@@ -18,12 +18,12 @@ export default async function getMenuInfoHandler(req, res) {
     // menuInfoArray에서 menuId에 해당하는 항목 찾기
     const menuInfoArray = menuResult.menu_info;
     const selectedMenuItem = menuInfoArray.find(item => item.id === menuId);
-    
     res.status(200).json({
       minDeliveryPrice: min_delivery_price,
       title,
       delivery_time,
       delivery_tip,
+      _id,
       selectedMenuItem
     });
   } catch (error) {

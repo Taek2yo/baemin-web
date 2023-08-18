@@ -9,18 +9,26 @@ import home from "/public/assets/img/home.png";
 import cart from "/public/assets/img/cart.png";
 import share from "/public/assets/img/share.png";
 import url from "url";
+import { useSession } from "next-auth/react";
+import Modal from "./Modal";
+import { Btn, ModalBtnWrapper } from "./modalStyle";
 export default function MenuDetail({ storeId }) {
   const [menuInfo, setMenuInfo] = useState(null);
-  const [minDeliveryPrice, setPrice] = useState("");
+  const [storeData, setStoreData] = useState({});
   const [selectedValues, setSelectedValues] = useState([]);
   const [quantity, setQuantity] = useState(1);
+  const [showModal, setShowModal] = useState(false);
+  // image 불러오기
   const getImageUrl = (path) => {
     const publicUrl = "/public";
     const imageUrl = url.resolve(publicUrl, path);
     return imageUrl;
   };
+
   const searchParam = useSearchParams();
   const menuId = searchParam.get("menuId");
+
+  // api call(storeResult, menuInfo)
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -28,21 +36,24 @@ export default function MenuDetail({ storeId }) {
           `/api/detail/getMenuInfo?storeId=${storeId}&menuId=${menuId}`
         );
         if (!response.ok) {
-          throw new Error('네트워크 요청에 실패했습니다.');
+          throw new Error("네트워크 요청에 실패했습니다.");
         }
         const data = await response.json();
         if (!data.selectedMenuItem) {
-          throw new Error('메뉴 정보를 가져오는 데 실패했습니다.');
+          throw new Error("메뉴 정보를 가져오는 데 실패했습니다.");
         }
-        setMenuInfo(data.selectedMenuItem);
-        setPrice(data.minDeliveryPrice);
+
+        const { selectedMenuItem, ...storeResult } = data;
+        setMenuInfo(selectedMenuItem);
+        setStoreData({ ...storeResult });
       } catch (error) {
         console.error("데이터 가져오기 에러:", error);
       }
     };
-  
+
     fetchData();
   }, [storeId, menuId]);
+
   const router = useRouter();
   const MenuImage = menuInfo?.image;
   const options = menuInfo?.options;
@@ -73,9 +84,10 @@ export default function MenuDetail({ storeId }) {
     }
   };
 
-  // calculate price
+  // calculate total price
   const calculatePrice = () => {
-    const basicPrice = basicChoices && basicChoices[0]?.price === 0 ? menuInfo.price[0] : 0;
+    const basicPrice =
+      basicChoices && basicChoices[0]?.price === 0 ? menuInfo.price[0] : 0;
     if (selectedValues.length === 0) {
       return basicPrice.toLocaleString();
     } else {
@@ -89,14 +101,82 @@ export default function MenuDetail({ storeId }) {
 
   // handle Quantity
   const handleIncreaseQuantity = () => {
-    setQuantity(prevQuantity => prevQuantity + 1);
+    setQuantity((prevQuantity) => prevQuantity + 1);
   };
 
   const handleDecreaseQuantity = () => {
     if (quantity > 1) {
-      setQuantity(prevQuantity => prevQuantity - 1);
+      setQuantity((prevQuantity) => prevQuantity - 1);
     }
   };
+
+  // Add to Cart
+  const session = useSession();
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
+
+  const addToCart = async () => {
+    const newCartItem = {
+      store_id: storeData._id,
+      store_Title: storeData.title,
+      delivery_tip: storeData.delivery_tip,
+      min_delivery_tip: storeData.minDeliveryPrice,
+      price: calculatePrice(),
+      selected_options: selectedValues,
+      menu_image: MenuImage,
+    };
+
+    const userEmail = session.data.user.email;
+    const user = session.data.user;
+
+    try {
+      const response = await fetch("/api/cart/addToCart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userEmail,
+          cartItem: newCartItem,
+        }),
+      });
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error("장바구니 저장 실패:", error);
+    }
+  };
+
+  const checkStoreAndAddtoCart = async () => {
+    const userEmail = session.data.user.email;
+    const cartItem = {
+      store_id: storeData._id,
+    };
+    try {
+      const response = await fetch("/api/cart/isValid", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userEmail, cartItem }),
+      });
+
+      if (!response.ok) {
+        throw new Error("네트워크 에러");
+      }
+
+      const data = await response.json();
+      const isStoreIdMatching = data.isStoreIdMatching;
+      if (isStoreIdMatching) {
+        addToCart();
+      } else {
+        openModal();
+      }
+    } catch (error) {
+      console.error("API 호출 오류:", error);
+    }
+  };
+
   return (
     <S.Container>
       {menuInfo && (
@@ -200,7 +280,7 @@ export default function MenuDetail({ storeId }) {
                 </S.OptionWrap>
                 {item.select_options.map((v, idx) => {
                   const isSelected = selectedValues.includes(v);
-           
+
                   return (
                     <S.OptionWrap key={idx}>
                       <S.ChekWrap>
@@ -209,7 +289,7 @@ export default function MenuDetail({ storeId }) {
                             <S.AdditionalInput
                               type="radio"
                               name={`additional`}
-                              checked={isSelected} 
+                              checked={isSelected}
                               onChange={() => handleOptionSelection(v, true)}
                             />
                           ) : (
@@ -235,9 +315,22 @@ export default function MenuDetail({ storeId }) {
           <S.Total>
             <span className="total-products">수량</span>
             <S.Quantity>
-              <S.DecreaseBtn onClick={()=>{handleDecreaseQuantity()}}  disabled={quantity === 1}>ㅡ</S.DecreaseBtn>
+              <S.DecreaseBtn
+                onClick={() => {
+                  handleDecreaseQuantity();
+                }}
+                disabled={quantity === 1}
+              >
+                ㅡ
+              </S.DecreaseBtn>
               <span>{quantity}개</span>
-              <S.IncreaseBtn onClick={()=>{handleIncreaseQuantity()}}>+</S.IncreaseBtn>
+              <S.IncreaseBtn
+                onClick={() => {
+                  handleIncreaseQuantity();
+                }}
+              >
+                +
+              </S.IncreaseBtn>
             </S.Quantity>
           </S.Total>
           <S.Warnning>
@@ -249,14 +342,42 @@ export default function MenuDetail({ storeId }) {
             <S.MinPrice>
               <span className="text">배달최소주문금액</span>
               <span className="price">
-                {minDeliveryPrice.toLocaleString()}원
+                {storeData.minDeliveryPrice.toLocaleString()}원
               </span>
             </S.MinPrice>
-            <S.AddCart>
+            <S.AddCart
+              onClick={() => {
+                checkStoreAndAddtoCart();
+              }}
+            >
               <span>{calculatePrice()}원 담기</span>
             </S.AddCart>
           </S.MenuDetailFooter>
         </>
+      )}
+      {showModal && (
+        <Modal closeModal={closeModal}>
+          <div style={{ padding: "20px 10px 10px 10px" }}>
+            <span>장바구니에는 같은 가게의 메뉴만 담을 수 있습니다.</span>
+            <p>
+              선택하신 메뉴를 장바구니에 담을 경우 이전에 담은 메뉴가
+              삭제됩니다.
+            </p>
+          </div>
+          <ModalBtnWrapper>
+            <Btn onClick={closeModal} className="cancle-btn">
+              취소
+            </Btn>
+            <Btn
+              onClick={() => {
+                addToCart();
+                closeModal();
+              }}
+            >
+              <span>담기</span>
+            </Btn>
+          </ModalBtnWrapper>
+        </Modal>
       )}
     </S.Container>
   );
