@@ -60,14 +60,14 @@ export default function MenuDetail({ storeId }) {
   // Basic Options data
   const basicOptions = options?.basic_options;
   const basicChoices = basicOptions?.select_options;
-  
+
   // Additional Options data
   const additionalOptions = options?.additional_options;
-  
+
   // 페이지 렌더링시 기본선택
   useEffect(() => {
     if (basicChoices?.length > 0) {
-      const combined = { ...basicChoices[0], title : basicOptions.title}
+      const combined = { ...basicChoices[0], title: basicOptions.title };
       setSelectedValues([combined]);
     }
   }, [basicChoices]);
@@ -79,9 +79,12 @@ export default function MenuDetail({ storeId }) {
       setSelectedValues([combinedValue]);
     } else {
       const valueExists = selectedValues.some(
-        (v) => v.name === combinedValue.name && v.price === combinedValue.price && v.title === combinedValue.title
+        (v) =>
+          v.name === combinedValue.name &&
+          v.price === combinedValue.price &&
+          v.title === combinedValue.title
       );
-  
+
       if (valueExists) {
         setSelectedValues(selectedValues.filter((v) => v !== combinedValue));
       } else {
@@ -89,7 +92,7 @@ export default function MenuDetail({ storeId }) {
       }
     }
   };
-  console.log(selectedValues)
+
   // calculate total price
   const calculatePrice = () => {
     const basicPrice =
@@ -148,8 +151,8 @@ export default function MenuDetail({ storeId }) {
         }),
       });
       const data = await response.json();
-      if( data.message === '성공'){
-        router.push(`/detail/${storeId}`)
+      if (data.message === "성공") {
+        router.push(`/detail/${storeId}`);
       }
     } catch (error) {
       console.error("장바구니 저장 실패:", error);
@@ -243,9 +246,14 @@ export default function MenuDetail({ storeId }) {
               <S.Required>
                 <span>필수</span>
               </S.Required>
-            </S.OptionWrap>     
+            </S.OptionWrap>
             {basicChoices?.map((item, i) => {
-              const isSelected = selectedValues.includes(item);
+              const isSelected = selectedValues.some(
+                (v) =>
+                  v.name === item.name &&
+                  v.price === item.price &&
+                  v.title === basicOptions.title
+              );
               return (
                 <S.OptionWrap key={i}>
                   <S.ChekWrap>
@@ -255,7 +263,9 @@ export default function MenuDetail({ storeId }) {
                         name="basic"
                         value={item.name}
                         checked={isSelected}
-                        onChange={() => handleOptionSelection(item, true, basicOptions.title)}
+                        onChange={() =>
+                          handleOptionSelection(item, true, basicOptions.title)
+                        }
                       />
                       <span>{item.name}</span>
                     </S.BasicOptionLabel>
@@ -288,7 +298,12 @@ export default function MenuDetail({ storeId }) {
                   )}
                 </S.OptionWrap>
                 {item.select_options.map((v, idx) => {
-                  const isSelected = selectedValues.includes(v);
+                  const isSelected = selectedValues.some(
+                    (el) =>
+                      el.name === v.name &&
+                      el.price === v.price &&
+                      el.title === item.title
+                  );
 
                   return (
                     <S.OptionWrap key={idx}>
@@ -299,14 +314,18 @@ export default function MenuDetail({ storeId }) {
                               type="radio"
                               name={`additional`}
                               checked={isSelected}
-                              onChange={() => handleOptionSelection(v, true, item.title)}
+                              onChange={() =>
+                                handleOptionSelection(v, true, item.title)
+                              }
                             />
                           ) : (
                             <S.AdditionalInput
                               type="checkbox"
                               name={`additional`}
                               checked={isSelected}
-                              onChange={() => handleOptionSelection(v, false, item.title)}
+                              onChange={() =>
+                                handleOptionSelection(v, false, item.title)
+                              }
                             />
                           )}
                           <span>{v.name}</span>
