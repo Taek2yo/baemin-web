@@ -53,7 +53,6 @@ export default function MenuDetail({ storeId }) {
 
     fetchData();
   }, [storeId, menuId]);
-
   const router = useRouter();
   const MenuImage = menuInfo?.image;
   const options = menuInfo?.options;
@@ -61,29 +60,36 @@ export default function MenuDetail({ storeId }) {
   // Basic Options data
   const basicOptions = options?.basic_options;
   const basicChoices = basicOptions?.select_options;
-
+  
   // Additional Options data
   const additionalOptions = options?.additional_options;
-
-  // option handler
+  
+  // 페이지 렌더링시 기본선택
   useEffect(() => {
     if (basicChoices?.length > 0) {
-      setSelectedValues([basicChoices[0]]);
+      const combined = { ...basicChoices[0], title : basicOptions.title}
+      setSelectedValues([combined]);
     }
   }, [basicChoices]);
 
-  const handleOptionSelection = (value, isRadio) => {
+  // option handler
+  const handleOptionSelection = (value, isRadio, title) => {
+    const combinedValue = { ...value, title: title };
     if (isRadio) {
-      setSelectedValues([value]);
+      setSelectedValues([combinedValue]);
     } else {
-      if (selectedValues.includes(value)) {
-        setSelectedValues(selectedValues.filter((v) => v !== value));
+      const valueExists = selectedValues.some(
+        (v) => v.name === combinedValue.name && v.price === combinedValue.price && v.title === combinedValue.title
+      );
+  
+      if (valueExists) {
+        setSelectedValues(selectedValues.filter((v) => v !== combinedValue));
       } else {
-        setSelectedValues([...selectedValues, value]);
+        setSelectedValues([...selectedValues, combinedValue]);
       }
     }
   };
-
+  console.log(selectedValues)
   // calculate total price
   const calculatePrice = () => {
     const basicPrice =
@@ -119,10 +125,11 @@ export default function MenuDetail({ storeId }) {
     const newCartItem = {
       store_id: storeData._id,
       store_Title: storeData.title,
-      delivery_tip: storeData.delivery_tip,
+      delivery_time: storeData.delivery_time,
       min_delivery_tip: storeData.minDeliveryPrice,
       price: calculatePrice(),
       selected_options: selectedValues,
+      menu_title: menuInfo.name,
       menu_image: MenuImage,
     };
 
@@ -141,13 +148,15 @@ export default function MenuDetail({ storeId }) {
         }),
       });
       const data = await response.json();
-      console.log(data);
+      if( data.message === '성공'){
+        router.push(`/detail/${storeId}`)
+      }
     } catch (error) {
       console.error("장바구니 저장 실패:", error);
     }
   };
 
-  const checkStoreAndAddtoCart = async () => {
+  const checkCartAndAddtoCart = async () => {
     const userEmail = session.data.user.email;
     const cartItem = {
       store_id: storeData._id,
@@ -234,7 +243,7 @@ export default function MenuDetail({ storeId }) {
               <S.Required>
                 <span>필수</span>
               </S.Required>
-            </S.OptionWrap>
+            </S.OptionWrap>     
             {basicChoices?.map((item, i) => {
               const isSelected = selectedValues.includes(item);
               return (
@@ -246,7 +255,7 @@ export default function MenuDetail({ storeId }) {
                         name="basic"
                         value={item.name}
                         checked={isSelected}
-                        onChange={() => handleOptionSelection(item, true)}
+                        onChange={() => handleOptionSelection(item, true, basicOptions.title)}
                       />
                       <span>{item.name}</span>
                     </S.BasicOptionLabel>
@@ -290,14 +299,14 @@ export default function MenuDetail({ storeId }) {
                               type="radio"
                               name={`additional`}
                               checked={isSelected}
-                              onChange={() => handleOptionSelection(v, true)}
+                              onChange={() => handleOptionSelection(v, true, item.title)}
                             />
                           ) : (
                             <S.AdditionalInput
                               type="checkbox"
                               name={`additional`}
                               checked={isSelected}
-                              onChange={() => handleOptionSelection(v, false)}
+                              onChange={() => handleOptionSelection(v, false, item.title)}
                             />
                           )}
                           <span>{v.name}</span>
@@ -347,7 +356,7 @@ export default function MenuDetail({ storeId }) {
             </S.MinPrice>
             <S.AddCart
               onClick={() => {
-                checkStoreAndAddtoCart();
+                checkCartAndAddtoCart();
               }}
             >
               <span>{calculatePrice()}원 담기</span>
