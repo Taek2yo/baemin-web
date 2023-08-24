@@ -15,7 +15,11 @@ import { Btn, ModalBtnWrapper } from "./modalStyle";
 export default function MenuDetail({ storeId }) {
   const [menuInfo, setMenuInfo] = useState(null);
   const [storeData, setStoreData] = useState({});
-  const [selectedValues, setSelectedValues] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState({
+    basic: [],
+    additionalRadio: [],
+    additionalCheck: [],
+  });
   const [quantity, setQuantity] = useState(1);
   const [showModal, setShowModal] = useState(false);
   // image 불러오기
@@ -67,46 +71,122 @@ export default function MenuDetail({ storeId }) {
   // 페이지 렌더링시 기본선택
   useEffect(() => {
     if (basicChoices?.length > 0) {
-      const combined = { ...basicChoices[0], title: basicOptions.title };
-      setSelectedValues([combined]);
+      const combinedBasic = { ...basicChoices[0], title: basicOptions.title };
+      setSelectedOptions((prevOptions) => ({
+        ...prevOptions,
+        basic: [combinedBasic],
+      }));
     }
-  }, [basicChoices]);
-
-  // option handler
-  const handleOptionSelection = (value, isRadio, title) => {
-    const combinedValue = { ...value, title: title };
-    if (isRadio) {
-      setSelectedValues([combinedValue]);
-    } else {
-      const valueExists = selectedValues.some(
-        (v) =>
-          v.name === combinedValue.name &&
-          v.price === combinedValue.price &&
-          v.title === combinedValue.title
-      );
-
-      if (valueExists) {
-        setSelectedValues(selectedValues.filter((v) => v !== combinedValue));
-      } else {
-        setSelectedValues([...selectedValues, combinedValue]);
+  
+    const defaultSelectedOptions = [];
+  
+    additionalOptions?.forEach((group) => {
+      const firstOption = group.select_options[0];
+      if (group.required) {
+        defaultSelectedOptions.push({ ...firstOption, title: group.title });
       }
+    });
+  
+    setSelectedOptions((prevOptions) => ({
+      ...prevOptions,
+      additionalRadio: defaultSelectedOptions,
+    }));
+  }, [basicChoices, additionalOptions]);
+  
+
+  // 객체 비교 함수( check box state 누적 방지 )
+  function isObjectEqual(obj1, obj2) {
+    const keys1 = Object.keys(obj1);
+    const keys2 = Object.keys(obj2);
+
+    if (keys1.length !== keys2.length) {
+      return false;
+    }
+
+    for (const key of keys1) {
+      if (obj1[key] !== obj2[key]) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  // Basic Option handler
+  const handleBasicOption = (value, title) => {
+    const combinedValue = { ...value, title: title };
+    setSelectedOptions((prevOptions) => ({
+      ...prevOptions,
+      basic: [combinedValue],
+    }));
+  };
+
+  // Additional Radio Option handler
+  const handleAddiRadio = (value, title) => {
+    const existingGroupOption = selectedOptions.additionalRadio.find(
+      (option) => option.title === title
+    );
+
+    if (existingGroupOption) {
+      const updatedOptions = selectedOptions.additionalRadio.map((option) =>
+        option.title === title ? { ...value, title } : option
+      );
+      setSelectedOptions((prevOptions) => ({
+        ...prevOptions,
+        additionalRadio: updatedOptions,
+      }));
+    } else {
+      setSelectedOptions((prevOptions) => ({
+        ...prevOptions,
+        additionalRadio: [...prevOptions.additionalRadio, { ...value, title }],
+      }));
+    }
+  };
+
+  // Additional Checkbox Option handler
+  const handleAddiCheck = (value, title) => {
+    const combinedValue = { ...value, title: title };
+    const isSelected = selectedOptions.additionalCheck.some(
+      (el) =>
+        el.name === combinedValue.name &&
+        el.price === combinedValue.price &&
+        el.title === combinedValue.title
+    );
+
+    if (isSelected) {
+      setSelectedOptions((prevOptions) => ({
+        ...prevOptions,
+        additionalCheck: prevOptions.additionalCheck.filter(
+          (v) => !isObjectEqual(v, combinedValue)
+        ),
+      }));
+    } else {
+      setSelectedOptions((prevOptions) => ({
+        ...prevOptions,
+        additionalCheck: [...prevOptions.additionalCheck, combinedValue],
+      }));
     }
   };
 
   // calculate total price
   const calculatePrice = () => {
-    const basicPrice =
-      basicChoices && basicChoices[0]?.price === 0 ? menuInfo.price[0] : 0;
-    if (selectedValues.length === 0) {
-      return basicPrice.toLocaleString();
-    } else {
-      const optionPrice = selectedValues
-        .map((v) => v.price)
-        .reduce((a, c) => a + c);
-      const totalPrice = (basicPrice + optionPrice) * quantity;
-      return totalPrice.toLocaleString();
-    }
+    const basicPrice = basicChoices?.[0]?.price === 0 ? menuInfo?.price[0] : basicChoices?.[0]?.price;
+ 
+    const addiRadioPrice = selectedOptions.additionalRadio.reduce(
+      (total, option) => total + option.price,
+      0
+    );
+
+    const addiCheckPrice = selectedOptions.additionalCheck.reduce(
+      (total, option) => total + option.price,
+      0
+    );
+  
+    const totalPrice = (basicPrice + addiRadioPrice + addiCheckPrice) * quantity;
+    return totalPrice.toLocaleString();
   };
+  
+  
 
   // handle Quantity
   const handleIncreaseQuantity = () => {
@@ -131,13 +211,12 @@ export default function MenuDetail({ storeId }) {
       delivery_time: storeData.delivery_time,
       min_delivery_tip: storeData.minDeliveryPrice,
       price: calculatePrice(),
-      selected_options: selectedValues,
+      selected_options: selectedOptions,
       menu_title: menuInfo.name,
       menu_image: MenuImage,
     };
 
     const userEmail = session.data.user.email;
-    const user = session.data.user;
 
     try {
       const response = await fetch("/api/cart/addToCart", {
@@ -248,7 +327,7 @@ export default function MenuDetail({ storeId }) {
               </S.Required>
             </S.OptionWrap>
             {basicChoices?.map((item, i) => {
-              const isSelected = selectedValues.some(
+              const selectBasic = selectedOptions.basic.some(
                 (v) =>
                   v.name === item.name &&
                   v.price === item.price &&
@@ -260,11 +339,11 @@ export default function MenuDetail({ storeId }) {
                     <S.BasicOptionLabel>
                       <S.BasicOptionInput
                         type="radio"
-                        name="basic"
+                        name={`basic-${i}`}
                         value={item.name}
-                        checked={isSelected}
+                        checked={selectBasic}
                         onChange={() =>
-                          handleOptionSelection(item, true, basicOptions.title)
+                          handleBasicOption(item, basicOptions.title)
                         }
                       />
                       <span>{item.name}</span>
@@ -277,17 +356,17 @@ export default function MenuDetail({ storeId }) {
               );
             })}
           </S.BasicOptions>
-          {additionalOptions.map((item, i) => {
+          {additionalOptions.map((group, groupIdx) => {
             return (
-              <S.AdditionalOptions key={i}>
+              <S.AdditionalOptions key={groupIdx}>
                 <S.OptionWrap>
                   <S.MaxSelections>
-                    <S.OptionsTitle>{item.title}</S.OptionsTitle>
-                    {item.required ? null : (
-                      <S.Max>최대 {item.select_options.length}개 선택</S.Max>
+                    <S.OptionsTitle>{group.title}</S.OptionsTitle>
+                    {group.required ? null : (
+                      <S.Max>최대 {group.select_options.length}개 선택</S.Max>
                     )}
                   </S.MaxSelections>
-                  {item.required ? (
+                  {group.required ? (
                     <S.Required>
                       <span>필수</span>
                     </S.Required>
@@ -297,37 +376,37 @@ export default function MenuDetail({ storeId }) {
                     </S.Selection>
                   )}
                 </S.OptionWrap>
-                {item.select_options.map((v, idx) => {
-                  const isSelected = selectedValues.some(
+                {group.select_options.map((v, idx) => {
+                  const selectRadio = selectedOptions.additionalRadio.some(
                     (el) =>
                       el.name === v.name &&
                       el.price === v.price &&
-                      el.title === item.title
+                      el.title === group.title
                   );
-
+                  const checkBoxSelected = selectedOptions.additionalCheck.some(
+                    (el) =>
+                      el.name === v.name &&
+                      el.price === v.price &&
+                      el.title === group.title
+                  );
                   return (
                     <S.OptionWrap key={idx}>
                       <S.ChekWrap>
                         <S.AdditionalLable>
-                          {item.required ? (
-                            <S.AdditionalInput
-                              type="radio"
-                              name={`additional`}
-                              checked={isSelected}
-                              onChange={() =>
-                                handleOptionSelection(v, true, item.title)
+                          <S.AdditionalInput
+                            type={group.required ? "radio" : "checkbox"}
+                            name={`additional-group-${group.title}`}
+                            checked={
+                              group.required ? selectRadio : checkBoxSelected
+                            }
+                            onChange={() => {
+                              if (group.required) {
+                                handleAddiRadio(v, group.title);
+                              } else {
+                                handleAddiCheck(v, group.title);
                               }
-                            />
-                          ) : (
-                            <S.AdditionalInput
-                              type="checkbox"
-                              name={`additional`}
-                              checked={isSelected}
-                              onChange={() =>
-                                handleOptionSelection(v, false, item.title)
-                              }
-                            />
-                          )}
+                            }}
+                          />
                           <span>{v.name}</span>
                         </S.AdditionalLable>
                       </S.ChekWrap>
