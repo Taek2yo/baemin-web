@@ -214,6 +214,7 @@ export default function MenuDetail({ storeId }) {
       selected_options: selectedOptions,
       menu_title: menuInfo.name,
       menu_image: MenuImage,
+      quantity : quantity,
     };
 
     const userEmail = session.data.user.email;
