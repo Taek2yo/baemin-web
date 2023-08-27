@@ -176,13 +176,13 @@ export default function MenuDetail({ storeId }) {
       (total, option) => total + option.price,
       0
     );
-
+      console.log(Number(addiRadioPrice))
     const addiCheckPrice = selectedOptions.additionalCheck.reduce(
       (total, option) => total + option.price,
       0
     );
   
-    const totalPrice = (basicPrice + addiRadioPrice + addiCheckPrice) * quantity;
+    const totalPrice = (+basicPrice + +addiRadioPrice + +addiCheckPrice) * quantity;
     return totalPrice;
   };
   
