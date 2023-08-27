@@ -64,7 +64,7 @@ export default function DeliveryHeader() {
 
           <S.CartLink href="/cart">
             <Image src={cart} width={40} alt="cart-btn" />
-            <S.CartQuantity>{quantity}</S.CartQuantity>
+            {quantity === 0 ? null : <S.CartQuantity>{quantity}</S.CartQuantity>}
           </S.CartLink>
         </S.Wrap>
       </S.Header>
