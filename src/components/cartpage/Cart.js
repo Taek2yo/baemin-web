@@ -16,8 +16,9 @@ import EmptyCart from "./EmptyCart";
 export default function Cart() {
   const router = useRouter();
   const [cartData, setCartData] = useState([]);
-  const session = useSession();
-  const userEmail = session?.data?.user?.email;
+  const { data: session } = useSession();
+  const userEmail = session?.user?.email
+ 
   useEffect(() => {
     if (userEmail) {
       const fetchCart = async () => {
@@ -35,7 +36,7 @@ export default function Cart() {
       };
       fetchCart();
     }
-  }, [userEmail]);
+  }, [cartData]);
   
   return (
     <S.Container>
@@ -74,7 +75,7 @@ export default function Cart() {
             </S.DeliveryTime>
           </S.NameAndTime>
           {cartData.map((item, i) => {
-            return <CartItem item={item} key={i} />;
+            return <CartItem item={item} key={i} userEmail={userEmail}/>;
           })}
         </>
       ) : (
