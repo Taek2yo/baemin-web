@@ -1,6 +1,6 @@
 "use client";
 import styled, { css } from "styled-components";
-
+import Link from "next/link";
 export const Header = styled.div`
   font-family: "NanumGothic";
   display: flex;
@@ -34,7 +34,27 @@ export const StoreName = styled.div`
   font-weight: bold;
   font-size: 18px;
 `;
+export const CartLink = styled(Link)`
+  position: relative; 
+`;
 
+export const CartQuantity = styled.div`
+  background-color: #FF00FF;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  color: white;
+  font-size: 7px;
+  font-weight: bold;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top:-2px;
+  right: 0;
+  z-index: 99;
+`
 export const Container = styled.div`
   font-family: "NanumGothic";
   display: flex;
@@ -359,4 +379,75 @@ export const AddCart = styled.div`
 
 export const Description = styled.div`
   
+`;
+
+/* -------- Footer --------*/
+
+export const FooterContainer = styled.div`
+  border-top : 1px solid #d3d3d3;
+  background-color: white;
+  width: 500px;
+  bottom: 0;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+ 
+`;
+
+export const GoCartBtn = styled.div`
+  border-radius: 7px;
+  background-color: #2ac1bc;
+  height: 55px;
+  margin: 12px 0 12px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const Quantity = styled.div`
+  border-radius: 100%;
+  width: 27px;
+  height: 27px;
+  font-weight: bold;
+  color: #2ac1bc;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  margin-left: 30px;
+  font-size: 14px;
+  font-weight: bold;
+`
+
+export const Text = styled.span`
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+`
+
+export const TotalPrice = styled.span`
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+  margin-right: 30px;
+`
+
+export const CanOrder = styled.span`
+  padding: 7px;
+  margin-top: 5px;
+  font-weight: bold;
+`;
+
+export const Able = styled.span`
+  color: #006AFF;
+`;
+
+export const MinDelivery = styled.span`
+  color: gray;
+  font-size: 13px;
+  padding: 4px;
 `;

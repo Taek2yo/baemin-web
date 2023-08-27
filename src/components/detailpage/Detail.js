@@ -1,6 +1,7 @@
 "use client";
 import * as S from "./detailStyle";
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import Image from "next/image";
 import back from "/public/assets/img/left.png";
@@ -16,9 +17,10 @@ import PackingOrder from "./PackingOrder";
 import Signature from "./Signature";
 import Information from "./Information";
 import Review from "./Review";
-import Infoicon from "/public/assets/img/infoicon.png"
+import Infoicon from "/public/assets/img/infoicon.png";
 import Thumbnail from "./Thumbnail";
 import Loading from "@/app/loading";
+import MenuFooter from "./MenuFooter";
 
 export default function Detail({ storeId }) {
   // orderType state
@@ -31,6 +33,8 @@ export default function Detail({ storeId }) {
   const handleTabType = (type) => {
     setTaptype(type);
   };
+  // cart state
+  const [cartData, setCartData] = useState([]);
 
   // 가게 정보
   const [stores, setStores] = useState(null);
@@ -53,19 +57,47 @@ export default function Detail({ storeId }) {
   const store = stores?.store;
   const menu = stores?.menu;
   const menuInfo = menu?.menu_info;
-  const thumbnail = menu?.thumbnail
+  const thumbnail = menu?.thumbnail;
   // goBackBtn
   const router = useRouter();
   const goBack = () => {
     router.back();
   };
-  
+
   // format number
-  const minDeliveryPrice = store?.min_delivery_price.toLocaleString();
+  const minDeliveryPrice = store?.min_delivery_price;
   const deliveryTip = store?.delivery_tip.toLocaleString();
+
+  // cart data
+  const session = useSession();
+  const userEmail = session?.data?.user?.email;
+
+  useEffect(() => {
+    if (userEmail) {
+      const fetchCart = async () => {
+        try {
+          const response = await fetch(`/api/cart/getCart?user=${userEmail}`);
+          if (!response.ok) {
+            throw new Error("네트워크 에러");
+          }
+          const data = await response.json();
+          setCartData(data);
+        } catch (error) {
+          console.error("데이터 패칭 에러", error);
+          setCartData([]);
+        }
+      };
+      fetchCart();
+    }
+  }, [userEmail]);
+
+  const totalCartPrice = cartData?.map((item) => item.price).reduce((a, c) => a + c, 0);
+  const quantity = cartData?.map((item) => item.quantity).reduce((a, c) => a + c, 0);
+
   if (stores === null) {
-    return <Loading/>
+    return <Loading />;
   }
+
   return (
     <>
       {/* Header( Button Menu ) */}
@@ -84,14 +116,15 @@ export default function Detail({ storeId }) {
           <Link href="/" as="/">
             <Image src={home} width={25} alt="home-btn" />
           </Link>
-          <Link href="/cart" as="/cart">
+          <S.CartLink href="/cart">
             <Image src={cart} width={40} alt="cart-btn" />
-          </Link>
+            <S.CartQuantity>{quantity}</S.CartQuantity>
+          </S.CartLink>
         </S.Wrap>
       </S.Header>
 
       <S.Container>
-       <Thumbnail thumbnail={thumbnail}/>
+        <Thumbnail thumbnail={thumbnail} />
         <S.Title>{store?.title}</S.Title>
         <S.Wrap>
           <span className="star">★★★★★</span>
@@ -148,7 +181,7 @@ export default function Detail({ storeId }) {
                 </S.InfoKeyWrap>
 
                 <S.InfoValueWrap>
-                  <span>{minDeliveryPrice}원</span>
+                  <span>{minDeliveryPrice.toLocaleString()}원</span>
                   <span>바로결제, 만나서결제</span>
                   <S.Time>
                     <span>{store.delivery_time} 소요 예상</span>
@@ -181,7 +214,7 @@ export default function Detail({ storeId }) {
             tabType={tabType}
           >
             정보
-            <Image src={Infoicon} width={22} height={22} alt="info-ico"/>
+            <Image src={Infoicon} width={22} height={22} alt="info-ico" />
           </S.MenuTab>
           <S.MenuTab
             onClick={() => handleTabType("Review")}
@@ -191,15 +224,22 @@ export default function Detail({ storeId }) {
             리뷰
           </S.MenuTab>
         </S.MenuTabWrap>
-       <S.TabWrap>
-        {tabType === "Menu" ? (
-          <Signature menuInfo={menuInfo} storeId={storeId}/>
-        ) : tabType === "Info" ? (
-          <Information />
-        ) : tabType === "Review" ? (
-          <Review />
-        ) : null}
+        <S.TabWrap>
+          {tabType === "Menu" ? (
+            <Signature menuInfo={menuInfo} storeId={storeId} />
+          ) : tabType === "Info" ? (
+            <Information />
+          ) : tabType === "Review" ? (
+            <Review />
+          ) : null}
         </S.TabWrap>
+        {cartData && store?.title === cartData[0]?.store_Title ? (
+          <MenuFooter
+            minDeliveryPrice={minDeliveryPrice}
+            totalCartPrice={totalCartPrice}
+            quantity={quantity}
+          />
+        ) : null}
       </S.Container>
     </>
   );

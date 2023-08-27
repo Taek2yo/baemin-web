@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-
+import Link from "next/link";
 export const Header = styled.div`
   font-family: "NanumGothic";
   display: flex;
@@ -21,6 +21,28 @@ export const Wrap = styled.div`
 export const Back = styled.div`
   cursor: pointer;
 `;
+
+export const CartLink = styled(Link)`
+  position: relative; 
+`;
+
+export const CartQuantity = styled.div`
+  background-color: #FF00FF;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  color: white;
+  font-size: 7px;
+  font-weight: bold;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top:-2px;
+  right: 0;
+  z-index: 99;
+`
 
 export const Address = styled.span`
   font-family: "NanumGothic";
