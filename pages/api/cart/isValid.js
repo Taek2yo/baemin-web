@@ -8,7 +8,6 @@ export default async function validaitionHandler(req, res) {
       }
   
       const { userEmail, cartItem } = req.body;
-      console.log(userEmail)
       const db = (await connectDB).db("baemin");
       const user = await db.collection('accounts').findOne({ email: userEmail });
   
