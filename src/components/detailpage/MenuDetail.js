@@ -12,6 +12,7 @@ import url from "url";
 import { useSession } from "next-auth/react";
 import Modal from "./Modal";
 import { Btn, ModalBtnWrapper } from "./modalStyle";
+import { v4 as uuidv4 } from 'uuid';
 export default function MenuDetail({ storeId }) {
   const [menuInfo, setMenuInfo] = useState(null);
   const [storeData, setStoreData] = useState({});
@@ -215,6 +216,7 @@ export default function MenuDetail({ storeId }) {
       menu_title: menuInfo.name,
       menu_image: MenuImage,
       quantity : quantity,
+      _id: uuidv4(),
     };
 
     const userEmail = session.data.user.email;
