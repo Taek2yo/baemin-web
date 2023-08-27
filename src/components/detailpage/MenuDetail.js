@@ -183,7 +183,7 @@ export default function MenuDetail({ storeId }) {
     );
   
     const totalPrice = (basicPrice + addiRadioPrice + addiCheckPrice) * quantity;
-    return totalPrice.toLocaleString();
+    return totalPrice;
   };
   
   
@@ -458,7 +458,7 @@ export default function MenuDetail({ storeId }) {
                 checkCartAndAddtoCart();
               }}
             >
-              <span>{calculatePrice()}원 담기</span>
+              <span>{calculatePrice().toLocaleString()}원 담기</span>
             </S.AddCart>
           </S.MenuDetailFooter>
         </>
