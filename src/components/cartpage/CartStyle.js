@@ -101,9 +101,9 @@ export const DeliveryTime = styled.div`
   display: flex;
   align-items: center;
   gap: 4px;
-  img{
-    width:18px;
-    height:18px;
+  img {
+    width: 18px;
+    height: 18px;
   }
   font-weight: bold;
 `;
@@ -120,8 +120,42 @@ export const DeleteBtn = styled.div`
   cursor: pointer;
   font-size: 17px;
   color: black;
-  img{
+  img {
     width: 15px;
     height: 15px;
   }
 `;
+
+/* -------- Empty Cart ----------- */
+
+export const EmptyContainer = styled.div`
+  width: 100%;
+  height: 100vh;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 20px;
+`;
+
+export const EmptyText =styled.span`
+  color: black;
+  font-weight: bold;
+  margin-right: 18px;
+`;
+
+export const EmptyBtn = styled.div`
+  border: 1px solid #d3d3d3;
+  width: 160px;
+  height: 40px;
+  border-radius: 25px;
+  margin-right: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-weight: bold;
+  padding: 2px;
+`
