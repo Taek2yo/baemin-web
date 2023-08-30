@@ -6,19 +6,26 @@ import Image from "next/image";
 import back from "/public/assets/img/left.png";
 import home from "/public/assets/img/home.png";
 import together from "/public/assets/img/together2.png";
-import SelectCategories from "./SelectCategories";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import CartItem from "./CartItem";
-import time from '/public/assets/img/time.png'
+import plus from "/public/assets/img/plus.png";
+import time from "/public/assets/img/time.png";
 import EmptyCart from "./EmptyCart";
-
+import CartItem from "./CartItem";
+import SelectCategories from "./SelectCategories";
 export default function Cart() {
   const router = useRouter();
   const [cartData, setCartData] = useState([]);
   const { data: session } = useSession();
-  const userEmail = session?.user?.email
- 
+  const userEmail = session?.user?.email;
+  const totalQuantity = cartData.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
+  const totalPrice = cartData.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
   useEffect(() => {
     if (userEmail) {
       const fetchCart = async () => {
@@ -36,8 +43,7 @@ export default function Cart() {
       };
       fetchCart();
     }
-  }, [cartData]);
-  
+  }, []);
   return (
     <S.Container>
       <S.Header>
@@ -65,18 +71,33 @@ export default function Cart() {
         </S.HeaderBtnWrap>
       </S.Header>
       <SelectCategories />
-      {cartData.length > 0 ? (
+      {cartData ? (
         <>
           <S.NameAndTime>
             <S.StoreName>{cartData[0]?.store_Title}</S.StoreName>
             <S.DeliveryTime>
-              <Image src={time} alt="time-ico"/>
+              <Image src={time} alt="time-ico" />
               {cartData[0]?.delivery_time} 후 도착
             </S.DeliveryTime>
           </S.NameAndTime>
           {cartData.map((item, i) => {
-            return <CartItem item={item} key={i} userEmail={userEmail}/>;
+            return <CartItem item={item} key={i} userEmail={userEmail} />;
           })}
+          <S.MoreBtn
+            onClick={() => {
+              router.push(`/detail/${cartData[0]?.store_id}`);
+            }}
+          >
+            <Image src={plus} alt="plus-icon" width={15} />
+            <span>더 담으러 가기</span>
+          </S.MoreBtn>
+          <S.Footer>
+            <S.OrderBtn>
+              <S.OrderQuantity>{totalQuantity}</S.OrderQuantity>
+              <S.Text>배달 주문하기</S.Text>
+              <S.TotalPrice>{totalPrice.toLocaleString()}원</S.TotalPrice>
+            </S.OrderBtn>
+          </S.Footer>
         </>
       ) : (
         <EmptyCart />
