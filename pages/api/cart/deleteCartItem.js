@@ -1,16 +1,13 @@
 import { connectDB } from "@/util/database";
 
 export default async function deleteCartItemHandler(req, res) {
-    console.log(req.body)
   try {
     if (req.method !== "POST") {
       res.status(400).json({ message: "Bad Request" });
       return;
     }
-    
+
     const { userEmail, itemId } = req.body;
-    console.log(userEmail)
-    console.log(itemId)
     const db = (await connectDB).db("baemin");
     const user = await db.collection("accounts").findOne({ email: userEmail });
 

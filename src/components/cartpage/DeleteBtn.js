@@ -3,7 +3,7 @@ import * as S from "./CartStyle";
 import Image from "next/image";
 import cancle from "/public/assets/img/close.png";
 
-export default function DeleteBtn({ item, userEmail }) {
+export default function DeleteBtn({ item, userEmail, onItemRemoved }) {
   const removeItem = async () => {
     try {
       const response = await fetch("/api/cart/deleteCartItem", {
@@ -16,7 +16,12 @@ export default function DeleteBtn({ item, userEmail }) {
           itemId: item._id,
         }),
       });
-      await response.json();
+
+      if (response.ok) {
+        onItemRemoved(item._id);
+      } else {
+        console.error("장바구니 삭제 실패:", response.statusText);
+      }
     } catch (error) {
       console.error("장바구니 삭제 실패:", error);
     }
