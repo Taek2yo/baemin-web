@@ -16,16 +16,10 @@ import SelectCategories from "./SelectCategories";
 export default function Cart() {
   const router = useRouter();
   const [cartData, setCartData] = useState([]);
+  console.log(cartData)
   const { data: session } = useSession();
   const userEmail = session?.user?.email;
-  const totalQuantity = cartData.reduce(
-    (total, item) => total + item.quantity,
-    0
-  );
-  const totalPrice = cartData.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
+
   useEffect(() => {
     if (userEmail) {
       const fetchCart = async () => {
@@ -44,6 +38,34 @@ export default function Cart() {
       fetchCart();
     }
   }, []);
+
+  const handleCartItemQuantityChange = (itemId, newQuantity) => {
+    const updatedCartItems = cartData.map((item) => {
+      if (item._id === itemId) {
+        return { ...item, quantity: newQuantity };
+      }
+      return item;
+    });
+    setCartData(updatedCartItems);
+  };
+
+  // 총 수량과 총 가격 계산
+  const totalQuantity = cartData.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
+  const totalPrice = cartData.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+  
+  // Delete Item
+  const handleItemRemoved = (itemId) => {
+    // 아이템 삭제 후 상태를 업데이트하고 재랜더링
+    const updatedCartData = cartData.filter(item => item._id !== itemId);
+    setCartData(updatedCartData);
+  };
+
   return (
     <S.Container>
       <S.Header>
@@ -71,7 +93,7 @@ export default function Cart() {
         </S.HeaderBtnWrap>
       </S.Header>
       <SelectCategories />
-      {cartData ? (
+      {cartData.length ? (
         <>
           <S.NameAndTime>
             <S.StoreName>{cartData[0]?.store_Title}</S.StoreName>
@@ -81,7 +103,17 @@ export default function Cart() {
             </S.DeliveryTime>
           </S.NameAndTime>
           {cartData.map((item, i) => {
-            return <CartItem item={item} key={i} userEmail={userEmail} />;
+            return (
+              <CartItem
+                item={item}
+                key={i}
+                userEmail={userEmail}
+                onQuantityChange={(newQuantity) =>
+                  handleCartItemQuantityChange(item._id, newQuantity)
+                }
+                onItemRemoved={handleItemRemoved}
+              />
+            );
           })}
           <S.MoreBtn
             onClick={() => {
