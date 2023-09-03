@@ -49,7 +49,7 @@ export default function Signature({ menuInfo, storeId }) {
                   width={200}
                   height={200}
                   alt="menu-image"
-                  priority
+                  loading="lazy"
                 />
               </S.ItemImage>
             </S.ItemContainer>
