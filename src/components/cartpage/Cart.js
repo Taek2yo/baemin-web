@@ -16,7 +16,6 @@ import SelectCategories from "./SelectCategories";
 export default function Cart() {
   const router = useRouter();
   const [cartData, setCartData] = useState([]);
-  console.log(cartData)
   const { data: session } = useSession();
   const userEmail = session?.user?.email;
 
