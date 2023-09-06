@@ -9,19 +9,21 @@ import { SearchAddress } from "./SearchAddress";
 import AddDetailInfo from "./AddrDetailInfo";
 import { useSession } from "next-auth/react";
 import RegisteredAddress from "./RegisteredAddress";
+import EditAddress from "./EditAddress";
 export default function SetAddress({ isOpen, handleModal }) {
   const arrow = ">";
   const [section, setSection] = useState("set");
   const addrDetailInfo = section.itemData;
-
+  
   const handleSection = () => {
     if (section === "add-detail") {
       setSection("search");
+    } else if (section === "edit") {
+      setSection("set");
     } else {
       setSection("set");
     }
   };
-
   // 유저 이메일 이용, DB에 이메일 일치하는 주소 데이터 가져오기.
   const { data: session, status } = useSession();
   const email = session?.user?.email;
@@ -44,7 +46,7 @@ export default function SetAddress({ isOpen, handleModal }) {
     }
   }, [status, encodedEmail]);
   const address = addressData[0]?.address;
-  
+ 
   return (
     <S.Container className={isOpen ? "open" : ""}>
       <S.BottomSheetHeader>
@@ -77,10 +79,12 @@ export default function SetAddress({ isOpen, handleModal }) {
               <span>주소 검색</span>
             ) : section.sectionName === "add-detail" ? (
               <span>상세 정보 입력</span>
-            ) : null}
+            ) : section === "edit" ? (
+              <span>주소 관리</span>
+            ): null}
           </S.HeaderTitle>
           {section === "set" ? (
-            <div className="edit">편집</div>
+            <div className="edit" onClick={()=>{setSection("edit")}}>편집</div>
           ) : (
             <S.EmptyDiv />
           )}
@@ -126,7 +130,9 @@ export default function SetAddress({ isOpen, handleModal }) {
         <SearchAddress section={section} setSection={setSection} />
       ) : section.sectionName === "add-detail" ? (
         <AddDetailInfo addrDetailInfo={addrDetailInfo} />
-      ) : null}
+      ) : section === "edit" ? (
+        <EditAddress address={address}/>
+      ): null}
     </S.Container>
   );
 }
