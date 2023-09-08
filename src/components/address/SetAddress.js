@@ -29,6 +29,7 @@ export default function SetAddress({ isOpen, handleModal }) {
   const email = session?.user?.email;
   const encodedEmail = encodeURIComponent(email || "");
   const [addressData, setAddressData] = useState([]);
+  const address = addressData[0]?.address;
   useEffect(() => {
     if (status === "authenticated" && encodedEmail) {
       const fetchData = async () => {
@@ -44,8 +45,8 @@ export default function SetAddress({ isOpen, handleModal }) {
       };
       fetchData();
     }
-  }, [status, encodedEmail]);
-  const address = addressData[0]?.address;
+  }, [status, encodedEmail, address]);
+
 
   return (
     <S.Container className={isOpen ? "open" : ""}>
