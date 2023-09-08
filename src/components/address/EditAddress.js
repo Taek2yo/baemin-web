@@ -4,8 +4,25 @@ import Image from "next/image";
 import home from "/public/assets/img/addresshome.png";
 import company from "/public/assets/img/company.png";
 import EditAddressItem from "./EditAddressItem";
-
+import { useState } from "react";
 export default function EditAddress({ address }) {
+  const [addressList, setAddressList] = useState(address);
+
+  const deleteAddress = async (addressId) => {
+    try {
+      await fetch("/api/address/deleteAddress", {
+        method: "POST",
+        body: JSON.stringify({
+          addressId: addressId
+        }),
+      });
+      const updatedAddress = addressList.filter((item) => item.addressId !== addressId);
+      setAddressList(updatedAddress);
+    } catch (error) {
+      console.error("삭제 실패", error);
+    }
+  };
+
   return (
     <>
       <S.Home>
@@ -17,8 +34,8 @@ export default function EditAddress({ address }) {
         <span>회사 추가</span>
       </S.Company>
 
-      {address.map((item, i) => (
-        <EditAddressItem key={i} item={item} />
+      {addressList.map((item, i) => (
+        <EditAddressItem key={item.addressId} item={item} onDelete={() => deleteAddress(item.addressId)}/>
       ))}
     </>
   );

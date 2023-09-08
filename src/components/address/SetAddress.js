@@ -46,7 +46,7 @@ export default function SetAddress({ isOpen, handleModal }) {
     }
   }, [status, encodedEmail]);
   const address = addressData[0]?.address;
- 
+
   return (
     <S.Container className={isOpen ? "open" : ""}>
       <S.BottomSheetHeader>
