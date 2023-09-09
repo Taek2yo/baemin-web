@@ -10,11 +10,13 @@ import AddDetailInfo from "./AddrDetailInfo";
 import { useSession } from "next-auth/react";
 import RegisteredAddress from "./RegisteredAddress";
 import EditAddress from "./EditAddress";
+import ChangeAddr from "./ChangeAddr";
 export default function SetAddress({ isOpen, handleModal }) {
   const arrow = ">";
   const [section, setSection] = useState("set");
+  const [selectedItem, setSelectedItem] = useState({});
   const addrDetailInfo = section.itemData;
-  
+
   const handleSection = () => {
     if (section === "add-detail") {
       setSection("search");
@@ -24,6 +26,7 @@ export default function SetAddress({ isOpen, handleModal }) {
       setSection("set");
     }
   };
+ 
   // 유저 이메일 이용, DB에 이메일 일치하는 주소 데이터 가져오기.
   const { data: session, status } = useSession();
   const email = session?.user?.email;
@@ -45,8 +48,7 @@ export default function SetAddress({ isOpen, handleModal }) {
       };
       fetchData();
     }
-  }, [status, encodedEmail, address]);
-
+  }, [status, encodedEmail]);
 
   return (
     <S.Container className={isOpen ? "open" : ""}>
@@ -82,10 +84,17 @@ export default function SetAddress({ isOpen, handleModal }) {
               <span>상세 정보 입력</span>
             ) : section === "edit" ? (
               <span>주소 관리</span>
-            ): null}
+            ) : null}
           </S.HeaderTitle>
           {section === "set" ? (
-            <div className="edit" onClick={()=>{setSection("edit")}}>편집</div>
+            <div
+              className="edit"
+              onClick={() => {
+                setSection("edit");
+              }}
+            >
+              편집
+            </div>
           ) : (
             <S.EmptyDiv />
           )}
@@ -121,10 +130,8 @@ export default function SetAddress({ isOpen, handleModal }) {
               </S.AddressWrap>
             </S.MyHomeAddress>
           </S.MyHome>
-          { address?.map((item)=>{
-            return (
-              <RegisteredAddress item={item} key={item.addressId}/>
-            )
+          {address?.map((item) => {
+            return <RegisteredAddress item={item} key={item.addressId} />;
           })}
         </>
       ) : section === "search" ? (
@@ -132,8 +139,20 @@ export default function SetAddress({ isOpen, handleModal }) {
       ) : section.sectionName === "add-detail" ? (
         <AddDetailInfo addrDetailInfo={addrDetailInfo} />
       ) : section === "edit" ? (
-        <EditAddress address={address}/>
-      ): null}
+        <EditAddress
+          address={address}
+          section={section}
+          setSection={setSection}
+          selectedItem={selectedItem}
+          setSelectedItem={setSelectedItem}
+        />
+      ) : section === "change" ? (
+        <ChangeAddr
+          section={section}
+          setSection={setSection}
+          selectedItem={selectedItem}
+        />
+      ) : null}
     </S.Container>
   );
 }

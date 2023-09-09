@@ -5,13 +5,17 @@ import pin from "/public/assets/img/pin.png";
 import { Btn, ModalBtnWrapper, Message } from "./confirmModalStyle";
 import ConfirmModal from "./ConfirmModal";
 import { useState } from "react";
-export default function EditAddressItem({ item, onDelete }) {
+export default function EditAddressItem({ item, onDelete, setSection, setSelectedItem }) {
   const [showModal, setShowModal] = useState(false);
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
   const handleDeleteClick = () => {
     onDelete();
   };
+  const handleEditAddr = (item) =>{
+    setSelectedItem(item);
+    setSection('change');
+  }
   return (
     <>
       <S.Address>
@@ -29,10 +33,10 @@ export default function EditAddressItem({ item, onDelete }) {
           </span>
           <S.BtnWrap>
             {item.isSelected ? (
-              <S.Btn>수정</S.Btn>
+              <S.Btn onClick={()=>{handleEditAddr(item)}}>수정</S.Btn>
             ) : (
               <>
-                <S.Btn>수정</S.Btn>
+                <S.Btn onClick={()=>{handleEditAddr(item)}}>수정</S.Btn>
                 <S.Btn
                   onClick={() => {
                     openModal();

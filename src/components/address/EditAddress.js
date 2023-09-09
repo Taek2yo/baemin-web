@@ -5,18 +5,24 @@ import home from "/public/assets/img/addresshome.png";
 import company from "/public/assets/img/company.png";
 import EditAddressItem from "./EditAddressItem";
 import { useState } from "react";
-export default function EditAddress({ address }) {
+export default function EditAddress({
+  address,
+  setSection,
+  section,
+  setSelectedItem,
+}) {
   const [addressList, setAddressList] = useState(address);
-
   const deleteAddress = async (addressId) => {
     try {
       await fetch("/api/address/deleteAddress", {
         method: "POST",
         body: JSON.stringify({
-          addressId: addressId
+          addressId: addressId,
         }),
       });
-      const updatedAddress = addressList.filter((item) => item.addressId !== addressId);
+      const updatedAddress = addressList.filter(
+        (item) => item.addressId !== addressId
+      );
       setAddressList(updatedAddress);
     } catch (error) {
       console.error("삭제 실패", error);
@@ -35,7 +41,14 @@ export default function EditAddress({ address }) {
       </S.Company>
 
       {addressList.map((item, i) => (
-        <EditAddressItem key={item.addressId} item={item} onDelete={() => deleteAddress(item.addressId)}/>
+        <EditAddressItem
+          key={item.addressId}
+          item={item}
+          onDelete={() => deleteAddress(item.addressId)}
+          section={section}
+          setSection={setSection}
+          setSelectedItem={setSelectedItem}
+        />
       ))}
     </>
   );
