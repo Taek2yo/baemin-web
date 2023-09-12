@@ -41,11 +41,11 @@ export default function SearchResultItem({ item }) {
                   <S.ItemDeliveryTime>
                     배달 {store.delivery_time}
                   </S.ItemDeliveryTime>
-                  <S.ItemTip>배달팁 {store.delivery_tip}</S.ItemTip>
+                  <S.ItemTip>배달팁 {store.delivery_tip.toLocaleString()}원</S.ItemTip>
                 </S.ItemWrap>
                 <S.MinimumOrder>
                   <span className="minimum">최소주문 </span>
-                  <span>{store.min_delivery_price}</span>
+                  <span>{store.min_delivery_price.toLocaleString()}원</span>
                 </S.MinimumOrder>
               </S.ItemContent>
             </S.ContentSection>
