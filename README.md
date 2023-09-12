@@ -60,7 +60,7 @@
 |  마이 페이지   |  프로필 관리  |  
 |<img width="300px" src="https://github.com/Taek2yo/baemin-web/assets/110080748/879fa211-a3fc-43e2-b48c-73283073e9dc"/>|<img width="300px" src="https://github.com/Taek2yo/baemin-web/assets/110080748/a4e22c0c-8c42-4f68-b919-4a6d6f0a8dfe"/>|
 |  가게 페이지   |  
-|<div style="display:flex"><img width="150px" src="https://github.com/Taek2yo/baemin-web/assets/110080748/d19269d7-e095-4f4c-a6dd-62aa036f3d79"/><img width="150px" src="https://github.com/Taek2yo/baemin-web/assets/110080748/19b5823a-410a-4fe0-a0a8-2cf294f87a61"/></div>|
+|<img width="150px" src="https://github.com/Taek2yo/baemin-web/assets/110080748/d19269d7-e095-4f4c-a6dd-62aa036f3d79"/>|<img width="150px" src="https://github.com/Taek2yo/baemin-web/assets/110080748/19b5823a-410a-4fe0-a0a8-2cf294f87a61"/>|
 |  메뉴 상세 페이지   | 장바구니 페이지  | 
 |<img width="300px" src="https://github.com/Taek2yo/baemin-web/assets/110080748/1fa657be-6436-4004-a20d-4cef1f8e7a8c"/>|<img width="300px" src="https://github.com/Taek2yo/baemin-web/assets/110080748/6bd89acb-ef7b-4df8-9e73-affbe65977c6"/> |
 
