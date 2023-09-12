@@ -5,8 +5,8 @@
 ## Index
 - [Information](#information)
 - [Stacks](#stacks)
-- [Screen Layout](#screen-layout)
-- [Main Function](#main-function)
+- [Page Previews](#page-previews)
+- [Main Features](#main-features)
 - [Trouble Shooting](#trouble-shooting)
 - [Refactoring](#refactoring)
 - [Structure](#structure)
@@ -46,12 +46,27 @@
 
 ---
 
-## Screen Layout
+## Page Previews
 ❗️ 모바일 지원 X
+| 메인 페이지  |  검색 페이지   |
+| :-------------------------------------------: | :------------: |
+|  <img width="300px" src="https://github.com/Taek2yo/baemin-web/assets/110080748/5bfc5e36-e0f2-44b2-88a1-245a20307e11"/>|<img width="300px" src="https://github.com/Taek2yo/baemin-web/assets/110080748/9f881e4b-bdda-4a95-aa86-25659b414b09"/> |  
+| 검색 결과   |  배달 페이지   |  
+| <img width="300px" src="https://github.com/Taek2yo/baemin-web/assets/110080748/24379fd4-8c59-4769-b0f5-cfb330d6608c"/>  |  <img width="300px" src="https://github.com/Taek2yo/baemin-web/assets/110080748/235a6057-ade2-4f72-82d7-87f7ffc1eb4e"/>   |
+|  카테고리 페이지   |  주소 설정  |  
+|<img width="300px" src="https://github.com/Taek2yo/baemin-web/assets/110080748/aec05138-e6aa-4f4b-9338-307dbc402718"/>|<img width="300px" src="https://github.com/Taek2yo/baemin-web/assets/110080748/892387ce-8bc4-41a3-8d6d-abbbee55a045"/>|
+|  주소 검색   |  주소 관리  |  
+|<img width="300px" src="https://github.com/Taek2yo/baemin-web/assets/110080748/a16ce381-afdc-4956-b16c-efaa9c32f114"/>|<img width="300px" src="https://github.com/Taek2yo/baemin-web/assets/110080748/61c885ff-37ac-48d1-b69d-65c27c9cae9c"/>|
+|  마이 페이지   |  프로필 관리  |  
+|<img width="300px" src="https://github.com/Taek2yo/baemin-web/assets/110080748/879fa211-a3fc-43e2-b48c-73283073e9dc"/>|<img width="300px" src="https://github.com/Taek2yo/baemin-web/assets/110080748/a4e22c0c-8c42-4f68-b919-4a6d6f0a8dfe"/>|
+|  가게 페이지   |  
+|<div style="display:flex"><img width="150px" src="https://github.com/Taek2yo/baemin-web/assets/110080748/d19269d7-e095-4f4c-a6dd-62aa036f3d79"/><img width="150px" src="https://github.com/Taek2yo/baemin-web/assets/110080748/19b5823a-410a-4fe0-a0a8-2cf294f87a61"/></div>|
+|  메뉴 상세 페이지   | 장바구니 페이지  | 
+|<img width="300px" src="https://github.com/Taek2yo/baemin-web/assets/110080748/1fa657be-6436-4004-a20d-4cef1f8e7a8c"/>|<img width="300px" src="https://github.com/Taek2yo/baemin-web/assets/110080748/6bd89acb-ef7b-4df8-9e73-affbe65977c6"/> |
 
 ---
 
-## Main Function
+## Main Features
 
 ---
 
