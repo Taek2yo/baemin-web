@@ -4,11 +4,13 @@
 
 ## Index
 - [Information](#information)
+- [Guide](#guide)
 - [Stacks](#stacks)
 - [Page Previews](#page-previews)
 - [Main Features](#main-features)
 - [Trouble Shooting](#trouble-shooting)
 - [Refactoring](#refactoring)
+- [Architecture](#architecture)
 - [Structure](#structure)
 
 ---
@@ -30,13 +32,25 @@
 <p>이 프로젝트는 개인 프로젝트 입니다.</p>
 
 ---
+## Guide
+### Requirements
+* Next.js 13.4.3
+* Node.js v18.16.0
+* Npm 8.16.0
+### Installation
+```
+$ git clone https://github.com/Taek2yo/baemin-web.git
+$ cd baemin-web
+```
+---
 
 ## Stacks
 #### Development
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Next.js](https://img.shields.io/badge/Next13-black?style=for-the-badge&logo=next.js&logoColor=white)</br>
 
 #### DB
-![MongoDB](https://img.shields.io/badge/MongoDB-47a248?style=for-the-badge&logo=mongodb&logoColor=white)</br>
+![MongoDB](https://img.shields.io/badge/MongoDB-47a248?style=for-the-badge&logo=mongodb&logoColor=white)
+![AWS S3](https://img.shields.io/badge/AmazonS3-569A31?style=for-the-badge&logo=AmazonS3&logoColor=green)
   
 #### Style
 ![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)</br>
@@ -67,16 +81,49 @@
 ---
 
 ## Main Features
+### 1. 회원 기능
+> OAuth + Session 방식의 회원 기능 구현
+
+* OAuth를 통해 소셜 로그인 지원, 세션을 사용하여 로그인 상태를 유지.
+* 회원 프로필 이미지 저장 : 사용자가 프로필 이미지를 업로드하면 AWS S3 클라우드 스토리지에 이미지를 저장.
+
+### 2. 주소 기능
+> 도로명 주소 기반 주소 검색
+
+* 주소기반 산업지원서비스의 Open API를 활용하여 사용자가 도로명 주소를 검색하고 저장할 수 있는 기능.
+* 추후 현재 위치 기능 추가 예정
+
+### 3. 검색 기능
+> 키워드 검색
+* 가게와 메뉴에 포함된 키워드를 사용하여 사용자가 원하는 내용을 검색할 수 있음. 
+> 최근 검색어 기능
+* 로컬 스토리지를 활용하여 사용자의 최근 검색어 기능을 구현하여 UX를 높임.
+> 카테고리 분할
+* 가게 및 메뉴를 카테고리 별로 분할.
+
+### 4. 가게 및 메뉴 상세 페이지
+> 상세 정보 제공
+* 가게의 주소, 연락처, 운영 시간 등과 같은 상세 정보를 제공. 메뉴 상세 페이지에서는 가격, 설명, 옵션 등을 제공.
+> 옵션 선택 기능 (radio btn, checkbox 활용)
+* 사용자는 메뉴 상세 페이지에서 옵션을 선택할 수 있음.
+
+### 5. 장바구니 기능
+> 장바구니 저장
+* 사용자가 메뉴를 선택한 후 장바구니에 담기를 클릭하면 이를 사용자의 회원 정보 데이터베이스의 Cart 필드에 저장하여 구현.
+
 
 ---
 
-## Trouble Shooting
-
+## Trouble Shooting 
+### 1. [검색기능](./TroubleShooting/search.md)
+### 2. [컴포넌트 드래그](./TroubleShooting/drag.md)
 ---
 
 ## Refactoring
 
 ---
+
+## Architecture
 
 ## Structure
 ### pages / api
