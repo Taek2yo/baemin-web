@@ -9,7 +9,6 @@
 - [Page Previews](#page-previews)
 - [Main Features](#main-features)
 - [Trouble Shooting](#trouble-shooting)
-- [Refactoring](#refactoring)
 - [Architecture](#architecture)
 - [Structure](#structure)
 
@@ -120,11 +119,6 @@ $ cd baemin-web
 ### 3. [배포](./TroubleShooting/deploy.md)
 ---
 
-## Refactoring
-
-
-
----
 
 ## Architecture
 ![아키텍처](https://github.com/Taek2yo/TIL/assets/110080748/1f526b96-bf24-4540-910a-60935c2a6883)
