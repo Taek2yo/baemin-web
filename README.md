@@ -117,14 +117,17 @@ $ cd baemin-web
 ## Trouble Shooting 
 ### 1. [검색기능](./TroubleShooting/search.md)
 ### 2. [컴포넌트 드래그](./TroubleShooting/drag.md)
+### 3. [배포](./TroubleShooting/deploy.md)
 ---
 
 ## Refactoring
 
+
+
 ---
 
 ## Architecture
-
+![아키텍처](https://github.com/Taek2yo/TIL/assets/110080748/1f526b96-bf24-4540-910a-60935c2a6883)
 ## Structure
 ### pages / api
 ```
