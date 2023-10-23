@@ -28,7 +28,7 @@
  <a href="https://baemin-web.vercel.app/" target="_blank" style="font-size:20px">baemin-web</a>
   </br>
 <h3>Author</h3>
-<p>이 프로젝트는 개인 프로젝트 입니다.</p>
+<p>개인 프로젝트</p>
 
 ---
 ## Guide
