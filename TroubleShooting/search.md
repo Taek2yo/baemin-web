@@ -125,8 +125,7 @@ export default async function searchTest(req, res) {
 > menu 컬렉션에 _id 필드는 ObjectId 타입이고 store 컬렉션에 menuId 필드는 string 이기때문에 데이터 타입이 일치하지않아 빈 배열이 들어오는것.
 
 ### 4-2 문제 해결
-> $toString 을 사용해서 menu 컬렉션의 _id 필드를 string 타입으로 변환시켰다.
-
+> [$toStiring](https://www.mongodb.com/docs/manual/reference/operator/aggregation/toString/) mongoDB 공식문서에 나와있는 메서드를 사용해서 menu 컬렉션의 _id 필드를 string 타입으로 변환시켰다.
 ---
 ### 5. 해결 코드
 
