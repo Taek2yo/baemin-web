@@ -29,12 +29,14 @@ export default function Header() {
     <>
       <S.Container>
         <S.Title>
-          배달<span>의</span>민족
+          다음<span>의</span>민족
         </S.Title>
         <S.AddressBtnWrap>
           <S.Address
             onClick={() => {
-              status === 'unauthenticated' ? (window.location.href = '/login') : handleModal();
+              status === "unauthenticated"
+                ? (window.location.href = "/login")
+                : handleModal();
             }}
           >
             {status === "authenticated"
