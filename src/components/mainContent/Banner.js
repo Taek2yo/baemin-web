@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import * as S from "./contentStyle";
 import Image from "next/image";
@@ -8,8 +8,8 @@ import useDraggable from "../../hooks/useDraggable";
 export default function Banner({ banner }) {
   // 현재 배너와 컨테이너 관리
   const [currentBanner, setCurrentBanner] = useState(1);
-  const { scrollRef, isDrag, onDragStart, onDragEnd, onThrottleDragMove } = useDraggable();
-
+  const { scrollRef, isDrag, onDragStart, onDragEnd, onThrottleDragMove } =
+    useDraggable();
 
   // 자동 스크롤
   const autoScrollInterval = useRef(null);
@@ -54,15 +54,19 @@ export default function Banner({ banner }) {
   return (
     <>
       <S.BannerContainer
-         onMouseDown={onDragStart}
-         onMouseMove={onThrottleDragMove}
-         onMouseUp={onDragEnd}
-         onMouseLeave={onDragEnd}
-         ref={scrollRef}
+        onMouseDown={onDragStart}
+        onMouseMove={onThrottleDragMove}
+        onMouseUp={onDragEnd}
+        onMouseLeave={onDragEnd}
+        ref={scrollRef}
       >
-        {banner.map((item) => (
+        {banner.map((item, idx) => (
           <S.Banner key={item.id}>
-            <Image src={item.img} alt="banner-item" />
+            <Image
+              src={item.img}
+              alt="banner-item"
+              loading={idx === 0 ? "eager" : "lazy"}
+            />
           </S.Banner>
         ))}
       </S.BannerContainer>

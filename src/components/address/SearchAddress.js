@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import * as S from "./searchAddressStyle";
 import location from "/public/assets/img/location.png";
@@ -11,7 +11,6 @@ export function SearchAddress({ section, setSection }) {
   const arrow = ">";
   const [keyword, setKeyword] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  
   const getAddrLoc = async () => {
     if (!checkSearchedWord(keyword)) {
       return;
@@ -19,7 +18,7 @@ export function SearchAddress({ section, setSection }) {
     const encodedKeyword = encodeURIComponent(keyword);
     try {
       const response = await fetch(
-        `https://business.juso.go.kr/addrlink/addrLinkApi.do?currentPage=1&countPerPage=20&keyword=${encodedKeyword}&confmKey=devU01TX0FVVEgyMDIzMDcxNzIxMDYyNjExMzkzNzI=&resultType=json`,
+        `https://business.juso.go.kr/addrlink/addrLinkApi.do?currentPage=1&countPerPage=20&keyword=${encodedKeyword}&confmKey=devU01TX0FVVEgyMDIzMTIxMTIwMTEzODExNDM0ODY=&resultType=json`,
         {
           method: "POST",
         }
@@ -75,7 +74,7 @@ export function SearchAddress({ section, setSection }) {
       getAddrLoc();
     }
   };
-  
+
   return (
     <>
       <S.SearchSection>
@@ -99,13 +98,18 @@ export function SearchAddress({ section, setSection }) {
         <span className="arrow">{arrow}</span>
       </S.CurrentLocation>
       <S.ResultWrap>
-      {searchResults.length > 0 ? (
-        searchResults.map((item, index) => (
-          <AddressResults item={item} key={index} setSection={setSection} section={section}/>
-        ))
-      ) : (
-        <Guide />
-      )}
+        {searchResults?.length > 0 ? (
+          searchResults?.map((item, index) => (
+            <AddressResults
+              item={item}
+              key={index}
+              setSection={setSection}
+              section={section}
+            />
+          ))
+        ) : (
+          <Guide />
+        )}
       </S.ResultWrap>
     </>
   );

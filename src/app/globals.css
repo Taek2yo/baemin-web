@@ -1,13 +1,13 @@
 @font-face {
     font-family: 'Hanna';
-    src: url('../../public/fonts/BMHANNA_11yrs_ttf.ttf');
+    src: url('../../public/fonts/BMHANNA_11yrs_ttf.woff');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'NanumGothic';
-    src: url('../..//public/fonts/NanumGothic-Regular.ttf');
+    src: url('../../public/fonts/NanumGothic-Regular.woff');
     font-weight: normal;
     font-style: normal;
 }
