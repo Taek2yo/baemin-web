@@ -78,7 +78,11 @@ $ cd baemin-web
 
 ## Sequence Diagram
 
-![시퀀스 다이어그램](https://velog.velcdn.com/images/taek2yo/post/6cee767c-8015-4fd7-8290-8babc0438058/image.png)
+- 기본 로그인
+  ![](https://velog.velcdn.com/images/taek2yo/post/ca26f58d-d98e-49d6-b44c-7667dfb52cfd/image.png)
+
+- 소셜 로그인 ( 네이버 )
+  ![](https://velog.velcdn.com/images/taek2yo/post/f0a7257c-3aea-4a44-8c09-82cb9f796c03/image.png)
 
 ---
 
