@@ -24,6 +24,9 @@ export function SearchAddress({ section, setSection }) {
         }
       );
       const data = await response.json();
+      if(data.results.juso.length === 0){
+        window.alert("없는 주소 입니다")
+      }
       setSearchResults(data.results.juso);
     } catch (error) {
       console.error("Error is", error);
