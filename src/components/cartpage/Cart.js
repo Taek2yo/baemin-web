@@ -6,37 +6,39 @@ import Image from "next/image";
 import back from "/public/assets/img/left.png";
 import home from "/public/assets/img/home.png";
 import together from "/public/assets/img/together2.png";
-import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
+import { useState } from "react";
 import { useSession } from "next-auth/react";
 import plus from "/public/assets/img/plus.png";
 import time from "/public/assets/img/time.png";
 import EmptyCart from "./EmptyCart";
 import CartItem from "./CartItem";
 import SelectCategories from "./SelectCategories";
+
 export default function Cart() {
   const router = useRouter();
-  const [cartData, setCartData] = useState([]);
   const { data: session } = useSession();
   const userEmail = session?.user?.email;
-
-  useEffect(() => {
-    if (userEmail) {
-      const fetchCart = async () => {
-        try {
-          const response = await fetch(`/api/cart/getCart?user=${userEmail}`);
-          if (!response.ok) {
-            throw new Error("네트워크 에러");
-          }
-          const data = await response.json();
-          setCartData(data);
-        } catch (error) {
-          console.error("데이터 패칭 에러", error);
-          setCartData([]);
+  const [cartData, setCartData] = useState([]);
+  let queryResult = {};
+  if (userEmail) {
+    queryResult = useQuery(['cartData', userEmail], 
+      async () => {
+        const response = await fetch(`/api/cart/getCart?user=${userEmail}`);
+        if (!response.ok) {
+          throw new Error("네트워크 에러");
         }
-      };
-      fetchCart();
-    }
-  }, []);
+        return response.json();
+      },
+      {
+        onSuccess: (data) => {
+          setCartData(data);
+        }
+      }
+    );
+  }
+  
+  const { data: fetchedData, error, isLoading } = queryResult;
 
   const handleCartItemQuantityChange = (itemId, newQuantity) => {
     const updatedCartItems = cartData.map((item) => {
@@ -49,11 +51,11 @@ export default function Cart() {
   };
 
   // 총 수량과 총 가격 계산
-  const totalQuantity = cartData.reduce(
+  const totalQuantity = cartData?.reduce(
     (total, item) => total + item.quantity,
     0
   );
-  const totalPrice = cartData.reduce(
+  const totalPrice = cartData?.reduce(
     (total, item) => total + item.price * item.quantity,
     0
   );
@@ -61,7 +63,7 @@ export default function Cart() {
   // Delete Item
   const handleItemRemoved = (itemId) => {
     // 아이템 삭제 후 상태를 업데이트하고 재랜더링
-    const updatedCartData = cartData.filter(item => item._id !== itemId);
+    const updatedCartData = cartData?.filter(item => item._id !== itemId);
     setCartData(updatedCartData);
   };
 
@@ -92,7 +94,7 @@ export default function Cart() {
         </S.HeaderBtnWrap>
       </S.Header>
       <SelectCategories />
-      {cartData.length ? (
+      {cartData?.length ? (
         <>
           <S.NameAndTime>
             <S.StoreName>{cartData[0]?.store_Title}</S.StoreName>
@@ -101,7 +103,7 @@ export default function Cart() {
               {cartData[0]?.delivery_time} 후 도착
             </S.DeliveryTime>
           </S.NameAndTime>
-          {cartData.map((item, i) => {
+          {cartData?.map((item, i) => {
             return (
               <CartItem
                 item={item}
