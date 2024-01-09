@@ -21,6 +21,7 @@ export default function Cart() {
   const userEmail = session?.user?.email;
   const [cartData, setCartData] = useState([]);
   let queryResult = {};
+  const { data: fetchedData, error, isLoading } = queryResult;
   if (userEmail) {
     queryResult = useQuery(['cartData', userEmail], 
       async () => {
@@ -38,7 +39,7 @@ export default function Cart() {
     );
   }
   
-  const { data: fetchedData, error, isLoading } = queryResult;
+  
 
   const handleCartItemQuantityChange = (itemId, newQuantity) => {
     const updatedCartItems = cartData.map((item) => {
