@@ -1,22 +1,11 @@
-import Header from "@/components/header/Header";
+import Home from "./App";
 import "./globals.css";
-import Category from "@/components/category/Category";
-import MainContent from "@/components/mainContent/MainContent";
-import Quick from "@/components/quickDelivery/quick";
-import FavoritesBar from "@/components/favoritesBar/FavoritesBar";
-import Footer from "@/components/footer/Footer";
-
-export default function Home() {
+export default function App() {
   return (
     <>
-      <title>Baemin-Web</title>
+      <title>다음의 민족</title>
       <div className="background">
-        <Header />
-        <Category />
-        <MainContent />
-        <Quick />
-        <FavoritesBar />
-        <Footer />
+        <Home />
       </div>
     </>
   );
