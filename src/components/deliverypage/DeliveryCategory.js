@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import * as S from "./deliveryStyle";
 import DeliveryHeader from "./DeliveryHeader";
 import StoreDataItem from "./StoreDataItem";
+import { useQuery } from "react-query";
 
 const categories = [
   { title: "1인분", name: "oneserving" },
@@ -25,24 +26,15 @@ export default function DeliveryCategory() {
       setCategoryTitle(title);
     }
   };
-
-  useEffect(() => {
-    const fetchStore = async () => {
-      try {
-        const response = await fetch(`/api/delivery/getCategory?category=${categoryTitle}`);
-        if (!response.ok) {
-          throw new Error("네트워크 에러");
-        }
-        const data = await response.json();
-        setStoreData(data);
-      } catch (error) {
-        console.error("데이터 패칭 에러", error);
-        setStoreData([]);
-      }
-    };
-
-    fetchStore();
-  }, [categoryTitle]);
+  const { data: data, error, isLoading } = useQuery(['storeData', categoryTitle], fetchStoreData);
+  async function fetchStoreData() {
+    const response = await fetch(`/api/delivery/getCategory?category=${categoryTitle}`);
+    if (!response.ok) {
+      throw new Error("네트워크 에러");
+    }
+    return response.json();
+  }
+  fetchStoreData()
   return (
     <>
     <S.DeliveryCategoryContainer>
@@ -61,7 +53,7 @@ export default function DeliveryCategory() {
         ))}
       </S.SelectTitle>
     </S.DeliveryCategoryContainer>
-    {storeData.map((item)=>{
+    {data?.map((item)=>{
         return <StoreDataItem key={item._id} item={item}/>
     })}
     </>

@@ -38,8 +38,6 @@ export default function Cart() {
       }
     );
   }
-  
-  
 
   const handleCartItemQuantityChange = (itemId, newQuantity) => {
     const updatedCartItems = cartData.map((item) => {
